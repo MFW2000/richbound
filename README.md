@@ -1,6 +1,6 @@
 # richbound
 
-Richbound is a retro-style, text-based RPG game built entirely in C#, made to run in the terminal for Windows and Linux.
+Richbound is a retro-style, text-based RPG game built entirely in C#, made to run in the terminal.
 
 Set in modern times, you start from nothing and work your way to the top through legal or illegal means in a city full
 of opportunities and dangers. Survive through begging, odd jobs, and petty crime - or build your own business empire.
