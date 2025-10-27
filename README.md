@@ -10,14 +10,15 @@ The choice is yours.
 
 Richbound offers a variety of features:
 
-- Open-ended gameplay with multiple paths to success
+- Open-ended gameplay with multiple legal or illegal paths to success
 - Text-based interface for a retro gaming experience
 - Manage health, hunger and sleep to survive
 - Manage your finances, inventory and assets
 - Variety of activities including begging, odd jobs, petty crime
+- Avoid the law and various dangers while building your empire
 - Purchase and manage businesses with various available upgrades and expansions
-- Purchase and use items and weapons to aid in your survival and success
-- Purchase and use vehicles to improve travel and efficiency
+- Purchase and use various items and weapons to aid in your survival and success
+- Purchase and use various vehicles to improve travel and efficiency
 
 ## Running Requirements
 
