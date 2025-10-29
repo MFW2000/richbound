@@ -12,7 +12,7 @@ public class MainMenu : Prompt
     public override PromptType? DisplayMainPrompt()
     {
         Console.WriteLine($"=== {CommonText.AppTitle} ===");
-        Console.WriteLine(CommonText.AppSubTitle);
+        Console.WriteLine(CommonText.AppSubtitle);
         Console.WriteLine();
         Console.WriteLine("--- Main Menu ---");
         Console.WriteLine("1. New Game");
