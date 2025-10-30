@@ -1,7 +1,7 @@
 ﻿namespace MFW.Richbound.Enumerations;
 
 /// <summary>
-/// Identifies prompts for easy distinction and navigation.
+/// Defines the types of prompts that can be displayed.
 /// </summary>
 public enum PromptType
 {

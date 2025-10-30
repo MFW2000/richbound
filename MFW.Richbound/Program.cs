@@ -3,6 +3,8 @@ using MFW.Richbound.Factories.Interfaces;
 using MFW.Richbound.Infrastructure;
 using MFW.Richbound.Infrastructure.Interfaces;
 using MFW.Richbound.Presentation;
+using MFW.Richbound.Providers;
+using MFW.Richbound.Providers.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MFW.Richbound;
@@ -31,9 +33,16 @@ public static class Program
     {
         var services = new ServiceCollection();
 
+        // Register core framework services.
+        services.AddSingleton(TimeProvider.System);
+
+        // Register pre-configured services using direct instance registration.
+        services.AddSingleton<IAssemblyVersionProvider>(new AssemblyVersionProvider(typeof(Program).Assembly));
+
         // Register services.
-        services.AddTransient<IPromptFactory, PromptFactory>();
+        services.AddSingleton<IConsoleLogger, ConsoleLogger>();
         services.AddTransient<IConsoleWrapper, ConsoleWrapper>();
+        services.AddTransient<IPromptFactory, PromptFactory>();
 
         // Register runner service to manage application loop.
         services.AddTransient<Runner>();
