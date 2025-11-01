@@ -47,7 +47,7 @@ public class ConsoleLogger(TimeProvider timeProvider) : IConsoleLogger
     /// <param name="logFile">The path of the log file where the entry will be written.</param>
     private void Log(LogLevel level, string message, string logFile)
     {
-        if (string.IsNullOrWhiteSpace(message))
+        if (string.IsNullOrWhiteSpace(message) || !IsValidLogFile(logFile))
         {
             return;
         }
@@ -60,6 +60,21 @@ public class ConsoleLogger(TimeProvider timeProvider) : IConsoleLogger
         {
             File.AppendAllText(logFile, logEntry + Environment.NewLine);
         }
+    }
+
+    /// <summary>
+    /// Check if the given file is a valid log file.
+    /// </summary>
+    /// <param name="logFile">The file to check.</param>
+    /// <returns>True if the file is a valid log file, otherwise false.</returns>
+    private static bool IsValidLogFile(string logFile)
+    {
+        if (string.IsNullOrWhiteSpace(logFile))
+        {
+            return false;
+        }
+
+        return logFile.EndsWith(".log") && logFile.Length > 4;
     }
 
     /// <summary>
