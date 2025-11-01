@@ -4,10 +4,18 @@ using MFW.Richbound;
 namespace MFW.RichboundTests;
 
 [TestClass, UsedImplicitly(ImplicitUseTargetFlags.Members)]
-public class ProgramTests
+public class RunnerTests
 {
+    private Runner _sut = null!;
+
+    [TestInitialize]
+    public void Setup()
+    {
+        _sut = new Runner();
+    }
+
     [TestMethod]
-    public void Main_ShouldOutputHelloWorld()
+    public void Run_ShouldOutputHelloWorld()
     {
         // Arrange
         const string expected = "Hello, World!";
@@ -17,7 +25,7 @@ public class ProgramTests
         Console.SetOut(consoleOutput);
 
         // Act
-        Program.Main();
+        _sut.Run();
 
         // Assert
         var actual = consoleOutput.ToString();
