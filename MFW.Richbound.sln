@@ -8,7 +8,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 		LICENSE = LICENSE
+		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFW.RichboundTests", "MFW.RichboundTests\MFW.RichboundTests.csproj", "{1770A6F0-756C-4D27-98EF-2A8D6A4D3489}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,5 +23,9 @@ Global
 		{29AD764F-107E-4001-A6BC-BADA76F5913C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29AD764F-107E-4001-A6BC-BADA76F5913C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{29AD764F-107E-4001-A6BC-BADA76F5913C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1770A6F0-756C-4D27-98EF-2A8D6A4D3489}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1770A6F0-756C-4D27-98EF-2A8D6A4D3489}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1770A6F0-756C-4D27-98EF-2A8D6A4D3489}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1770A6F0-756C-4D27-98EF-2A8D6A4D3489}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

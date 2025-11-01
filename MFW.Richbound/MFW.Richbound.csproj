@@ -5,6 +5,10 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <Version>0.0.1</Version>
+        <Title>Richbound</Title>
+        <Authors>MFW</Authors>
+        <AssemblyName>Richbound</AssemblyName>
     </PropertyGroup>
 
 </Project>
