@@ -1,10 +1,14 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Diagnostics.CodeAnalysis;
+using MFW.Richbound.Infrastructure;
+using MFW.Richbound.Infrastructure.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MFW.Richbound;
 
 /// <summary>
 /// Represents the primary entry point for running the application.
 /// </summary>
+[ExcludeFromCodeCoverage]
 public static class Program
 {
     /// <summary>
@@ -30,7 +34,8 @@ public static class Program
         services.AddSingleton(TimeProvider.System);
 
         // Register services.
-        // ...
+        services.AddSingleton<IConsoleLogger, ConsoleLogger>();
+        services.AddTransient<IConsoleWrapper, ConsoleWrapper>();
 
         // Register runner service to manage application loop.
         services.AddTransient<Runner>();
