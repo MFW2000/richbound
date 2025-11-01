@@ -24,6 +24,15 @@ public class ConsoleLoggerTests
         _testLogFile = $"{Guid.NewGuid()}.log";
     }
 
+    [TestCleanup]
+    public void Cleanup()
+    {
+        if (File.Exists(_testLogFile))
+        {
+            File.Delete(_testLogFile);
+        }
+    }
+
     [TestMethod]
     public void LogDebug_ShouldLogToLogFile()
     {
@@ -183,6 +192,51 @@ public class ConsoleLoggerTests
         // Assert
         Assert.IsFalse(File.Exists(_testLogFile));
     }
+
+    [TestMethod]
+    public void LogDebug_WithEmptyLogFile_ShouldSkipLogging()
+    {
+        // Arrange
+        _testLogFile = string.Empty;
+
+        // Act
+        _sut.LogDebug("Test", _testLogFile);
+
+        // Assert
+        Assert.IsFalse(File.Exists(_testLogFile));
+    }
+
+    // TODO: LogDebug, LogInformation, LogWarning, LogError, LogCritical
+
+    [TestMethod]
+    public void LogDebug_WithInvalidLogFileExtension_ShouldSkipLogging()
+    {
+        // Arrange
+        _testLogFile = "invalid.txt";
+
+        // Act
+        _sut.LogDebug("Test", _testLogFile);
+
+        // Assert
+        Assert.IsFalse(File.Exists(_testLogFile));
+    }
+
+    // TODO: LogDebug, LogInformation, LogWarning, LogError, LogCritical
+
+    [TestMethod]
+    public void LogDebug_WithInvalidLogFileName_ShouldSkipLogging()
+    {
+        // Arrange
+        _testLogFile = ".log";
+
+        // Act
+        _sut.LogDebug("Test", _testLogFile);
+
+        // Assert
+        Assert.IsFalse(File.Exists(_testLogFile));
+    }
+
+    // TODO: LogDebug, LogInformation, LogWarning, LogError, LogCritical
 
     private static string GetExpectedMessage(DateTimeOffset timestamp, string logLevelString, string message)
     {

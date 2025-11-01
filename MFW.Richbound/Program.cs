@@ -11,6 +11,8 @@ namespace MFW.Richbound;
 [ExcludeFromCodeCoverage]
 public static class Program
 {
+    // TODO: Look into forcing a pull request review from the repository owner.
+
     /// <summary>
     /// The entry point of the application.
     /// </summary>
