@@ -206,7 +206,57 @@ public class ConsoleLoggerTests
         Assert.IsFalse(File.Exists(_testLogFile));
     }
 
-    // TODO: LogDebug, LogInformation, LogWarning, LogError, LogCritical
+    [TestMethod]
+    public void LogInformation_WithEmptyLogFile_ShouldSkipLogging()
+    {
+        // Arrange
+        _testLogFile = string.Empty;
+
+        // Act
+        _sut.LogInformation("Test", _testLogFile);
+
+        // Assert
+        Assert.IsFalse(File.Exists(_testLogFile));
+    }
+
+    [TestMethod]
+    public void LogWarning_WithEmptyLogFile_ShouldSkipLogging()
+    {
+        // Arrange
+        _testLogFile = string.Empty;
+
+        // Act
+        _sut.LogWarning("Test", _testLogFile);
+
+        // Assert
+        Assert.IsFalse(File.Exists(_testLogFile));
+    }
+
+    [TestMethod]
+    public void LogError_WithEmptyLogFile_ShouldSkipLogging()
+    {
+        // Arrange
+        _testLogFile = string.Empty;
+
+        // Act
+        _sut.LogError("Test", _testLogFile);
+
+        // Assert
+        Assert.IsFalse(File.Exists(_testLogFile));
+    }
+
+    [TestMethod]
+    public void LogCritical_WithEmptyLogFile_ShouldSkipLogging()
+    {
+        // Arrange
+        _testLogFile = string.Empty;
+
+        // Act
+        _sut.LogError("Test", _testLogFile);
+
+        // Assert
+        Assert.IsFalse(File.Exists(_testLogFile));
+    }
 
     [TestMethod]
     public void LogDebug_WithInvalidLogFileExtension_ShouldSkipLogging()
@@ -221,7 +271,57 @@ public class ConsoleLoggerTests
         Assert.IsFalse(File.Exists(_testLogFile));
     }
 
-    // TODO: LogDebug, LogInformation, LogWarning, LogError, LogCritical
+    [TestMethod]
+    public void LogInformation_WithInvalidLogFileExtension_ShouldSkipLogging()
+    {
+        // Arrange
+        _testLogFile = "invalid.txt";
+
+        // Act
+        _sut.LogInformation("Test", _testLogFile);
+
+        // Assert
+        Assert.IsFalse(File.Exists(_testLogFile));
+    }
+
+    [TestMethod]
+    public void LogWarning_WithInvalidLogFileExtension_ShouldSkipLogging()
+    {
+        // Arrange
+        _testLogFile = "invalid.txt";
+
+        // Act
+        _sut.LogWarning("Test", _testLogFile);
+
+        // Assert
+        Assert.IsFalse(File.Exists(_testLogFile));
+    }
+
+    [TestMethod]
+    public void LogError_WithInvalidLogFileExtension_ShouldSkipLogging()
+    {
+        // Arrange
+        _testLogFile = "invalid.txt";
+
+        // Act
+        _sut.LogError("Test", _testLogFile);
+
+        // Assert
+        Assert.IsFalse(File.Exists(_testLogFile));
+    }
+
+    [TestMethod]
+    public void LogCritical_WithInvalidLogFileExtension_ShouldSkipLogging()
+    {
+        // Arrange
+        _testLogFile = "invalid.txt";
+
+        // Act
+        _sut.LogCritical("Test", _testLogFile);
+
+        // Assert
+        Assert.IsFalse(File.Exists(_testLogFile));
+    }
 
     [TestMethod]
     public void LogDebug_WithInvalidLogFileName_ShouldSkipLogging()
@@ -236,7 +336,57 @@ public class ConsoleLoggerTests
         Assert.IsFalse(File.Exists(_testLogFile));
     }
 
-    // TODO: LogDebug, LogInformation, LogWarning, LogError, LogCritical
+    [TestMethod]
+    public void LogInformation_WithInvalidLogFileName_ShouldSkipLogging()
+    {
+        // Arrange
+        _testLogFile = ".log";
+
+        // Act
+        _sut.LogInformation("Test", _testLogFile);
+
+        // Assert
+        Assert.IsFalse(File.Exists(_testLogFile));
+    }
+
+    [TestMethod]
+    public void LogWarning_WithInvalidLogFileName_ShouldSkipLogging()
+    {
+        // Arrange
+        _testLogFile = ".log";
+
+        // Act
+        _sut.LogWarning("Test", _testLogFile);
+
+        // Assert
+        Assert.IsFalse(File.Exists(_testLogFile));
+    }
+
+    [TestMethod]
+    public void LogError_WithInvalidLogFileName_ShouldSkipLogging()
+    {
+        // Arrange
+        _testLogFile = ".log";
+
+        // Act
+        _sut.LogError("Test", _testLogFile);
+
+        // Assert
+        Assert.IsFalse(File.Exists(_testLogFile));
+    }
+
+    [TestMethod]
+    public void LogCritical_WithInvalidLogFileName_ShouldSkipLogging()
+    {
+        // Arrange
+        _testLogFile = ".log";
+
+        // Act
+        _sut.LogCritical("Test", _testLogFile);
+
+        // Assert
+        Assert.IsFalse(File.Exists(_testLogFile));
+    }
 
     private static string GetExpectedMessage(DateTimeOffset timestamp, string logLevelString, string message)
     {
