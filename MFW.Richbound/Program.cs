@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using MFW.Richbound.Infrastructure;
 using MFW.Richbound.Infrastructure.Interfaces;
+using MFW.Richbound.Providers;
+using MFW.Richbound.Providers.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MFW.Richbound;
@@ -34,6 +36,9 @@ public static class Program
 
         // Register core framework services.
         services.AddSingleton(TimeProvider.System);
+
+        // Register pre-configured services using direct instance registration.
+        services.AddSingleton<IAssemblyVersionProvider>(new AssemblyVersionProvider(typeof(Program).Assembly));
 
         // Register services.
         services.AddSingleton<IConsoleLogger, ConsoleLogger>();
