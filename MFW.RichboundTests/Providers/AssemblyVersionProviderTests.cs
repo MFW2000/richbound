@@ -1,11 +1,10 @@
 ﻿using System.Reflection;
-using JetBrains.Annotations;
 using MFW.Richbound.Providers;
 using Moq;
 
 namespace MFW.RichboundTests.Providers;
 
-[TestClass, UsedImplicitly(ImplicitUseTargetFlags.Members)]
+[TestClass]
 public class AssemblyVersionProviderTests
 {
     private Mock<Assembly> _assemblyMock = null!;

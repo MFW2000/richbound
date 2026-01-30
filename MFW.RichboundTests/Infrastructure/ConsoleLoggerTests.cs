@@ -1,10 +1,9 @@
-using JetBrains.Annotations;
 using MFW.Richbound.Infrastructure;
 using Microsoft.Extensions.Time.Testing;
 
 namespace MFW.RichboundTests.Infrastructure;
 
-[TestClass, UsedImplicitly(ImplicitUseTargetFlags.Members)]
+[TestClass]
 public class ConsoleLoggerTests
 {
     private string _testLogFile = string.Empty;
