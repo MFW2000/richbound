@@ -20,7 +20,6 @@ public abstract class Prompt
     protected static void ContinuePrompt()
     {
         Console.WriteLine(DisplayText.TooltipContinue);
-
         Console.Write(DisplayText.InputPrompt);
         Console.ReadLine();
     }

@@ -68,4 +68,58 @@ public class AssemblyVersionProviderTests
 
         _assemblyMock.Verify();
     }
+
+    [TestMethod]
+    public void GetFormattedVersion_WithFoundVersion_ReturnsString()
+    {
+        // Arrange
+        const string expectedVersion = "1.2.3";
+
+        var version = new Version(1, 2, 3);
+
+        var assemblyName = new AssemblyName
+        {
+            Version = version
+        };
+
+        _assemblyMock
+            .Setup(a => a.GetName())
+            .Returns(assemblyName)
+            .Verifiable(Times.Once);
+
+        // Act
+        var actualVersion = _sut.GetFormattedVersion();
+
+        // Assert
+        Assert.AreEqual(expectedVersion, actualVersion);
+
+        _assemblyMock.Verify();
+    }
+
+    [TestMethod]
+    public void GetFormattedVersion_WithVersionNotFound_ReturnsEmptyString()
+    {
+        // Arrange
+        var expectedVersion = string.Empty;
+
+        Version? version = null;
+
+        var assemblyName = new AssemblyName
+        {
+            Version = version
+        };
+
+        _assemblyMock
+            .Setup(a => a.GetName())
+            .Returns(assemblyName)
+            .Verifiable(Times.Once);
+
+        // Act
+        var actualVersion = _sut.GetFormattedVersion();
+
+        // Assert
+        Assert.AreEqual(expectedVersion, actualVersion);
+
+        _assemblyMock.Verify();
+    }
 }
