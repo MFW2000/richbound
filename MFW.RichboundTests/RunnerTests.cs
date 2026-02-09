@@ -3,6 +3,7 @@ using MFW.Richbound.Enumerations;
 using MFW.Richbound.Factories.Interfaces;
 using MFW.Richbound.Infrastructure.Interfaces;
 using MFW.Richbound.Presentation;
+using MFW.Richbound.Providers.Interfaces;
 using Moq;
 
 namespace MFW.RichboundTests;
@@ -12,6 +13,8 @@ public class RunnerTests
 {
     private Mock<IPromptFactory> _promptFactoryMock = null!;
     private Mock<IConsoleWrapper> _consoleWrapperMock = null!;
+    private Mock<IConsoleLogger> _consoleLoggerMock = null!;
+    private Mock<IAssemblyVersionProvider> _assemblyVersionProviderMock = null!;
     private Mock<MainMenu> _mainMenuMock = null!;
 
     private Runner _sut = null!;
@@ -21,7 +24,12 @@ public class RunnerTests
     {
         _promptFactoryMock = new Mock<IPromptFactory>(MockBehavior.Strict);
         _consoleWrapperMock = new Mock<IConsoleWrapper>(MockBehavior.Strict);
-        _mainMenuMock = new Mock<MainMenu>(MockBehavior.Strict);
+        _consoleLoggerMock = new Mock<IConsoleLogger>(MockBehavior.Strict);
+        _assemblyVersionProviderMock = new Mock<IAssemblyVersionProvider>(MockBehavior.Strict);
+        _mainMenuMock = new Mock<MainMenu>(
+            MockBehavior.Strict,
+            _assemblyVersionProviderMock.Object,
+            _consoleLoggerMock.Object);
 
         _sut = new Runner(_promptFactoryMock.Object, _consoleWrapperMock.Object);
     }
