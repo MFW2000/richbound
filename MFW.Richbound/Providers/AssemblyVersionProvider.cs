@@ -14,17 +14,4 @@ public class AssemblyVersionProvider(Assembly assembly) : IAssemblyVersionProvid
     {
         return assembly.GetName().Version;
     }
-
-    /// <inheritdoc/>
-    public string GetFormattedVersion()
-    {
-        var version = GetVersion();
-
-        if (version is null)
-        {
-            return string.Empty;
-        }
-
-        return version.ToString(3);
-    }
 }
