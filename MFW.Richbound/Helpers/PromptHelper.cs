@@ -1,4 +1,6 @@
-﻿namespace MFW.Richbound.Helpers;
+﻿using MFW.Richbound.Exceptions;
+
+namespace MFW.Richbound.Helpers;
 
 /// <summary>
 /// Provides helper methods for handling console input and other prompt-related functionalities.
@@ -12,17 +14,14 @@ public static class PromptHelper
     /// <param name="trim">Indicates whether the input string should be trimmed.</param>
     /// <param name="maxLength">The maximum allowable length for the input string.</param>
     /// <returns>The processed string input from the console.</returns>
-    /// <exception cref="ArgumentException">Thrown if the input is empty when empty values are not allowed.</exception>
-    /// <exception cref="ArgumentOutOfRangeException">
-    /// Thrown if the input exceeds the specified maximum length.
-    /// </exception>
+    /// <exception cref="PromptValidationException">Thrown if the input validation fails.</exception>
     public static string ReadString(bool allowEmpty = false, bool trim = true, int? maxLength = null)
     {
         var input = Console.ReadLine() ?? string.Empty;
 
         if (!allowEmpty && string.IsNullOrWhiteSpace(input))
         {
-            throw new ArgumentException("Input cannot be empty.");
+            throw new PromptValidationException("Input cannot be empty.");
         }
 
         if (trim)
@@ -32,7 +31,7 @@ public static class PromptHelper
 
         if (input.Length > maxLength)
         {
-            throw new ArgumentOutOfRangeException(nameof(maxLength), "Input is too long.");
+            throw new PromptValidationException("Input is too long.");
         }
 
         return input;
@@ -46,9 +45,7 @@ public static class PromptHelper
     /// <param name="maxRange">The maximum allowable value for the input integer.</param>
     /// <returns>The processed integer input from the console.</returns>
     /// <exception cref="FormatException">Thrown if the input is not a valid integer.</exception>
-    /// <exception cref="ArgumentOutOfRangeException">
-    /// Thrown if the input exceeds the specified maximum or minimum length.
-    /// </exception>
+    /// <exception cref="PromptValidationException">Thrown if the input validation fails.</exception>
     public static int? ReadInt(bool allowEmpty = false, int? minRange = null, int? maxRange = null)
     {
         var input = ReadString(allowEmpty: allowEmpty);
@@ -65,12 +62,12 @@ public static class PromptHelper
 
         if (result < minRange)
         {
-            throw new ArgumentOutOfRangeException(nameof(minRange), "Input is less than the minimum range.");
+            throw new PromptValidationException("Input is less than the minimum range.");
         }
 
         if (result > maxRange)
         {
-            throw new ArgumentOutOfRangeException(nameof(maxRange), "Input is greater than the maximum range.");
+            throw new PromptValidationException("Input is greater than the maximum range.");
         }
 
         return result;

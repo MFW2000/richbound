@@ -1,4 +1,5 @@
-﻿using MFW.Richbound.Factories.Interfaces;
+﻿using System.Diagnostics.CodeAnalysis;
+using MFW.Richbound.Factories.Interfaces;
 using MFW.Richbound.Presentation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,6 +12,7 @@ namespace MFW.Richbound.Factories;
 /// <param name="serviceProvider">
 /// The service provider used to resolve and create instances of <see cref="Prompt"/> objects.
 /// </param>
+[ExcludeFromCodeCoverage]
 public class PromptFactory(IServiceProvider serviceProvider) : IPromptFactory
 {
     /// <inheritdoc/>

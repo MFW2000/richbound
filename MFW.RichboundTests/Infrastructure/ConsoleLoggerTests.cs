@@ -6,8 +6,8 @@ namespace MFW.RichboundTests.Infrastructure;
 [TestClass]
 public class ConsoleLoggerTests
 {
-    private string _testLogFile = string.Empty;
     private readonly DateTimeOffset _fakeTime = new(2025, 12, 20, 23, 0, 0, TimeSpan.Zero);
+    private string _logFile = string.Empty;
 
     private FakeTimeProvider _fakeTimeProvider = null!;
 
@@ -20,15 +20,15 @@ public class ConsoleLoggerTests
 
         _sut = new ConsoleLogger(_fakeTimeProvider);
 
-        _testLogFile = $"{Guid.NewGuid()}.log";
+        _logFile = $"{Guid.NewGuid()}.log";
     }
 
     [TestCleanup]
     public void Cleanup()
     {
-        if (File.Exists(_testLogFile))
+        if (File.Exists(_logFile))
         {
-            File.Delete(_testLogFile);
+            File.Delete(_logFile);
         }
     }
 
@@ -39,16 +39,16 @@ public class ConsoleLoggerTests
         const string logLevel = "DBG";
         const string message = "Debug test message.";
 
-        var expectedMessage = GetExpectedMessage(_fakeTime, logLevel, message);
+        var expected = GetExpectedLogLine(_fakeTime, logLevel, message);
 
         // Act
-        _sut.LogDebug(message, _testLogFile);
+        _sut.LogDebug(message, _logFile);
 
         // Assert
-        var actualFileContent = File.ReadAllLines(_testLogFile);
+        var logFileLines = File.ReadAllLines(_logFile);
 
-        Assert.HasCount(1, actualFileContent);
-        Assert.AreEqual(expectedMessage, actualFileContent[0]);
+        Assert.HasCount(1, logFileLines);
+        Assert.AreEqual(expected, logFileLines[0]);
     }
 
     [TestMethod]
@@ -58,16 +58,16 @@ public class ConsoleLoggerTests
         const string logLevel = "INF";
         const string message = "Information test message.";
 
-        var expectedMessage = GetExpectedMessage(_fakeTime, logLevel, message);
+        var expected = GetExpectedLogLine(_fakeTime, logLevel, message);
 
         // Act
-        _sut.LogInformation(message, _testLogFile);
+        _sut.LogInformation(message, _logFile);
 
         // Assert
-        var actualFileContent = File.ReadAllLines(_testLogFile);
+        var logFileLines = File.ReadAllLines(_logFile);
 
-        Assert.HasCount(1, actualFileContent);
-        Assert.AreEqual(expectedMessage, actualFileContent[0]);
+        Assert.HasCount(1, logFileLines);
+        Assert.AreEqual(expected, logFileLines[0]);
     }
 
     [TestMethod]
@@ -77,16 +77,16 @@ public class ConsoleLoggerTests
         const string logLevel = "WRN";
         const string message = "Warning test message.";
 
-        var expectedMessage = GetExpectedMessage(_fakeTime, logLevel, message);
+        var expected = GetExpectedLogLine(_fakeTime, logLevel, message);
 
         // Act
-        _sut.LogWarning(message, _testLogFile);
+        _sut.LogWarning(message, _logFile);
 
         // Assert
-        var actualFileContent = File.ReadAllLines(_testLogFile);
+        var logFileLines = File.ReadAllLines(_logFile);
 
-        Assert.HasCount(1, actualFileContent);
-        Assert.AreEqual(expectedMessage, actualFileContent[0]);
+        Assert.HasCount(1, logFileLines);
+        Assert.AreEqual(expected, logFileLines[0]);
     }
 
     [TestMethod]
@@ -96,16 +96,16 @@ public class ConsoleLoggerTests
         const string logLevel = "ERR";
         const string message = "Error test message.";
 
-        var expectedMessage = GetExpectedMessage(_fakeTime, logLevel, message);
+        var expected = GetExpectedLogLine(_fakeTime, logLevel, message);
 
         // Act
-        _sut.LogError(message, _testLogFile);
+        _sut.LogError(message, _logFile);
 
         // Assert
-        var actualFileContent = File.ReadAllLines(_testLogFile);
+        var logFileLines = File.ReadAllLines(_logFile);
 
-        Assert.HasCount(1, actualFileContent);
-        Assert.AreEqual(expectedMessage, actualFileContent[0]);
+        Assert.HasCount(1, logFileLines);
+        Assert.AreEqual(expected, logFileLines[0]);
     }
 
     [TestMethod]
@@ -115,16 +115,16 @@ public class ConsoleLoggerTests
         const string logLevel = "FTL";
         const string message = "Critical test message.";
 
-        var expectedMessage = GetExpectedMessage(_fakeTime, logLevel, message);
+        var expected = GetExpectedLogLine(_fakeTime, logLevel, message);
 
         // Act
-        _sut.LogCritical(message, _testLogFile);
+        _sut.LogCritical(message, _logFile);
 
         // Assert
-        var actualFileContent = File.ReadAllLines(_testLogFile);
+        var logFileLines = File.ReadAllLines(_logFile);
 
-        Assert.HasCount(1, actualFileContent);
-        Assert.AreEqual(expectedMessage, actualFileContent[0]);
+        Assert.HasCount(1, logFileLines);
+        Assert.AreEqual(expected, logFileLines[0]);
     }
 
     [TestMethod]
@@ -134,10 +134,10 @@ public class ConsoleLoggerTests
         var message = string.Empty;
 
         // Act
-        _sut.LogDebug(message, _testLogFile);
+        _sut.LogDebug(message, _logFile);
 
         // Assert
-        Assert.IsFalse(File.Exists(_testLogFile));
+        Assert.IsFalse(File.Exists(_logFile));
     }
 
     [TestMethod]
@@ -147,10 +147,10 @@ public class ConsoleLoggerTests
         var message = string.Empty;
 
         // Act
-        _sut.LogInformation(message, _testLogFile);
+        _sut.LogInformation(message, _logFile);
 
         // Assert
-        Assert.IsFalse(File.Exists(_testLogFile));
+        Assert.IsFalse(File.Exists(_logFile));
     }
 
     [TestMethod]
@@ -160,10 +160,10 @@ public class ConsoleLoggerTests
         var message = string.Empty;
 
         // Act
-        _sut.LogWarning(message, _testLogFile);
+        _sut.LogWarning(message, _logFile);
 
         // Assert
-        Assert.IsFalse(File.Exists(_testLogFile));
+        Assert.IsFalse(File.Exists(_logFile));
     }
 
     [TestMethod]
@@ -173,10 +173,10 @@ public class ConsoleLoggerTests
         var message = string.Empty;
 
         // Act
-        _sut.LogError(message, _testLogFile);
+        _sut.LogError(message, _logFile);
 
         // Assert
-        Assert.IsFalse(File.Exists(_testLogFile));
+        Assert.IsFalse(File.Exists(_logFile));
     }
 
     [TestMethod]
@@ -186,208 +186,208 @@ public class ConsoleLoggerTests
         var message = string.Empty;
 
         // Act
-        _sut.LogError(message, _testLogFile);
+        _sut.LogCritical(message, _logFile);
 
         // Assert
-        Assert.IsFalse(File.Exists(_testLogFile));
+        Assert.IsFalse(File.Exists(_logFile));
     }
 
     [TestMethod]
     public void LogDebug_WithEmptyLogFile_ShouldSkipLogging()
     {
         // Arrange
-        _testLogFile = string.Empty;
+        _logFile = string.Empty;
 
         // Act
-        _sut.LogDebug("Test", _testLogFile);
+        _sut.LogDebug("Test", _logFile);
 
         // Assert
-        Assert.IsFalse(File.Exists(_testLogFile));
+        Assert.IsFalse(File.Exists(_logFile));
     }
 
     [TestMethod]
     public void LogInformation_WithEmptyLogFile_ShouldSkipLogging()
     {
         // Arrange
-        _testLogFile = string.Empty;
+        _logFile = string.Empty;
 
         // Act
-        _sut.LogInformation("Test", _testLogFile);
+        _sut.LogInformation("Test", _logFile);
 
         // Assert
-        Assert.IsFalse(File.Exists(_testLogFile));
+        Assert.IsFalse(File.Exists(_logFile));
     }
 
     [TestMethod]
     public void LogWarning_WithEmptyLogFile_ShouldSkipLogging()
     {
         // Arrange
-        _testLogFile = string.Empty;
+        _logFile = string.Empty;
 
         // Act
-        _sut.LogWarning("Test", _testLogFile);
+        _sut.LogWarning("Test", _logFile);
 
         // Assert
-        Assert.IsFalse(File.Exists(_testLogFile));
+        Assert.IsFalse(File.Exists(_logFile));
     }
 
     [TestMethod]
     public void LogError_WithEmptyLogFile_ShouldSkipLogging()
     {
         // Arrange
-        _testLogFile = string.Empty;
+        _logFile = string.Empty;
 
         // Act
-        _sut.LogError("Test", _testLogFile);
+        _sut.LogError("Test", _logFile);
 
         // Assert
-        Assert.IsFalse(File.Exists(_testLogFile));
+        Assert.IsFalse(File.Exists(_logFile));
     }
 
     [TestMethod]
     public void LogCritical_WithEmptyLogFile_ShouldSkipLogging()
     {
         // Arrange
-        _testLogFile = string.Empty;
+        _logFile = string.Empty;
 
         // Act
-        _sut.LogError("Test", _testLogFile);
+        _sut.LogCritical("Test", _logFile);
 
         // Assert
-        Assert.IsFalse(File.Exists(_testLogFile));
+        Assert.IsFalse(File.Exists(_logFile));
     }
 
     [TestMethod]
     public void LogDebug_WithInvalidLogFileExtension_ShouldSkipLogging()
     {
         // Arrange
-        _testLogFile = "invalid.txt";
+        _logFile = "invalid.txt";
 
         // Act
-        _sut.LogDebug("Test", _testLogFile);
+        _sut.LogDebug("Test", _logFile);
 
         // Assert
-        Assert.IsFalse(File.Exists(_testLogFile));
+        Assert.IsFalse(File.Exists(_logFile));
     }
 
     [TestMethod]
     public void LogInformation_WithInvalidLogFileExtension_ShouldSkipLogging()
     {
         // Arrange
-        _testLogFile = "invalid.txt";
+        _logFile = "invalid.txt";
 
         // Act
-        _sut.LogInformation("Test", _testLogFile);
+        _sut.LogInformation("Test", _logFile);
 
         // Assert
-        Assert.IsFalse(File.Exists(_testLogFile));
+        Assert.IsFalse(File.Exists(_logFile));
     }
 
     [TestMethod]
     public void LogWarning_WithInvalidLogFileExtension_ShouldSkipLogging()
     {
         // Arrange
-        _testLogFile = "invalid.txt";
+        _logFile = "invalid.txt";
 
         // Act
-        _sut.LogWarning("Test", _testLogFile);
+        _sut.LogWarning("Test", _logFile);
 
         // Assert
-        Assert.IsFalse(File.Exists(_testLogFile));
+        Assert.IsFalse(File.Exists(_logFile));
     }
 
     [TestMethod]
     public void LogError_WithInvalidLogFileExtension_ShouldSkipLogging()
     {
         // Arrange
-        _testLogFile = "invalid.txt";
+        _logFile = "invalid.txt";
 
         // Act
-        _sut.LogError("Test", _testLogFile);
+        _sut.LogError("Test", _logFile);
 
         // Assert
-        Assert.IsFalse(File.Exists(_testLogFile));
+        Assert.IsFalse(File.Exists(_logFile));
     }
 
     [TestMethod]
     public void LogCritical_WithInvalidLogFileExtension_ShouldSkipLogging()
     {
         // Arrange
-        _testLogFile = "invalid.txt";
+        _logFile = "invalid.txt";
 
         // Act
-        _sut.LogCritical("Test", _testLogFile);
+        _sut.LogCritical("Test", _logFile);
 
         // Assert
-        Assert.IsFalse(File.Exists(_testLogFile));
+        Assert.IsFalse(File.Exists(_logFile));
     }
 
     [TestMethod]
     public void LogDebug_WithInvalidLogFileName_ShouldSkipLogging()
     {
         // Arrange
-        _testLogFile = ".log";
+        _logFile = ".log";
 
         // Act
-        _sut.LogDebug("Test", _testLogFile);
+        _sut.LogDebug("Test", _logFile);
 
         // Assert
-        Assert.IsFalse(File.Exists(_testLogFile));
+        Assert.IsFalse(File.Exists(_logFile));
     }
 
     [TestMethod]
     public void LogInformation_WithInvalidLogFileName_ShouldSkipLogging()
     {
         // Arrange
-        _testLogFile = ".log";
+        _logFile = ".log";
 
         // Act
-        _sut.LogInformation("Test", _testLogFile);
+        _sut.LogInformation("Test", _logFile);
 
         // Assert
-        Assert.IsFalse(File.Exists(_testLogFile));
+        Assert.IsFalse(File.Exists(_logFile));
     }
 
     [TestMethod]
     public void LogWarning_WithInvalidLogFileName_ShouldSkipLogging()
     {
         // Arrange
-        _testLogFile = ".log";
+        _logFile = ".log";
 
         // Act
-        _sut.LogWarning("Test", _testLogFile);
+        _sut.LogWarning("Test", _logFile);
 
         // Assert
-        Assert.IsFalse(File.Exists(_testLogFile));
+        Assert.IsFalse(File.Exists(_logFile));
     }
 
     [TestMethod]
     public void LogError_WithInvalidLogFileName_ShouldSkipLogging()
     {
         // Arrange
-        _testLogFile = ".log";
+        _logFile = ".log";
 
         // Act
-        _sut.LogError("Test", _testLogFile);
+        _sut.LogError("Test", _logFile);
 
         // Assert
-        Assert.IsFalse(File.Exists(_testLogFile));
+        Assert.IsFalse(File.Exists(_logFile));
     }
 
     [TestMethod]
     public void LogCritical_WithInvalidLogFileName_ShouldSkipLogging()
     {
         // Arrange
-        _testLogFile = ".log";
+        _logFile = ".log";
 
         // Act
-        _sut.LogCritical("Test", _testLogFile);
+        _sut.LogCritical("Test", _logFile);
 
         // Assert
-        Assert.IsFalse(File.Exists(_testLogFile));
+        Assert.IsFalse(File.Exists(_logFile));
     }
 
-    private static string GetExpectedMessage(DateTimeOffset timestamp, string logLevelString, string message)
+    private static string GetExpectedLogLine(DateTimeOffset timestamp, string logLevelString, string message)
     {
         return $"[{timestamp:yyyy-MM-dd HH:mm:ss} {logLevelString}] {message}";
     }
