@@ -1,11 +1,10 @@
 ﻿using System.Reflection;
-using JetBrains.Annotations;
 using MFW.Richbound.Providers;
 using Moq;
 
 namespace MFW.RichboundTests.Providers;
 
-[TestClass, UsedImplicitly(ImplicitUseTargetFlags.Members)]
+[TestClass]
 public class AssemblyVersionProviderTests
 {
     private Mock<Assembly> _assemblyMock = null!;
@@ -24,11 +23,11 @@ public class AssemblyVersionProviderTests
     public void GetVersion_WithFoundVersion_ReturnsVersion()
     {
         // Arrange
-        var expectedVersion = new Version(1, 2, 3);
+        var expected = new Version(1, 2, 3);
 
         var assemblyName = new AssemblyName
         {
-            Version = expectedVersion
+            Version = expected
         };
 
         _assemblyMock
@@ -37,10 +36,10 @@ public class AssemblyVersionProviderTests
             .Verifiable(Times.Once);
 
         // Act
-        var actualVersion = _sut.GetVersion();
+        var actual = _sut.GetVersion();
 
         // Assert
-        Assert.AreEqual(expectedVersion, actualVersion);
+        Assert.AreEqual(expected, actual);
 
         _assemblyMock.Verify();
     }
@@ -49,11 +48,11 @@ public class AssemblyVersionProviderTests
     public void GetVersion_WithVersionNotFound_ReturnsNull()
     {
         // Arrange
-        Version? expectedVersion = null;
+        Version? expected = null;
 
         var assemblyName = new AssemblyName
         {
-            Version = expectedVersion
+            Version = expected
         };
 
         _assemblyMock
@@ -62,10 +61,10 @@ public class AssemblyVersionProviderTests
             .Verifiable(Times.Once);
 
         // Act
-        var actualVersion = _sut.GetVersion();
+        var actual = _sut.GetVersion();
 
         // Assert
-        Assert.IsNull(actualVersion);
+        Assert.AreEqual(expected, actual);
 
         _assemblyMock.Verify();
     }
