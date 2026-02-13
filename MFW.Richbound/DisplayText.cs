@@ -10,5 +10,7 @@ public static class DisplayText
 
     public const string TooltipOption = "Select an option:";
     public const string TooltipContinue = "Press any key to continue.";
+    public const string TooltipInvalidMenuOption = "Please select a valid menu option.";
+
     public const string InputPrompt = "> ";
 }
