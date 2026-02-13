@@ -45,8 +45,7 @@ public class MainMenuTests
         Console.SetOut(consoleOutput);
 
         // Act
-        _sut.DisplayMainPrompt();
-
+        var actual = _sut.DisplayMainPrompt();
         var output = consoleOutput.ToString();
 
         // Assert
@@ -58,6 +57,8 @@ public class MainMenuTests
         Assert.Contains("3. Exit", output);
         Assert.Contains(DisplayText.TooltipOption, output);
 
+        Assert.IsNull(actual);
+
         _assemblyVersionProviderMock.Verify();
     }
 
@@ -65,10 +66,34 @@ public class MainMenuTests
     public void DisplayMainPrompt_WithNullVersion_ShouldNotOutputVersion()
     {
         // Arrange
+        const string input = "3\n";
+
+        _assemblyVersionProviderMock
+            .Setup(x => x.GetVersion())
+            .Returns((Version?)null)
+            .Verifiable(Times.Once);
+
+        _consoleLoggerMock
+            .Setup(x => x.LogWarning("Unable to retrieve application version.", Constants.DefaultLogFile))
+            .Verifiable(Times.Once);
+
+        var consoleInput = new StringReader(input);
+        var consoleOutput = new StringWriter();
+
+        Console.SetIn(consoleInput);
+        Console.SetOut(consoleOutput);
 
         // Act
+        var actual = _sut.DisplayMainPrompt();
+        var output = consoleOutput.ToString();
 
         // Assert
+        Assert.Contains($"=== {DisplayText.AppTitle} ===", output);
+
+        Assert.IsNull(actual);
+
+        _assemblyVersionProviderMock.Verify();
+        _consoleLoggerMock.Verify();
     }
 
     [TestMethod]
@@ -77,20 +102,50 @@ public class MainMenuTests
     public void DisplayMainPrompt_ShouldReturnCorrectPrompt(PromptType expected, string input)
     {
         // Arrange
+        var version = new Version(1, 2, 3);
+
+        _assemblyVersionProviderMock
+            .Setup(x => x.GetVersion())
+            .Returns(version)
+            .Verifiable(Times.Once);
+
+        var consoleInput = new StringReader(input);
+
+        Console.SetIn(consoleInput);
 
         // Act
+        var actual = _sut.DisplayMainPrompt();
 
         // Assert
+        Assert.AreEqual(expected, actual);
+
+        _assemblyVersionProviderMock.Verify();
     }
 
     [TestMethod]
     public void DisplayMainPrompt_WithExitInput_ShouldReturnNull()
     {
         // Arrange
+        const string input = "3\n";
+
+        var version = new Version(1, 2, 3);
+
+        _assemblyVersionProviderMock
+            .Setup(x => x.GetVersion())
+            .Returns(version)
+            .Verifiable(Times.Once);
+
+        var consoleInput = new StringReader(input);
+
+        Console.SetIn(consoleInput);
 
         // Act
+        var actual = _sut.DisplayMainPrompt();
 
         // Assert
+        Assert.IsNull(actual);
+
+        _assemblyVersionProviderMock.Verify();
     }
 
     // After the invalid input, the test needs valid input to exit.
@@ -103,9 +158,27 @@ public class MainMenuTests
     public void DisplayMainPrompt_WithInvalidInput_ShouldOutputError(string input)
     {
         // Arrange
+        var version = new Version(1, 2, 3);
+
+        _assemblyVersionProviderMock
+            .Setup(x => x.GetVersion())
+            .Returns(version)
+            .Verifiable(Times.Once);
+
+        var consoleInput = new StringReader(input);
+        var consoleOutput = new StringWriter();
+
+        Console.SetIn(consoleInput);
+        Console.SetOut(consoleOutput);
 
         // Act
+        var actual = _sut.DisplayMainPrompt();
+        var output = consoleOutput.ToString();
 
         // Assert
+        Assert.Contains("Please select a valid menu option.", output);
+        Assert.IsNotNull(actual);
+
+        _assemblyVersionProviderMock.Verify();
     }
 }
