@@ -165,6 +165,11 @@ public class MainMenuTests
             .Returns(version)
             .Verifiable(Times.Once);
 
+        // Make sure that supposedly unreachable code is not executed.
+        _consoleLoggerMock
+            .Setup(x => x.LogWarning(It.IsAny<string>(), It.IsAny<string>()))
+            .Verifiable(Times.Never);
+
         var consoleInput = new StringReader(input);
         var consoleOutput = new StringWriter();
 
@@ -180,5 +185,6 @@ public class MainMenuTests
         Assert.IsNotNull(actual);
 
         _assemblyVersionProviderMock.Verify();
+        _consoleLoggerMock.Verify();
     }
 }

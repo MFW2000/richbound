@@ -24,7 +24,7 @@ public class MainMenu(IAssemblyVersionProvider assemblyVersionProvider, IConsole
 
         while (true)
         {
-            int? input = null;
+            int? input;
 
             Console.Write(DisplayText.InputPrompt);
 
@@ -35,6 +35,8 @@ public class MainMenu(IAssemblyVersionProvider assemblyVersionProvider, IConsole
             catch (Exception)
             {
                 Console.WriteLine(DisplayText.TooltipInvalidMenuOption);
+
+                continue;
             }
 
             switch (input)
@@ -47,6 +49,10 @@ public class MainMenu(IAssemblyVersionProvider assemblyVersionProvider, IConsole
                     return null;
                 default:
                     Console.WriteLine(DisplayText.TooltipInvalidMenuOption);
+
+                    logger.LogWarning(
+                        $"Invalid menu option selected with input: {input}; that should never be reached.");
+
                     break;
             }
         }
