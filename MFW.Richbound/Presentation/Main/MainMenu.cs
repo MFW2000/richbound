@@ -51,7 +51,7 @@ public class MainMenu(IAssemblyVersionProvider assemblyVersionProvider, IConsole
                     Console.WriteLine(DisplayText.TooltipInvalidMenuOption);
 
                     logger.LogWarning(
-                        $"Invalid menu option selected with input: {input}; that should never be reached.");
+                        $"Invalid menu option selected with input '{input}' that should never be reached.");
 
                     break;
             }
