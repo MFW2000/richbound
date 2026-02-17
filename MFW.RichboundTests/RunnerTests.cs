@@ -2,7 +2,7 @@ using MFW.Richbound;
 using MFW.Richbound.Enumerations;
 using MFW.Richbound.Factories.Interfaces;
 using MFW.Richbound.Infrastructure.Interfaces;
-using MFW.Richbound.Presentation;
+using MFW.Richbound.Presentation.Main;
 using MFW.Richbound.Providers.Interfaces;
 using Moq;
 

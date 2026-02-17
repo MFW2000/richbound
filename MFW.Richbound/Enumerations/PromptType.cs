@@ -5,5 +5,7 @@
 /// </summary>
 public enum PromptType
 {
-    MainMenu
+    MainMenu,
+    NewGame,
+    LoadGame
 }

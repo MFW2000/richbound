@@ -2,6 +2,7 @@ using MFW.Richbound.Enumerations;
 using MFW.Richbound.Factories.Interfaces;
 using MFW.Richbound.Infrastructure.Interfaces;
 using MFW.Richbound.Presentation;
+using MFW.Richbound.Presentation.Main;
 
 namespace MFW.Richbound;
 
@@ -43,6 +44,8 @@ public class Runner(IPromptFactory promptFactory, IConsoleWrapper consoleWrapper
         return promptType switch
         {
             PromptType.MainMenu => promptFactory.CreatePrompt<MainMenu>(),
+            PromptType.NewGame => promptFactory.CreatePrompt<NewGame>(),
+            PromptType.LoadGame => promptFactory.CreatePrompt<LoadGame>(),
             _ => null
         };
     }

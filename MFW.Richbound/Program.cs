@@ -3,7 +3,7 @@ using MFW.Richbound.Factories;
 using MFW.Richbound.Factories.Interfaces;
 using MFW.Richbound.Infrastructure;
 using MFW.Richbound.Infrastructure.Interfaces;
-using MFW.Richbound.Presentation;
+using MFW.Richbound.Presentation.Main;
 using MFW.Richbound.Providers;
 using MFW.Richbound.Providers.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
@@ -51,6 +51,8 @@ public static class Program
 
         // Register prompts.
         services.AddTransient<MainMenu>();
+        services.AddTransient<NewGame>();
+        services.AddTransient<LoadGame>();
 
         return services.BuildServiceProvider();
     }
