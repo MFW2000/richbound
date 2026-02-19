@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		.gitignore = .gitignore
 		LICENSE = LICENSE
 		.github\workflows\dotnet.yml = .github\workflows\dotnet.yml
+		MFW.Richbound.sln.DotSettings = MFW.Richbound.sln.DotSettings
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MFW.RichboundTests", "MFW.RichboundTests\MFW.RichboundTests.csproj", "{1770A6F0-756C-4D27-98EF-2A8D6A4D3489}"
