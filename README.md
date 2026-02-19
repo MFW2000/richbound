@@ -21,14 +21,14 @@ Richbound offers a variety of features:
 
 ## Running Requirements
 
-To run the application, you need to following software for your operating system:
+To run the application, you need to the following software for your operating system:
 
 ### Windows
 
-- [.NET 8.0 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/8.0/runtime)
+- [.NET 10.0 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/10.0/runtime)
 
 ### Linux
 
-- [.NET 8.0 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/8.0/runtime)
+- [.NET 10.0 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/10.0/runtime)
 
 Additionally, the provided file must be made executable using the `chmod +x <filename>` command in the same directory.

@@ -7,7 +7,7 @@ namespace MFW.Richbound.Infrastructure;
 /// </summary>
 public class ConsoleLogger(TimeProvider timeProvider) : IConsoleLogger
 {
-    private static readonly object Lock = new();
+    private static readonly Lock WriteLock = new();
 
     /// <inheritdoc/>
     public void LogDebug(string message, string logFile = Constants.DefaultLogFile)
@@ -56,7 +56,7 @@ public class ConsoleLogger(TimeProvider timeProvider) : IConsoleLogger
         var timestamp = timeProvider.GetLocalNow().ToString("yyyy-MM-dd HH:mm:ss");
         var logEntry = $"[{timestamp} {logLevelString}] {message}";
 
-        lock (Lock)
+        lock (WriteLock)
         {
             File.AppendAllText(logFile, logEntry + Environment.NewLine);
         }
