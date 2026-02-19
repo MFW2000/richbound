@@ -7,7 +7,7 @@ namespace MFW.Richbound.Infrastructure;
 /// </summary>
 public class ConsoleLogger(TimeProvider timeProvider) : IConsoleLogger
 {
-    private static readonly object Lock = new();
+    private static readonly Lock Lock = new();
 
     /// <inheritdoc/>
     public void LogDebug(string message, string logFile = Constants.DefaultLogFile)
