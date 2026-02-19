@@ -12,16 +12,16 @@ Richbound offers a variety of features:
 
 - Open-ended gameplay with multiple legal or illegal paths to success
 - Text-based interface for a retro gaming experience
-- Manage health, hunger and sleep to survive
+- Manage health, hunger, and sleep to survive
 - Variety of activities including begging, odd jobs, petty crime
 - Avoid the law and various dangers while building your empire
 - Purchase and manage businesses with various upgrades and expansions
 - Purchase and use various items and weapons to aid in your survival and success
 - Purchase and use various vehicles to improve travel and efficiency
 
-## Running Requirements
+## Requirements
 
-To run the application, you need to the following software for your operating system:
+To run the application, you need the following software for your operating system:
 
 ### Windows
 
@@ -31,4 +31,8 @@ To run the application, you need to the following software for your operating sy
 
 - [.NET 10.0 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/10.0/runtime)
 
-Additionally, the provided file must be made executable using the `chmod +x <filename>` command in the same directory.
+Additionally, the downloaded script needs to be marked as executable using the following command:
+
+```sh
+chmod +x <filename>
+```
