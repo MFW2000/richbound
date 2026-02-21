@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using MFW.Richbound.Domain;
+using MFW.Richbound.Domain.Interface;
 using MFW.Richbound.Factories;
 using MFW.Richbound.Factories.Interfaces;
 using MFW.Richbound.Infrastructure;
@@ -42,6 +44,8 @@ public static class Program
         services.AddSingleton<IAssemblyVersionProvider>(new AssemblyVersionProvider(typeof(Program).Assembly));
 
         // Register services.
+        services.AddSingleton<IGameState, GameState>();
+        services.AddSingleton<ISaveFileManager, SaveFileManager>();
         services.AddSingleton<IConsoleLogger, ConsoleLogger>();
         services.AddTransient<IConsoleWrapper, ConsoleWrapper>();
         services.AddTransient<IPromptFactory, PromptFactory>();

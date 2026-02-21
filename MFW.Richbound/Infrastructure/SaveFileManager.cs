@@ -4,10 +4,14 @@ using MFW.Richbound.Models;
 
 namespace MFW.Richbound.Infrastructure;
 
+/// <summary>
+/// Implements <see cref="ISaveFileManager"/> for managing save files.
+/// </summary>
 public class SaveFileManager(IConsoleLogger consoleLogger) : ISaveFileManager
 {
     private const string SaveFilePath = "save.json";
 
+    /// <inheritdoc/>
     public async Task<bool> SaveGameAsync(GameStateDto gameStateDto)
     {
         try
@@ -26,6 +30,7 @@ public class SaveFileManager(IConsoleLogger consoleLogger) : ISaveFileManager
         }
     }
 
+    /// <inheritdoc/>
     public async Task<GameStateDto?> LoadGameAsync()
     {
         try
@@ -42,6 +47,7 @@ public class SaveFileManager(IConsoleLogger consoleLogger) : ISaveFileManager
         }
     }
 
+    /// <inheritdoc/>
     public bool HasSaveFile()
     {
         return File.Exists(SaveFilePath);
