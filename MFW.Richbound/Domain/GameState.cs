@@ -1,4 +1,5 @@
-using MFW.Richbound.Domain.Interface;
+using MFW.Richbound.Domain.Interfaces;
+using MFW.Richbound.Models;
 
 namespace MFW.Richbound.Domain;
 
@@ -10,106 +11,66 @@ public class GameState : IGameState
     private const int MinStatValue = 0;
     private const int MaxStatValue = 100;
 
-    private int _health;
-    private int _hunger;
-    private int _thirst;
-    private double _pocketMoney;
-    private double _bankBalance;
+    /// <inheritdoc/>
+    public string FirstName { get; private set; } = string.Empty;
 
     /// <inheritdoc/>
-    /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is empty or whitespace.</exception>
-    public required string FirstName
-    {
-        get;
-        init
-        {
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                throw new ArgumentException("First name cannot be empty.", nameof(value));
-            }
-
-            field = value.Trim();
-        }
-    }
+    public string LastName { get; private set; } = string.Empty;
 
     /// <inheritdoc/>
-    /// <exception cref="ArgumentException">Thrown when <paramref name="value"/> is empty or whitespace.</exception>
-    public required string LastName
-    {
-        get;
-        init
-        {
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                throw new ArgumentException("Last name cannot be empty.", nameof(value));
-            }
-
-            field = value.Trim();
-        }
-    }
+    public int Health { get; private set; }
 
     /// <inheritdoc/>
-    public required int Health
-    {
-        get => _health;
-        init => _health = Math.Clamp(value, MinStatValue, MaxStatValue);
-    }
+    public int Hunger { get; private set; }
 
     /// <inheritdoc/>
-    public required int Hunger
-    {
-        get => _hunger;
-        init => _hunger = Math.Clamp(value, MinStatValue, MaxStatValue);
-    }
+    public int Thirst { get; private set; }
 
     /// <inheritdoc/>
-    public required int Thirst
-    {
-        get => _thirst;
-        init => _thirst = Math.Clamp(value, MinStatValue, MaxStatValue);
-    }
+    public double PocketMoney { get; private set; }
 
     /// <inheritdoc/>
-    public required double PocketMoney
-    {
-        get => _pocketMoney;
-        init => _pocketMoney = Math.Clamp(value, 0, double.MaxValue);
-    }
+    public double BankBalance { get; private set; }
 
     /// <inheritdoc/>
-    public required double BankBalance
+    public void Initialize(GameStateDto gameState)
     {
-        get => _bankBalance;
-        init => _bankBalance = Math.Clamp(value, double.MinValue, double.MaxValue);
+        FirstName = gameState.FirstName;
+        LastName = gameState.LastName;
+        Health = gameState.Health;
+        Hunger = gameState.Hunger;
+        Thirst = gameState.Thirst;
+        PocketMoney = gameState.PocketMoney;
+        BankBalance = gameState.BankBalance;
     }
 
     /// <inheritdoc/>
     public void UpdateHealth(int delta)
     {
-        _health = Math.Clamp(Health + delta, MinStatValue, MaxStatValue);
+        Health = Math.Clamp(Health + delta, MinStatValue, MaxStatValue);
     }
 
     /// <inheritdoc/>
     public void UpdateHunger(int delta)
     {
-        _hunger = Math.Clamp(Hunger + delta, MinStatValue, MaxStatValue);
+        Hunger = Math.Clamp(Hunger + delta, MinStatValue, MaxStatValue);
     }
 
     /// <inheritdoc/>
     public void UpdateThirst(int delta)
     {
-        _thirst = Math.Clamp(Thirst + delta, MinStatValue, MaxStatValue);
+        Thirst = Math.Clamp(Thirst + delta, MinStatValue, MaxStatValue);
     }
 
     /// <inheritdoc/>
     public void UpdatePocketMoney(double delta)
     {
-        _pocketMoney = Math.Clamp(PocketMoney + delta, 0, double.MaxValue);
+        PocketMoney = Math.Clamp(PocketMoney + delta, 0, double.MaxValue);
     }
 
     /// <inheritdoc/>
     public void UpdateBankBalance(double delta)
     {
-        _bankBalance = Math.Clamp(BankBalance + delta, double.MinValue, double.MaxValue);
+        BankBalance = Math.Clamp(BankBalance + delta, double.MinValue, double.MaxValue);
     }
 }

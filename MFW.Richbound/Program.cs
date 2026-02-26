@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using MFW.Richbound.Domain;
-using MFW.Richbound.Domain.Interface;
+using MFW.Richbound.Domain.Interfaces;
 using MFW.Richbound.Factories;
 using MFW.Richbound.Factories.Interfaces;
 using MFW.Richbound.Infrastructure;

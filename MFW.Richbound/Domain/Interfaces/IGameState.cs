@@ -1,4 +1,6 @@
-namespace MFW.Richbound.Domain.Interface;
+using MFW.Richbound.Models;
+
+namespace MFW.Richbound.Domain.Interfaces;
 
 /// <summary>
 /// Defines a contract for representing the state of the game.
@@ -39,6 +41,8 @@ public interface IGameState
     /// The player character's bank balance, which can both be a positive and negative value.
     /// </summary>
     double BankBalance { get; }
+
+    void Initialize(GameStateDto gameState);
 
     /// <summary>
     /// Updates the player character's health points up to a maximum of 100 and a minimum of 0.

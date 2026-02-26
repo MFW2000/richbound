@@ -56,7 +56,7 @@ public abstract class Prompt
                     return false;
             }
 
-            Console.WriteLine("Please enter 'yes' (y) or 'no' (n).");
+            Console.WriteLine("Please enter 'yes' (y) or 'no' (n):");
         }
     }
 }
