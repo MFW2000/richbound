@@ -18,6 +18,7 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
     {
         Console.WriteLine("=== New Game ===");
 
+        // TODO: Add a new line after choosing to overwrite the save file.
         var promptOverwriteSave = PromptOverwriteSave();
         if (!promptOverwriteSave)
         {
