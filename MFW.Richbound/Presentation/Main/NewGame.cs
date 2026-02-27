@@ -31,8 +31,6 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
         var lastName = PromptLastName();
         var firstName = PromptFirstName();
 
-        Console.WriteLine();
-
         var promptCharacterConfirmation = PromptCharacterConfirmation(firstName, lastName, gender);
         if (!promptCharacterConfirmation)
         {

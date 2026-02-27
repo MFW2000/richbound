@@ -1,7 +1,7 @@
 namespace MFW.Richbound;
 
 /// <summary>
-/// Provides text to be displayed to the user.
+/// Provides common text to be displayed to the user.
 /// </summary>
 public static class DisplayText
 {
@@ -11,4 +11,6 @@ public static class DisplayText
     public const string TooltipInvalidMenuOption = "Please select a valid menu option.";
 
     public const string InputPrompt = "> ";
+
+    public const string CityName = "Richbound City";
 }
