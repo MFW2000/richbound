@@ -172,7 +172,7 @@ public class PromptHelperTests
 
         Console.SetIn(new StringReader(input));
 
-        // Act
+        // Act & Assert
         Assert.ThrowsExactly<InputEmptyException>(() => PromptHelper.ReadInt(allowEmpty: allowEmpty));
     }
 
