@@ -5,6 +5,7 @@ using MFW.Richbound.Factories;
 using MFW.Richbound.Factories.Interfaces;
 using MFW.Richbound.Infrastructure;
 using MFW.Richbound.Infrastructure.Interfaces;
+using MFW.Richbound.Presentation.Game;
 using MFW.Richbound.Presentation.Main;
 using MFW.Richbound.Providers;
 using MFW.Richbound.Providers.Interfaces;
@@ -57,6 +58,8 @@ public static class Program
         services.AddTransient<MainMenu>();
         services.AddTransient<NewGame>();
         services.AddTransient<LoadGame>();
+        services.AddTransient<NewGameIntro>();
+        services.AddTransient<GameMenu>();
 
         return services.BuildServiceProvider();
     }

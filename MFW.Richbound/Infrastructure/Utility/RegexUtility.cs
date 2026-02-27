@@ -9,4 +9,7 @@ public static partial class RegexUtility
 {
     [GeneratedRegex(@"\p{L}")]
     public static partial Regex UnicodeLetterRegex();
+
+    [GeneratedRegex(@"^\d+$")]
+    public static partial Regex OnlyNumbersRegex();
 }

@@ -1,3 +1,4 @@
+using MFW.Richbound.Enumerations;
 using MFW.Richbound.Models;
 
 namespace MFW.Richbound.Domain.Interfaces;
@@ -7,6 +8,11 @@ namespace MFW.Richbound.Domain.Interfaces;
 /// </summary>
 public interface IGameState
 {
+    /// <summary>
+    /// The player character's gender.
+    /// </summary>
+    Gender Gender { get;  }
+
     /// <summary>
     /// The player character's first name.
     /// </summary>

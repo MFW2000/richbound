@@ -1,5 +1,6 @@
-using MFW.Richbound.Exceptions;
+using MFW.Richbound.Exceptions.Prompt;
 using MFW.Richbound.Helpers;
+using MFW.Richbound.Infrastructure.Utility;
 
 namespace MFW.RichboundTests.Helpers;
 
@@ -25,7 +26,7 @@ public class PromptHelperTests
     }
 
     [TestMethod]
-    public void ReadString_WithoutAllowEmpty_ThrowsPromptValidationException()
+    public void ReadString_WithoutAllowEmpty_ThrowsInputEmptyException()
     {
         // Arrange
         const string input = "\n";
@@ -34,7 +35,7 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act & Assert
-        Assert.ThrowsExactly<PromptValidationException>(() => PromptHelper.ReadString(allowEmpty: allowEmpty));
+        Assert.ThrowsExactly<InputEmptyException>(() => PromptHelper.ReadString(allowEmpty: allowEmpty));
     }
 
     [TestMethod]
@@ -92,7 +93,7 @@ public class PromptHelperTests
     }
 
     [TestMethod]
-    public void ReadString_OverMaxLength_ThrowsPromptValidationException()
+    public void ReadString_OverMaxLength_ThrowsInputOutOfRangeException()
     {
         // Arrange
         const string input = "123456\n";
@@ -101,7 +102,37 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act & Assert
-        Assert.ThrowsExactly<PromptValidationException>(() => PromptHelper.ReadString(maxLength: maxLength));
+        Assert.ThrowsExactly<InputOutOfRangeException>(() => PromptHelper.ReadString(maxLength: maxLength));
+    }
+
+    [TestMethod]
+    public void ReadString_MatchesRegex_ReturnsString()
+    {
+        // Arrange
+        const string expected = "12345";
+
+        const string input = "12345\n";
+
+        Console.SetIn(new StringReader(input));
+
+        // Act
+        var actual = PromptHelper.ReadString(matchRegex: RegexUtility.OnlyNumbersRegex());
+
+        // Assert
+        Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void ReadString_WithRegexMismatch_ThrowsInputRegexMismatchException()
+    {
+        // Arrange
+        const string input = "mismatch\n";
+
+        Console.SetIn(new StringReader(input));
+
+        // Act & Assert
+        Assert.ThrowsExactly<InputRegexMismatchException>(() =>
+            PromptHelper.ReadString(matchRegex: RegexUtility.OnlyNumbersRegex()));
     }
 
     [TestMethod]
@@ -133,6 +164,19 @@ public class PromptHelperTests
     }
 
     [TestMethod]
+    public void ReadInt_WithoutAllowEmpty_ThrowsInputEmptyException()
+    {
+        // Arrange
+        const string input = "\n";
+        const bool allowEmpty = false;
+
+        Console.SetIn(new StringReader(input));
+
+        // Act
+        Assert.ThrowsExactly<InputEmptyException>(() => PromptHelper.ReadInt(allowEmpty: allowEmpty));
+    }
+
+    [TestMethod]
     public void ReadInt_WithinMinRange_ReturnsInt()
     {
         // Arrange
@@ -151,7 +195,7 @@ public class PromptHelperTests
     }
 
     [TestMethod]
-    public void ReadInt_OutOfMinRange_ThrowsPromptValidationException()
+    public void ReadInt_OutOfMinRange_ThrowsInputOutOfRangeException()
     {
         // Arrange
         const string input = "99\n";
@@ -160,7 +204,7 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act & Assert
-        Assert.ThrowsExactly<PromptValidationException>(() => PromptHelper.ReadInt(minRange: minRange));
+        Assert.ThrowsExactly<InputOutOfRangeException>(() => PromptHelper.ReadInt(minRange: minRange));
     }
 
     [TestMethod]
@@ -182,7 +226,7 @@ public class PromptHelperTests
     }
 
     [TestMethod]
-    public void ReadInt_OutOfMaxRange_ThrowsPromptValidationException()
+    public void ReadInt_OutOfMaxRange_ThrowsInputOutOfRangeException()
     {
         // Arrange
         const string input = "101\n";
@@ -191,6 +235,6 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act & Assert
-        Assert.ThrowsExactly<PromptValidationException>(() => PromptHelper.ReadInt(maxRange: maxRange));
+        Assert.ThrowsExactly<InputOutOfRangeException>(() => PromptHelper.ReadInt(maxRange: maxRange));
     }
 }

@@ -60,6 +60,9 @@ public static class PromptHelper
     /// <param name="maxRange">The maximum allowable value for the input integer.</param>
     /// <returns>The processed integer input from the console.</returns>
     /// <exception cref="FormatException">Thrown if the input is not a valid integer.</exception>
+    /// <exception cref="InputEmptyException">
+    /// Thrown if the input is empty and empty input is not allowed.
+    /// </exception>
     /// <exception cref="InputOutOfRangeException">
     /// Thrown if the input is outside the allowable range.
     /// </exception>

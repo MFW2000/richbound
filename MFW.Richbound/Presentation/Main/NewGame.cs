@@ -14,60 +14,57 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
     public override PromptType? DisplayMainPrompt()
     {
         Console.WriteLine("=== New Game ===");
-        Console.WriteLine("Start a new game.");
-        Console.WriteLine();
 
-        if (saveFileManager.HasSaveFile())
+        if (!CheckOverwriteSave())
         {
-            Console.WriteLine("A save file already exists.");
-
-            var overwriteSave = PromptYesNo("Do you wish to overwrite it [y/N]:", false);
-
-            if (!overwriteSave)
-            {
-                return PromptType.MainMenu;
-            }
+            return PromptType.MainMenu;
         }
 
+        Console.WriteLine("Start a new game by creating a new character.");
+        Console.WriteLine();
+
+        var gender = PromptGender();
+        var lastName = PromptLastName();
         var firstName = PromptFirstName();
 
+        Console.WriteLine();
 
+        if (!PromptCharacterConfirmation(firstName, lastName, gender))
+        {
+            // TODO: Perhaps allow the user to cancel the new game creation.
+            return PromptType.NewGame;
+        }
 
-
-
-
-
-
-
-
-
-
-
-        // TODO:
-        //  1. Check if a save already exists and ask if to overwrite
-        //  2. Guide through the new character creation process
-        //  3. End with flavour text and move to the in game menu
-
-        var newGameState = new GameStateDto("John", "Doe", 100, 100, 100, 0, 0);
+        var newGameState = new GameStateDto(gender, firstName, lastName, 100, 100, 100, 0, 0);
 
         gameState.Initialize(newGameState);
 
-        Console.WriteLine($"Name: {gameState.FirstName} {gameState.LastName}");
-        Console.WriteLine($"Health: %{gameState.Health}");
-        Console.WriteLine($"Hunger: %{gameState.Hunger}");
-        Console.WriteLine($"Thirst: %{gameState.Thirst}");
-        Console.WriteLine($"Money in pocket: ${gameState.PocketMoney}");
-        Console.WriteLine($"Bank Balance: ${gameState.BankBalance}");
+        Console.WriteLine();
+        Console.WriteLine("Your character has been created.");
         Console.WriteLine();
 
         ContinuePrompt();
 
-        return PromptType.MainMenu;
+        return PromptType.NewGameIntro;
     }
 
-    private static string PromptFirstName()
+    private bool CheckOverwriteSave()
     {
-        Console.WriteLine("First name: ");
+        if (!saveFileManager.HasSaveFile())
+        {
+            return true;
+        }
+
+        Console.WriteLine("A save file already exists.");
+
+        var overwriteSave = PromptYesNo("Do you wish to overwrite it [y/N]:", false);
+
+        return overwriteSave;
+    }
+
+    private static Gender PromptGender()
+    {
+        Console.WriteLine("Choose your gender (male/female) [m/f]:");
 
         while (true)
         {
@@ -75,7 +72,72 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
 
             try
             {
-                return PromptHelper.ReadString(false, true, 20, RegexUtility.UnicodeLetterRegex());
+                var input = PromptHelper.ReadString();
+
+                if (input.Equals("m", StringComparison.OrdinalIgnoreCase)
+                    || input.Equals("male", StringComparison.OrdinalIgnoreCase))
+                {
+                    return Gender.Male;
+                }
+
+                if (input.Equals("f", StringComparison.OrdinalIgnoreCase)
+                    || input.Equals("female", StringComparison.OrdinalIgnoreCase))
+                {
+                    return Gender.Female;
+                }
+
+                Console.WriteLine("Please enter 'male' (m) or 'female' (f).");
+            }
+            catch (InputEmptyException)
+            {
+                Console.WriteLine("You must enter a gender.");
+            }
+        }
+    }
+
+    private static string PromptLastName()
+    {
+        Console.WriteLine($"What is your last name (max {Constants.MaxNameLength} characters):");
+
+        while (true)
+        {
+            Console.Write(DisplayText.InputPrompt);
+
+            try
+            {
+                return PromptHelper.ReadString(
+                    maxLength: Constants.MaxNameLength,
+                    matchRegex: RegexUtility.UnicodeLetterRegex());
+            }
+            catch (InputEmptyException)
+            {
+                Console.WriteLine("Your character must have a last name.");
+            }
+            catch (InputOutOfRangeException)
+            {
+                Console.WriteLine(
+                    $"Your character's last name cannot be longer than {Constants.MaxNameLength} characters.");
+            }
+            catch (InputRegexMismatchException)
+            {
+                Console.WriteLine("Your character's last name must at least contain one letter.");
+            }
+        }
+    }
+
+    private static string PromptFirstName()
+    {
+        Console.WriteLine($"What is your first name (max {Constants.MaxNameLength} characters):");
+
+        while (true)
+        {
+            Console.Write(DisplayText.InputPrompt);
+
+            try
+            {
+                return PromptHelper.ReadString(
+                    maxLength: Constants.MaxNameLength,
+                    matchRegex: RegexUtility.UnicodeLetterRegex());
             }
             catch (InputEmptyException)
             {
@@ -83,12 +145,22 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
             }
             catch (InputOutOfRangeException)
             {
-                Console.WriteLine("Your character's first name cannot be longer than 20 characters.");
+                Console.WriteLine(
+                    $"Your character's first name cannot be longer than {Constants.MaxNameLength} characters.");
             }
             catch (InputRegexMismatchException)
             {
-                Console.WriteLine("Your character's first must contain a letter.");
+                Console.WriteLine("Your character's first name must at least contain one letter.");
             }
         }
+    }
+
+    private static bool PromptCharacterConfirmation(string firstName, string lastName, Gender gender)
+    {
+        var promptText = gender == Gender.Male
+            ? $"You are Mr. {firstName} {lastName}. Is this correct? [y/n]:"
+            : $"You are Mrs. {firstName} {lastName}. Is this correct? [y/n]:";
+
+        return PromptYesNo(promptText);
     }
 }

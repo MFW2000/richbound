@@ -1,4 +1,5 @@
 using MFW.Richbound.Domain.Interfaces;
+using MFW.Richbound.Enumerations;
 using MFW.Richbound.Models;
 
 namespace MFW.Richbound.Domain;
@@ -10,6 +11,9 @@ public class GameState : IGameState
 {
     private const int MinStatValue = 0;
     private const int MaxStatValue = 100;
+
+    /// <inheritdoc/>
+    public Gender Gender { get; private set; }
 
     /// <inheritdoc/>
     public string FirstName { get; private set; } = string.Empty;
@@ -35,6 +39,7 @@ public class GameState : IGameState
     /// <inheritdoc/>
     public void Initialize(GameStateDto gameState)
     {
+        Gender = gameState.Gender;
         FirstName = gameState.FirstName;
         LastName = gameState.LastName;
         Health = gameState.Health;

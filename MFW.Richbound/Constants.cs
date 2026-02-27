@@ -6,4 +6,6 @@ namespace MFW.Richbound;
 public static class Constants
 {
     public const string DefaultLogFile = "richbound.log";
+
+    public const int MaxNameLength = 50;
 }

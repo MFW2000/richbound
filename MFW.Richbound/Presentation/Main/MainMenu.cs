@@ -20,7 +20,7 @@ public class MainMenu(IAssemblyVersionProvider assemblyVersionProvider, IConsole
         Console.WriteLine("1. New Game");
         Console.WriteLine("2. Load Game");
         Console.WriteLine("3. Exit");
-        Console.WriteLine(DisplayText.TooltipOption);
+        Console.WriteLine("Select an option [1-3]:");
 
         while (true)
         {

@@ -19,7 +19,7 @@ public abstract class Prompt
     /// </summary>
     protected static void ContinuePrompt()
     {
-        Console.WriteLine(DisplayText.TooltipContinue);
+        Console.WriteLine("Press any key to continue.");
         Console.Write(DisplayText.InputPrompt);
         Console.ReadLine();
     }

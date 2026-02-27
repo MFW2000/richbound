@@ -55,7 +55,7 @@ public class MainMenuTests
         Assert.Contains("1. New Game", output);
         Assert.Contains("2. Load Game", output);
         Assert.Contains("3. Exit", output);
-        Assert.Contains(DisplayText.TooltipOption, output);
+        Assert.Contains("Select an option [1-3]:", output);
 
         Assert.IsNull(actual);
 
