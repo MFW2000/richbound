@@ -15,7 +15,8 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
     {
         Console.WriteLine("=== New Game ===");
 
-        if (!CheckOverwriteSave())
+        var promptOverwriteSave = PromptOverwriteSave();
+        if (!promptOverwriteSave)
         {
             return PromptType.MainMenu;
         }
@@ -29,9 +30,9 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
 
         Console.WriteLine();
 
-        if (!PromptCharacterConfirmation(firstName, lastName, gender))
+        var promptCharacterConfirmation = PromptCharacterConfirmation(firstName, lastName, gender);
+        if (!promptCharacterConfirmation)
         {
-            // TODO: Perhaps allow the user to cancel the new game creation.
             return PromptType.NewGame;
         }
 
@@ -48,7 +49,7 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
         return PromptType.NewGameIntro;
     }
 
-    private bool CheckOverwriteSave()
+    private bool PromptOverwriteSave()
     {
         if (!saveFileManager.HasSaveFile())
         {
