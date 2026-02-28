@@ -1,8 +1,11 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using MFW.Richbound.Domain;
+using MFW.Richbound.Domain.Interfaces;
 using MFW.Richbound.Factories;
 using MFW.Richbound.Factories.Interfaces;
 using MFW.Richbound.Infrastructure;
 using MFW.Richbound.Infrastructure.Interfaces;
+using MFW.Richbound.Presentation.Game;
 using MFW.Richbound.Presentation.Main;
 using MFW.Richbound.Providers;
 using MFW.Richbound.Providers.Interfaces;
@@ -19,12 +22,12 @@ public static class Program
     /// <summary>
     /// The entry point of the application.
     /// </summary>
-    public static void Main()
+    public static async Task Main()
     {
         var serviceProvider = ConfigureServices();
         var runner = serviceProvider.GetRequiredService<Runner>();
 
-        runner.Run();
+        await runner.RunAsync();
     }
 
     /// <summary>
@@ -42,6 +45,8 @@ public static class Program
         services.AddSingleton<IAssemblyVersionProvider>(new AssemblyVersionProvider(typeof(Program).Assembly));
 
         // Register services.
+        services.AddSingleton<IGameState, GameState>();
+        services.AddSingleton<ISaveFileManager, SaveFileManager>();
         services.AddSingleton<IConsoleLogger, ConsoleLogger>();
         services.AddTransient<IConsoleWrapper, ConsoleWrapper>();
         services.AddTransient<IPromptFactory, PromptFactory>();
@@ -53,6 +58,8 @@ public static class Program
         services.AddTransient<MainMenu>();
         services.AddTransient<NewGame>();
         services.AddTransient<LoadGame>();
+        services.AddTransient<NewGameIntro>();
+        services.AddTransient<GameMenu>();
 
         return services.BuildServiceProvider();
     }

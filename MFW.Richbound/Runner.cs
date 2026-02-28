@@ -2,6 +2,7 @@ using MFW.Richbound.Enumerations;
 using MFW.Richbound.Factories.Interfaces;
 using MFW.Richbound.Infrastructure.Interfaces;
 using MFW.Richbound.Presentation;
+using MFW.Richbound.Presentation.Game;
 using MFW.Richbound.Presentation.Main;
 
 namespace MFW.Richbound;
@@ -14,7 +15,7 @@ public class Runner(IPromptFactory promptFactory, IConsoleWrapper consoleWrapper
     /// <summary>
     /// Executes the main loop of the application.
     /// </summary>
-    public void Run()
+    public async Task RunAsync()
     {
         Prompt? currentPrompt = promptFactory.CreatePrompt<MainMenu>();
 
@@ -22,7 +23,7 @@ public class Runner(IPromptFactory promptFactory, IConsoleWrapper consoleWrapper
         {
             consoleWrapper.Clear();
 
-            var nextPrompt = currentPrompt.DisplayMainPrompt();
+            var nextPrompt = await currentPrompt.DisplayMainPromptAsync();
 
             currentPrompt = GetNextPrompt(nextPrompt);
         }
@@ -46,6 +47,8 @@ public class Runner(IPromptFactory promptFactory, IConsoleWrapper consoleWrapper
             PromptType.MainMenu => promptFactory.CreatePrompt<MainMenu>(),
             PromptType.NewGame => promptFactory.CreatePrompt<NewGame>(),
             PromptType.LoadGame => promptFactory.CreatePrompt<LoadGame>(),
+            PromptType.NewGameIntro => promptFactory.CreatePrompt<NewGameIntro>(),
+            PromptType.GameMenu => promptFactory.CreatePrompt<GameMenu>(),
             _ => null
         };
     }

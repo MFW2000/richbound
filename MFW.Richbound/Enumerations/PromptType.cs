@@ -7,5 +7,7 @@ public enum PromptType
 {
     MainMenu,
     NewGame,
-    LoadGame
+    LoadGame,
+    NewGameIntro,
+    GameMenu
 }

@@ -12,14 +12,14 @@ public abstract class Prompt
     /// Display the main prompt and handle the user's input.
     /// </summary>
     /// <returns>Next prompt to navigate to or null to exit the application.</returns>
-    public abstract PromptType? DisplayMainPrompt();
+    public abstract Task<PromptType?> DisplayMainPromptAsync();
 
     /// <summary>
     /// Displays a prompt to the user, asking whether they want to continue.
     /// </summary>
     protected static void ContinuePrompt()
     {
-        Console.WriteLine(DisplayText.TooltipContinue);
+        Console.WriteLine("Press any key to continue.");
         Console.Write(DisplayText.InputPrompt);
         Console.ReadLine();
     }
@@ -56,7 +56,7 @@ public abstract class Prompt
                     return false;
             }
 
-            Console.WriteLine("Please enter 'yes' (y) or 'no' (n).");
+            Console.WriteLine("Please enter 'yes' (y) or 'no' (n):");
         }
     }
 }
