@@ -6,13 +6,13 @@ namespace MFW.Richbound.Presentation.Main;
 public class LoadGame(ISaveFileManager saveFileManager) : Prompt
 {
     /// <inheritdoc/>
-    public override PromptType? DisplayMainPrompt()
+    public override Task<PromptType?> DisplayMainPromptAsync()
     {
         Console.WriteLine("Load game selected.");
         Console.WriteLine();
 
         ContinuePrompt();
 
-        return PromptType.MainMenu;
+        return Task.FromResult<PromptType?>(PromptType.MainMenu);
     }
 }

@@ -15,7 +15,7 @@ public class Runner(IPromptFactory promptFactory, IConsoleWrapper consoleWrapper
     /// <summary>
     /// Executes the main loop of the application.
     /// </summary>
-    public void Run()
+    public async Task RunAsync()
     {
         Prompt? currentPrompt = promptFactory.CreatePrompt<MainMenu>();
 
@@ -23,7 +23,7 @@ public class Runner(IPromptFactory promptFactory, IConsoleWrapper consoleWrapper
         {
             consoleWrapper.Clear();
 
-            var nextPrompt = currentPrompt.DisplayMainPrompt();
+            var nextPrompt = await currentPrompt.DisplayMainPromptAsync();
 
             currentPrompt = GetNextPrompt(nextPrompt);
         }

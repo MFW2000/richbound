@@ -25,7 +25,7 @@ public class MainMenuTests
     }
 
     [TestMethod]
-    public void DisplayMainPrompt_ShouldOutputMenuAndVersion()
+    public async Task DisplayMainPrompt_ShouldOutputMenuAndVersion()
     {
         // Arrange
         const string input = "3\n";
@@ -45,7 +45,7 @@ public class MainMenuTests
         Console.SetOut(consoleOutput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actual = await _sut.DisplayMainPromptAsync();
         var output = consoleOutput.ToString();
 
         // Assert
@@ -63,7 +63,7 @@ public class MainMenuTests
     }
 
     [TestMethod]
-    public void DisplayMainPrompt_WithNullVersion_ShouldNotOutputVersion()
+    public async Task DisplayMainPrompt_WithNullVersion_ShouldNotOutputVersion()
     {
         // Arrange
         const string input = "3\n";
@@ -84,7 +84,7 @@ public class MainMenuTests
         Console.SetOut(consoleOutput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actual = await _sut.DisplayMainPromptAsync();
         var output = consoleOutput.ToString();
 
         // Assert
@@ -100,7 +100,7 @@ public class MainMenuTests
     [DataRow(PromptType.NewGame, "1\n")]
     [DataRow(PromptType.LoadGame, "2\n")]
     [DataRow(null, "3\n")]
-    public void DisplayMainPrompt_ShouldReturnCorrectPromptType(PromptType? expected, string input)
+    public async Task DisplayMainPrompt_ShouldReturnCorrectPromptType(PromptType? expected, string input)
     {
         // Arrange
         var version = new Version(1, 2, 3);
@@ -115,7 +115,7 @@ public class MainMenuTests
         Console.SetIn(consoleInput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actual = await _sut.DisplayMainPromptAsync();
 
         // Assert
         Assert.AreEqual(expected, actual);
@@ -129,7 +129,7 @@ public class MainMenuTests
     [DataRow("0\n1\n")]
     [DataRow("-1\n1\n")]
     [DataRow("test\n1\n")]
-    public void DisplayMainPrompt_WithInvalidInput_ShouldOutputError(string input)
+    public async Task DisplayMainPrompt_WithInvalidInput_ShouldOutputError(string input)
     {
         // Arrange
         var version = new Version(1, 2, 3);
@@ -146,7 +146,7 @@ public class MainMenuTests
         Console.SetOut(consoleOutput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actual = await _sut.DisplayMainPromptAsync();
         var output = consoleOutput.ToString();
 
         // Assert

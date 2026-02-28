@@ -8,41 +8,42 @@ namespace MFW.Richbound.Presentation.Game;
 public class NewGameIntro : Prompt
 {
     /// <inheritdoc/>
-    public override PromptType? DisplayMainPrompt()
+    public override Task<PromptType?> DisplayMainPromptAsync()
     {
         Console.WriteLine($"=== Welcome to {DisplayText.CityName}! ===");
 
         Thread.Sleep(Constants.DisplayDelayTimeMilliseconds);
 
         Console.WriteLine("You’ve walked away from everything you knew, chasing the chance to start over.");
-        Console.WriteLine();
 
         Thread.Sleep(Constants.DisplayDelayTimeMilliseconds);
 
+        Console.WriteLine();
         Console.WriteLine(
             $"You arrive by plane at {DisplayText.CityName} International Airport with nothing but the clothes on your back.");
-        Console.WriteLine();
 
         Thread.Sleep(Constants.DisplayDelayTimeMilliseconds);
 
+        Console.WriteLine();
         Console.WriteLine(
             "Begin with odd jobs or petty crime to get by. If things get really tough, you can always start begging.");
-        Console.WriteLine();
 
         Thread.Sleep(Constants.DisplayDelayTimeMilliseconds);
 
+        Console.WriteLine();
         Console.WriteLine("Once you’ve saved enough money, you can begin building a business empire—legal or illegal.");
-        Console.WriteLine();
 
         Thread.Sleep(Constants.DisplayDelayTimeMilliseconds);
 
+        Console.WriteLine();
         Console.WriteLine("The choice is yours!");
-        Console.WriteLine();
 
         Thread.Sleep(Constants.DisplayDelayTimeMilliseconds);
+
+        Console.WriteLine();
 
         ContinuePrompt();
 
-        return PromptType.GameMenu;
+        return Task.FromResult<PromptType?>(PromptType.GameMenu);
     }
 }

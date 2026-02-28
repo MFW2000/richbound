@@ -24,7 +24,7 @@ public class SaveFileManager(IConsoleLogger consoleLogger) : ISaveFileManager
         }
         catch (Exception exception)
         {
-            consoleLogger.LogError(exception.Message);
+            consoleLogger.LogCritical(exception.Message);
 
             return false;
         }
@@ -41,7 +41,7 @@ public class SaveFileManager(IConsoleLogger consoleLogger) : ISaveFileManager
         }
         catch (Exception exception)
         {
-            consoleLogger.LogError(exception.Message);
+            consoleLogger.LogCritical(exception.Message);
 
             return null;
         }

@@ -35,12 +35,12 @@ public class RunnerTests
     }
 
     [TestMethod]
-    public void Run_NavigatesToExit()
+    public async Task Run_NavigatesToExit()
     {
         // Arrange
         _mainMenuMock
-            .Setup(x => x.DisplayMainPrompt())
-            .Returns((PromptType?)null)
+            .Setup(x => x.DisplayMainPromptAsync())
+            .ReturnsAsync((PromptType?)null)
             .Verifiable(Times.Once);
 
         _promptFactoryMock
@@ -53,7 +53,7 @@ public class RunnerTests
             .Verifiable(Times.Once);
 
         // Act
-        _sut.Run();
+        await _sut.RunAsync();
 
         // Assert
         _mainMenuMock.Verify();

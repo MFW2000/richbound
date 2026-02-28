@@ -11,7 +11,7 @@ namespace MFW.Richbound.Presentation.Main;
 public class MainMenu(IAssemblyVersionProvider assemblyVersionProvider, IConsoleLogger logger) : Prompt
 {
     /// <inheritdoc/>
-    public override PromptType? DisplayMainPrompt()
+    public override Task<PromptType?> DisplayMainPromptAsync()
     {
         Console.WriteLine($"=== {DisplayText.AppTitle}{GetFormattedVersion()} ===");
         Console.WriteLine(DisplayText.AppSubtitle);
@@ -42,11 +42,11 @@ public class MainMenu(IAssemblyVersionProvider assemblyVersionProvider, IConsole
             switch (input)
             {
                 case 1:
-                    return PromptType.NewGame;
+                    return Task.FromResult<PromptType?>(PromptType.NewGame);
                 case 2:
-                    return PromptType.LoadGame;
+                    return Task.FromResult<PromptType?>(PromptType.LoadGame);
                 case 3:
-                    return null;
+                    return Task.FromResult<PromptType?>(null);
                 default:
                     Console.WriteLine(DisplayText.TooltipInvalidMenuOption);
 

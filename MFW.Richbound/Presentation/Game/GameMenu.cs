@@ -8,7 +8,7 @@ namespace MFW.Richbound.Presentation.Game;
 public class GameMenu(IGameState gameState, ISaveFileManager saveFileManager, IConsoleLogger logger) : Prompt
 {
     /// <inheritdoc/>
-    public override PromptType? DisplayMainPrompt()
+    public override Task<PromptType?> DisplayMainPromptAsync()
     {
         Console.WriteLine("=== Placeholder Menu ===");
         Console.WriteLine("What do you want to do?");
@@ -54,11 +54,11 @@ public class GameMenu(IGameState gameState, ISaveFileManager saveFileManager, IC
                 case 10:
                     confirm = PromptYesNo("Are you sure you want to exit without saving [y/N]?", false);
 
-                    return confirm ? null : PromptType.GameMenu;
+                    return Task.FromResult<PromptType?>(confirm ? null : PromptType.GameMenu);
                 case 11:
                     confirm = PromptYesNo("Are you sure you want to return to the main menu without saving [y/N]?", false);
 
-                    return confirm ? PromptType.MainMenu : PromptType.GameMenu;
+                    return Task.FromResult<PromptType?>(confirm ? PromptType.MainMenu : PromptType.GameMenu);
                 default:
                     Console.WriteLine(DisplayText.TooltipInvalidMenuOption);
 

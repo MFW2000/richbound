@@ -22,12 +22,12 @@ public static class Program
     /// <summary>
     /// The entry point of the application.
     /// </summary>
-    public static void Main()
+    public static async Task Main()
     {
         var serviceProvider = ConfigureServices();
         var runner = serviceProvider.GetRequiredService<Runner>();
 
-        runner.Run();
+        await runner.RunAsync();
     }
 
     /// <summary>

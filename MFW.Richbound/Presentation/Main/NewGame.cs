@@ -14,7 +14,7 @@ namespace MFW.Richbound.Presentation.Main;
 public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : Prompt
 {
     /// <inheritdoc/>
-    public override PromptType? DisplayMainPrompt()
+    public override Task<PromptType?> DisplayMainPromptAsync()
     {
         Console.WriteLine("=== New Game ===");
 
@@ -22,7 +22,7 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
         var promptOverwriteSave = PromptOverwriteSave();
         if (!promptOverwriteSave)
         {
-            return PromptType.MainMenu;
+            return Task.FromResult<PromptType?>(PromptType.MainMenu);
         }
 
         Console.WriteLine("Start a new game by creating a new character.");
@@ -35,7 +35,7 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
         var promptCharacterConfirmation = PromptCharacterConfirmation(firstName, lastName, gender);
         if (!promptCharacterConfirmation)
         {
-            return PromptType.NewGame;
+            return Task.FromResult<PromptType?>(PromptType.NewGame);
         }
 
         var newGameState = new GameStateDto(gender, firstName, lastName, 100, 100, 100, 0, 0);
@@ -48,7 +48,7 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
 
         ContinuePrompt();
 
-        return PromptType.NewGameIntro;
+        return Task.FromResult<PromptType?>(PromptType.NewGameIntro);
     }
 
     /// <summary>
