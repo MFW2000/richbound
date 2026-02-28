@@ -14,7 +14,7 @@ public class ConsoleLoggerTests
     private ConsoleLogger _sut = null!;
 
     [TestInitialize]
-    public void Setup()
+    public void Initialize()
     {
         _fakeTimeProvider = new FakeTimeProvider(_fakeTime);
 

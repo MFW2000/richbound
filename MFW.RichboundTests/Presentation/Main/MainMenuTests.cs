@@ -16,7 +16,7 @@ public class MainMenuTests
     private MainMenu _sut = null!;
 
     [TestInitialize]
-    public void Setup()
+    public void Initialize()
     {
         _assemblyVersionProviderMock = new Mock<IAssemblyVersionProvider>(MockBehavior.Strict);
         _consoleLoggerMock = new Mock<IConsoleLogger>(MockBehavior.Strict);
