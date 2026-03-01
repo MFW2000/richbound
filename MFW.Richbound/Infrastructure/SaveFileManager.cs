@@ -12,13 +12,13 @@ public class SaveFileManager(IConsoleLogger consoleLogger) : ISaveFileManager
     private const string SaveFilePath = "save.json";
 
     /// <inheritdoc/>
-    public async Task<bool> SaveGameAsync(GameStateDto gameStateDto)
+    public bool SaveGame(GameStateDto gameStateDto)
     {
         try
         {
             var json = JsonSerializer.Serialize(gameStateDto);
 
-            await File.WriteAllTextAsync(SaveFilePath, json);
+            File.WriteAllText(SaveFilePath, json);
 
             return true;
         }
@@ -31,11 +31,11 @@ public class SaveFileManager(IConsoleLogger consoleLogger) : ISaveFileManager
     }
 
     /// <inheritdoc/>
-    public async Task<GameStateDto?> LoadGameAsync()
+    public GameStateDto? LoadGame()
     {
         try
         {
-            var json = await File.ReadAllTextAsync(SaveFilePath);
+            var json = File.ReadAllText(SaveFilePath);
 
             return JsonSerializer.Deserialize<GameStateDto>(json);
         }

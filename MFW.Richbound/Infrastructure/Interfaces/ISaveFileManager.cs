@@ -12,13 +12,13 @@ public interface ISaveFileManager
     /// </summary>
     /// <param name="gameStateDto">The game state to save.</param>
     /// <returns>True if the save operation was successful, otherwise false.</returns>
-    Task<bool> SaveGameAsync(GameStateDto gameStateDto);
+    bool SaveGame(GameStateDto gameStateDto);
 
     /// <summary>
     /// Loads the game state from a JSON file.
     /// </summary>
     /// <returns>The deserialized game state, or null if the load operation failed.</returns>
-    Task<GameStateDto?> LoadGameAsync();
+    GameStateDto? LoadGame();
 
     /// <summary>
     /// Checks if a save file exists.
