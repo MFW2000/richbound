@@ -8,7 +8,7 @@ namespace MFW.Richbound.Presentation.Game;
 public class NewGameIntro : Prompt
 {
     /// <inheritdoc/>
-    public override Task<PromptType?> DisplayMainPromptAsync()
+    public override PromptType? DisplayMainPrompt()
     {
         Console.WriteLine($"=== Welcome to {DisplayText.CityName}! ===");
 
@@ -44,6 +44,6 @@ public class NewGameIntro : Prompt
 
         ContinuePrompt();
 
-        return Task.FromResult<PromptType?>(PromptType.GameMenu);
+        return PromptType.GameMenu;
     }
 }
