@@ -1,11 +1,12 @@
-using MFW.Richbound.Domain.Interfaces;
 using MFW.Richbound.Enumerations;
 using MFW.Richbound.Helpers;
 using MFW.Richbound.Infrastructure.Interfaces;
 
 namespace MFW.Richbound.Presentation.Game;
 
-public class GameMenu(IGameState gameState, ISaveFileManager saveFileManager, IConsoleLogger logger) : Prompt
+// TODO: Needs to be implemented for debugging purposes for now.
+
+public class GameMenu(IConsoleLogger logger) : Prompt
 {
     /// <inheritdoc/>
     public override PromptType? DisplayMainPrompt()

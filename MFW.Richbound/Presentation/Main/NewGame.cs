@@ -8,6 +8,8 @@ using MFW.Richbound.Models;
 
 namespace MFW.Richbound.Presentation.Main;
 
+// TODO: Finished, write tests next.
+
 /// <summary>
 /// Responsible for assisting the user in creating a new character and starting a new game.
 /// </summary>
@@ -17,33 +19,43 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
     public override PromptType? DisplayMainPrompt()
     {
         Console.WriteLine("=== New Game ===");
-
-        // TODO: Add a new line after choosing to overwrite the save file.
-        var promptOverwriteSave = PromptOverwriteSave();
-        if (!promptOverwriteSave)
-        {
-            return PromptType.MainMenu;
-        }
-
         Console.WriteLine("Start a new game by creating a new character.");
         Console.WriteLine();
+
+        if (saveFileManager.HasSaveFile())
+        {
+            var overwriteSave = PromptOverwriteSave();
+            if (!overwriteSave)
+            {
+                return PromptType.MainMenu;
+            }
+
+            Console.WriteLine();
+        }
 
         var gender = PromptGender();
         var lastName = PromptLastName();
         var firstName = PromptFirstName();
 
-        var promptCharacterConfirmation = PromptCharacterConfirmation(firstName, lastName, gender);
+        var promptCharacterConfirmation = PromptCharacterConfirmation(gender, firstName, lastName);
         if (!promptCharacterConfirmation)
         {
             return PromptType.NewGame;
         }
 
-        var newGameState = new GameStateDto(gender, firstName, lastName, 100, 100, 100, 0, 0);
+        var saveGameCreated = SaveGameCreated(gender, firstName, lastName);
+        if (!saveGameCreated)
+        {
+            Console.WriteLine("Something went wrong while saving your new character. Returning to main menu.");
+            Console.WriteLine();
 
-        gameState.Initialize(newGameState);
+            ContinuePrompt();
+
+            return PromptType.MainMenu;
+        }
 
         Console.WriteLine();
-        Console.WriteLine("Your character has been created.");
+        Console.WriteLine("Your character has been created successfully.");
         Console.WriteLine();
 
         ContinuePrompt();
@@ -55,18 +67,11 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
     /// Check if the user wants to overwrite the save file if it exists.
     /// </summary>
     /// <returns>True if the user wants to overwrite the save file, otherwise false.</returns>
-    private bool PromptOverwriteSave()
+    private static bool PromptOverwriteSave()
     {
-        if (!saveFileManager.HasSaveFile())
-        {
-            return true;
-        }
-
         Console.WriteLine("A save file already exists.");
 
-        var overwriteSave = PromptYesNo("Do you wish to overwrite it [y/N]:", false);
-
-        return overwriteSave;
+        return PromptYesNo("Do you wish to overwrite it [y/N]:", false);
     }
 
     /// <summary>
@@ -177,16 +182,38 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
     /// <summary>
     /// Prompt the user to confirm their character's details.
     /// </summary>
+    /// <param name="gender">The chosen gender.</param>
     /// <param name="firstName">The chosen first name.</param>
     /// <param name="lastName">The chosen last name.</param>
-    /// <param name="gender">The chosen gender.</param>
     /// <returns>True if the user confirms their character's details, otherwise false.</returns>
-    private static bool PromptCharacterConfirmation(string firstName, string lastName, Gender gender)
+    private static bool PromptCharacterConfirmation(Gender gender, string firstName, string lastName)
     {
         var promptText = gender == Gender.Male
             ? $"You are Mr. {firstName} {lastName}. Is this correct? [y/n]:"
             : $"You are Mrs. {firstName} {lastName}. Is this correct? [y/n]:";
 
         return PromptYesNo(promptText);
+    }
+
+    /// <summary>
+    /// Attempt to create a new save file and initialize the game state.
+    /// </summary>
+    /// <param name="gender">The chosen gender.</param>
+    /// <param name="firstName">The chosen first name.</param>
+    /// <param name="lastName">The chosen last name.</param>
+    /// <returns>True if the save file was created successfully, otherwise false.</returns>
+    private bool SaveGameCreated(Gender gender, string firstName, string lastName)
+    {
+        var newGameState = new GameStateDto(gender, firstName, lastName, 100, 100, 100, 0, 0);
+
+        var success = saveFileManager.SaveGame(newGameState);
+        if (!success)
+        {
+            return false;
+        }
+
+        gameState.Initialize(newGameState);
+
+        return true;
     }
 }

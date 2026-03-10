@@ -8,5 +8,5 @@ public static class Constants
     public const string DefaultLogFile = "richbound.log";
 
     public const int DisplayDelayTimeMilliseconds = 2000;
-    public const int MaxNameLength = 50;
+    public const int MaxNameLength = 25;
 }

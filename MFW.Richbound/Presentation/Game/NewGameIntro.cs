@@ -2,6 +2,8 @@ using MFW.Richbound.Enumerations;
 
 namespace MFW.Richbound.Presentation.Game;
 
+// TODO: Needs to be tested, to allow this a wrapper should be made for `Thread.Sleep()`.
+
 /// <summary>
 /// Responsible for introducing the player to the game.
 /// </summary>
