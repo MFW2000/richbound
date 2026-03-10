@@ -27,7 +27,7 @@ public static class Program
         var serviceProvider = ConfigureServices();
         var runner = serviceProvider.GetRequiredService<Runner>();
 
-        runner.RunAsync();
+        runner.Run();
     }
 
     /// <summary>

@@ -53,7 +53,7 @@ public class RunnerTests
             .Verifiable(Times.Once);
 
         // Act
-        _sut.RunAsync();
+        _sut.Run();
 
         // Assert
         _mainMenuMock.Verify();

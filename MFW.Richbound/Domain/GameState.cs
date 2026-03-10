@@ -4,6 +4,8 @@ using MFW.Richbound.Models;
 
 namespace MFW.Richbound.Domain;
 
+// TODO: Mostly finished for now, write tests next.
+
 /// <summary>
 /// Implements <see cref="IGameState"/> for representing the state of the game.
 /// </summary>

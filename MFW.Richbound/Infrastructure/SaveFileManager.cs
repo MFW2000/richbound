@@ -4,6 +4,8 @@ using MFW.Richbound.Models;
 
 namespace MFW.Richbound.Infrastructure;
 
+// TODO: Finished, write tests next.
+
 /// <summary>
 /// Implements <see cref="ISaveFileManager"/> for managing save files.
 /// </summary>
