@@ -3,8 +3,6 @@ using MFW.Richbound.Models;
 
 namespace MFW.Richbound.Helpers;
 
-// TODO: Finished, write tests next.
-
 /// <summary>
 /// Provides extension methods for mapping <see cref="IGameState"/> objects to <see cref="GameStateDto"/> objects.
 /// </summary>

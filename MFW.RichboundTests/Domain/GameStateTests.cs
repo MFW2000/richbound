@@ -32,7 +32,7 @@ public class GameStateTests
     }
 
     [TestMethod]
-    public void FullName_EmptyName_ReturnsEmptyString()
+    public void FullName_WithEmptyName_ReturnsEmptyString()
     {
         // Arrange
         var expected = string.Empty;
@@ -49,7 +49,7 @@ public class GameStateTests
     }
 
     [TestMethod]
-    public void Title_Male_ReturnsMr()
+    public void Title_AsMale_ReturnsMr()
     {
         // Arrange
         const string expected = "Mr.";
@@ -66,7 +66,7 @@ public class GameStateTests
     }
 
     [TestMethod]
-    public void Title_Female_ReturnsMs()
+    public void Title_AsFemale_ReturnsMs()
     {
         // Arrange
         const string expected = "Ms.";
