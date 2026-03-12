@@ -54,10 +54,14 @@ public interface IGameState
     string FullName { get; }
 
     /// <summary>
-    /// The player character's title as either Mr. or Ms.
+    /// The player character's title as either 'Mr.' or 'Ms.' based on their gender.
     /// </summary>
     string Title { get; }
 
+    /// <summary>
+    /// Initializes the game state with the provided game state data.
+    /// </summary>
+    /// <param name="gameState">The game state data to initialize the game state with.</param>
     void Initialize(GameStateDto gameState);
 
     /// <summary>
