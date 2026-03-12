@@ -190,7 +190,7 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
     {
         var promptText = gender == Gender.Male
             ? $"You are Mr. {firstName} {lastName}. Is this correct? [y/n]:"
-            : $"You are Mrs. {firstName} {lastName}. Is this correct? [y/n]:";
+            : $"You are Ms. {firstName} {lastName}. Is this correct? [y/n]:";
 
         return PromptYesNo(promptText);
     }

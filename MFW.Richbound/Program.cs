@@ -6,6 +6,7 @@ using MFW.Richbound.Factories.Interfaces;
 using MFW.Richbound.Infrastructure;
 using MFW.Richbound.Infrastructure.Interfaces;
 using MFW.Richbound.Presentation.Game;
+using MFW.Richbound.Presentation.Game.Main;
 using MFW.Richbound.Presentation.Main;
 using MFW.Richbound.Providers;
 using MFW.Richbound.Providers.Interfaces;
@@ -49,6 +50,7 @@ public static class Program
         services.AddSingleton<ISaveFileManager, SaveFileManager>();
         services.AddSingleton<IConsoleLogger, ConsoleLogger>();
         services.AddTransient<IConsoleWrapper, ConsoleWrapper>();
+        services.AddTransient<IThreadWrapper, ThreadWrapper>();
         services.AddTransient<IPromptFactory, PromptFactory>();
 
         // Register runner service to manage application loop.
@@ -58,8 +60,8 @@ public static class Program
         services.AddTransient<MainMenu>();
         services.AddTransient<NewGame>();
         services.AddTransient<LoadGame>();
-        services.AddTransient<NewGameIntro>();
-        services.AddTransient<GameMenu>();
+        services.AddTransient<GameIntro>();
+        services.AddTransient<CharacterMenu>();
 
         return services.BuildServiceProvider();
     }

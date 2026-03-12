@@ -39,6 +39,12 @@ public class GameState : IGameState
     public double BankBalance { get; private set; }
 
     /// <inheritdoc/>
+    public string FullName => $"{FirstName} {LastName}".Trim();
+
+    /// <inheritdoc/>
+    public string Title => Gender == Gender.Male ? "Mr." : "Ms.";
+
+    /// <inheritdoc/>
     public void Initialize(GameStateDto gameState)
     {
         Gender = gameState.Gender;

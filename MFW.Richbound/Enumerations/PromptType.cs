@@ -9,5 +9,5 @@ public enum PromptType
     NewGame,
     LoadGame,
     NewGameIntro,
-    GameMenu
+    CharacterMenu,
 }

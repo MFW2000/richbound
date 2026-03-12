@@ -47,13 +47,6 @@ public class MainMenu(IAssemblyVersionProvider assemblyVersionProvider, IConsole
                     return PromptType.LoadGame;
                 case 3:
                     return null;
-                default:
-                    Console.WriteLine(DisplayText.TooltipInvalidMenuOption);
-
-                    logger.LogWarning(
-                        $"Invalid menu option selected with input '{input}' that should never be reached.");
-
-                    break;
             }
         }
     }

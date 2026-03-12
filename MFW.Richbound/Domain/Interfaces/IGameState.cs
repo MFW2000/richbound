@@ -48,6 +48,16 @@ public interface IGameState
     /// </summary>
     double BankBalance { get; }
 
+    /// <summary>
+    /// The player character's full name.
+    /// </summary>
+    string FullName { get; }
+
+    /// <summary>
+    /// The player character's title as either Mr. or Ms.
+    /// </summary>
+    string Title { get; }
+
     void Initialize(GameStateDto gameState);
 
     /// <summary>

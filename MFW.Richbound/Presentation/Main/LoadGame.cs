@@ -45,7 +45,7 @@ public class LoadGame(ISaveFileManager saveFileManager, IGameState gameState) : 
 
         ContinuePrompt();
 
-        return PromptType.GameMenu;
+        return PromptType.CharacterMenu;
     }
 
     /// <summary>

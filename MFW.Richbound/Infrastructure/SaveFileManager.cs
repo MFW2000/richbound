@@ -14,11 +14,11 @@ public class SaveFileManager(IConsoleLogger consoleLogger) : ISaveFileManager
     private const string SaveFilePath = "save.json";
 
     /// <inheritdoc/>
-    public bool SaveGame(GameStateDto gameStateDto)
+    public bool SaveGame(GameStateDto state)
     {
         try
         {
-            var json = JsonSerializer.Serialize(gameStateDto);
+            var json = JsonSerializer.Serialize(state);
 
             File.WriteAllText(SaveFilePath, json);
 
