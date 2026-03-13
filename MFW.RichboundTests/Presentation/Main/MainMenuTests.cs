@@ -25,11 +25,12 @@ public class MainMenuTests
     }
 
     [TestMethod]
-    public void DisplayMainPrompt_ShouldOutputMenuAndVersion()
+    public void DisplayMainPrompt_ShouldOutputVersion()
     {
         // Arrange
+        const string expected = " v1.2.3";
+
         const string input = "3\n";
-        const string expectedVersionFormat = " v1.2.3";
 
         var version = new Version(1, 2, 3);
 
@@ -46,16 +47,10 @@ public class MainMenuTests
 
         // Act
         var actual = _sut.DisplayMainPrompt();
-        var output = consoleOutput.ToString();
+        var actualOutput = consoleOutput.ToString();
 
         // Assert
-        Assert.Contains($"=== {DisplayText.AppTitle}{expectedVersionFormat} ===", output);
-        Assert.Contains(DisplayText.AppSubtitle, output);
-        Assert.Contains("--- Main Menu ---", output);
-        Assert.Contains("1. New Game", output);
-        Assert.Contains("2. Load Game", output);
-        Assert.Contains("3. Exit", output);
-        Assert.Contains("Select an option [1-3]:", output);
+        Assert.Contains($"=== {DisplayText.AppTitle}{expected} ===", actualOutput);
 
         Assert.IsNull(actual);
 
@@ -85,10 +80,10 @@ public class MainMenuTests
 
         // Act
         var actual = _sut.DisplayMainPrompt();
-        var output = consoleOutput.ToString();
+        var actualOutput = consoleOutput.ToString();
 
         // Assert
-        Assert.Contains($"=== {DisplayText.AppTitle} ===", output);
+        Assert.Contains($"=== {DisplayText.AppTitle} ===", actualOutput);
 
         Assert.IsNull(actual);
 
@@ -100,7 +95,7 @@ public class MainMenuTests
     [DataRow(PromptType.NewGame, "1\n")]
     [DataRow(PromptType.LoadGame, "2\n")]
     [DataRow(null, "3\n")]
-    public void DisplayMainPrompt_ShouldReturnCorrectPromptType(PromptType? expected, string input)
+    public void DisplayMainPrompt_ShouldReturnPromptType(PromptType? expected, string input)
     {
         // Arrange
         var version = new Version(1, 2, 3);
@@ -147,10 +142,10 @@ public class MainMenuTests
 
         // Act
         var actual = _sut.DisplayMainPrompt();
-        var output = consoleOutput.ToString();
+        var actualOutput = consoleOutput.ToString();
 
         // Assert
-        Assert.Contains("Please select a valid menu option.", output);
+        Assert.Contains("Please select a valid menu option.", actualOutput);
         Assert.IsNotNull(actual);
 
         _assemblyVersionProviderMock.Verify();

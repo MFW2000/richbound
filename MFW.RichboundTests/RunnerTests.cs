@@ -35,7 +35,7 @@ public class RunnerTests
     }
 
     [TestMethod]
-    public void Run_NavigatesToExit()
+    public void Run_ShouldNavigateToExit()
     {
         // Arrange
         _mainMenuMock

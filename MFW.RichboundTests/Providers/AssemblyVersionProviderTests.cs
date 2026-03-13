@@ -20,7 +20,7 @@ public class AssemblyVersionProviderTests
     }
 
     [TestMethod]
-    public void GetVersion_WithFoundVersion_ReturnsVersion()
+    public void GetVersion_ShouldReturnVersion()
     {
         // Arrange
         var expected = new Version(1, 2, 3);
@@ -45,7 +45,7 @@ public class AssemblyVersionProviderTests
     }
 
     [TestMethod]
-    public void GetVersion_WithVersionNotFound_ReturnsNull()
+    public void GetVersion_WithVersionNotFound_ShouldReturnNull()
     {
         // Arrange
         Version? expected = null;
