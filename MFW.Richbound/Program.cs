@@ -49,6 +49,7 @@ public static class Program
         services.AddSingleton<IGameState, GameState>();
         services.AddSingleton<ISaveFileManager, SaveFileManager>();
         services.AddSingleton<IConsoleLogger, ConsoleLogger>();
+        services.AddTransient<IGameStateMapper, GameStateMapper>();
         services.AddTransient<IConsoleWrapper, ConsoleWrapper>();
         services.AddTransient<IThreadWrapper, ThreadWrapper>();
         services.AddTransient<IPromptFactory, PromptFactory>();

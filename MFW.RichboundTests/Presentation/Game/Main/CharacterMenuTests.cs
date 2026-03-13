@@ -11,6 +11,7 @@ public class CharacterMenuTests
 {
     private Mock<ISaveFileManager> _saveFileManagerMock = null!;
     private Mock<IGameState> _gameStateMock = null!;
+    private Mock<IGameStateMapper> _gameStateMapperMock = null!;
     private Mock<IConsoleLogger> _consoleLoggerMock = null!;
 
     private CharacterMenu _sut = null!;
@@ -20,9 +21,14 @@ public class CharacterMenuTests
     {
         _saveFileManagerMock = new Mock<ISaveFileManager>(MockBehavior.Strict);
         _gameStateMock = new Mock<IGameState>(MockBehavior.Strict);
+        _gameStateMapperMock = new Mock<IGameStateMapper>(MockBehavior.Strict);
         _consoleLoggerMock = new Mock<IConsoleLogger>(MockBehavior.Strict);
 
-        _sut = new CharacterMenu(_saveFileManagerMock.Object, _gameStateMock.Object, _consoleLoggerMock.Object);
+        _sut = new CharacterMenu(
+            _saveFileManagerMock.Object,
+            _gameStateMock.Object,
+            _gameStateMapperMock.Object,
+            _consoleLoggerMock.Object);
     }
 
     [TestMethod]

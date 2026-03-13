@@ -9,7 +9,12 @@ namespace MFW.Richbound.Presentation.Game.Main;
 /// Responsible for showing player character information and providing options for interacting with the character.
 /// This also includes the ability to save and exit the game.
 /// </summary>
-public class CharacterMenu(ISaveFileManager saveFileManager, IGameState gameState, IConsoleLogger logger) : Prompt
+public class CharacterMenu(
+    ISaveFileManager saveFileManager,
+    IGameState gameState,
+    IGameStateMapper mapper,
+    IConsoleLogger logger)
+    : Prompt
 {
     /// <inheritdoc/>
     public override PromptType? DisplayMainPrompt()
@@ -108,8 +113,7 @@ public class CharacterMenu(ISaveFileManager saveFileManager, IGameState gameStat
     /// <returns>True if the game was saved successfully, otherwise false.</returns>
     private bool TrySaveGameAndNotify()
     {
-        var state = gameState.MapToGameStateDto();
-        var success = saveFileManager.SaveGame(state);
+        var success = saveFileManager.SaveGame(mapper.MapToDto(gameState));
 
         if (!success)
         {
