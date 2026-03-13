@@ -5,6 +5,10 @@ using MFW.Richbound.Infrastructure.Interfaces;
 
 namespace MFW.Richbound.Presentation.Game.Main;
 
+/// <summary>
+/// Responsible for showing player character information and providing options for interacting with the character.
+/// This also includes the ability to save and exit the game.
+/// </summary>
 public class CharacterMenu(ISaveFileManager saveFileManager, IGameState gameState, IConsoleLogger logger) : Prompt
 {
     /// <inheritdoc/>
@@ -56,6 +60,10 @@ public class CharacterMenu(ISaveFileManager saveFileManager, IGameState gameStat
         }
     }
 
+    /// <summary>
+    /// Prompt the user to save their game.
+    /// </summary>
+    /// <returns>Back to the <see cref="CharacterMenu"/> prompt.</returns>
     private PromptType PromptSaveGame()
     {
         Console.WriteLine();
@@ -69,6 +77,11 @@ public class CharacterMenu(ISaveFileManager saveFileManager, IGameState gameStat
         return PromptType.CharacterMenu;
     }
 
+    /// <summary>
+    /// Prompt the user to confirm if they want to save their game before exiting.
+    /// </summary>
+    /// <param name="destination">The target destination.</param>
+    /// <returns>The destination prompt to return to after saving or exiting.</returns>
     private PromptType? PromptLeaveGame(PromptType? destination)
     {
         var confirm = PromptYesNo("Do you want to save your game before exiting? [Y/n]:", true);
@@ -89,6 +102,10 @@ public class CharacterMenu(ISaveFileManager saveFileManager, IGameState gameStat
         return success ? destination : PromptType.CharacterMenu;
     }
 
+    /// <summary>
+    /// Attempt to save the game and notify the user of the result.
+    /// </summary>
+    /// <returns>True if the game was saved successfully, otherwise false.</returns>
     private bool TrySaveGameAndNotify()
     {
         var state = gameState.MapToGameStateDto();
