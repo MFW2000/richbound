@@ -1,4 +1,5 @@
-﻿using MFW.Richbound.Domain.Interfaces;
+﻿using MFW.Richbound;
+using MFW.Richbound.Domain.Interfaces;
 using MFW.Richbound.Enumerations;
 using MFW.Richbound.Infrastructure.Interfaces;
 using MFW.Richbound.Presentation.Game.Main;
@@ -39,7 +40,10 @@ public class CharacterMenuTests
 
         const string input = "5\nno\n";
 
-        _gameStateMock.SetupGet(x => x.FullName).Returns(expectedFullName);
+        _gameStateMock
+            .SetupGet(x => x.FullName)
+            .Returns(expectedFullName)
+            .Verifiable(Times.Once);
 
         var consoleInput = new StringReader(input);
         var consoleOutput = new StringWriter();
@@ -54,7 +58,9 @@ public class CharacterMenuTests
         // Assert
         Assert.Contains(expectedFullName, actualOutput);
 
-        Assert.AreEqual(PromptType.MainMenu, actual);
+        Assert.IsNull(actual);
+
+        _gameStateMock.Verify();
     }
 
     [TestMethod]
@@ -97,5 +103,302 @@ public class CharacterMenuTests
 
         // Assert
         Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void DisplayMainPrompt_SaveGameSelected_ShouldReturnPromptType()
+    {
+        // Arrange
+        const PromptType expected = PromptType.CharacterMenu;
+
+        const string input = "3\n";
+
+        var gameStateDto = TestHelper.GetGameStateDto();
+
+        _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
+
+        _gameStateMapperMock
+            .Setup(x => x.MapToDto(_gameStateMock.Object))
+            .Returns(gameStateDto)
+            .Verifiable(Times.Once);
+
+        _saveFileManagerMock
+            .Setup(x => x.SaveGame(gameStateDto))
+            .Returns(true)
+            .Verifiable(Times.Once);
+
+        var consoleInput = new StringReader(input);
+        var consoleOutput = new StringWriter();
+
+        Console.SetIn(consoleInput);
+        Console.SetOut(consoleOutput);
+
+        // Act
+        var actual = _sut.DisplayMainPrompt();
+        var actualOutput = consoleOutput.ToString();
+
+        // Assert
+        Assert.AreEqual(expected, actual);
+        Assert.Contains("Game saved successfully.", actualOutput);
+
+        _gameStateMapperMock.Verify();
+        _saveFileManagerMock.Verify();
+    }
+
+    [TestMethod]
+    public void DisplayMainPrompt_SaveGameSelected_SaveFails_ShouldReturnPromptType()
+    {
+        // Arrange
+        const PromptType expected = PromptType.CharacterMenu;
+
+        const string input = "3\n";
+
+        var gameStateDto = TestHelper.GetGameStateDto();
+
+        _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
+
+        _gameStateMapperMock
+            .Setup(x => x.MapToDto(_gameStateMock.Object))
+            .Returns(gameStateDto)
+            .Verifiable(Times.Once);
+
+        _saveFileManagerMock
+            .Setup(x => x.SaveGame(gameStateDto))
+            .Returns(false)
+            .Verifiable(Times.Once);
+
+        _consoleLoggerMock
+            .Setup(x => x.LogError($"Failed to save game from {nameof(CharacterMenu)}.", Constants.DefaultLogFile))
+            .Verifiable(Times.Once);
+
+        var consoleInput = new StringReader(input);
+        var consoleOutput = new StringWriter();
+
+        Console.SetIn(consoleInput);
+        Console.SetOut(consoleOutput);
+
+        // Act
+        var actual = _sut.DisplayMainPrompt();
+        var actualOutput = consoleOutput.ToString();
+
+        // Assert
+        Assert.AreEqual(expected, actual);
+        Assert.Contains("Something went wrong while saving your game, aborting.", actualOutput);
+
+        _gameStateMapperMock.Verify();
+        _saveFileManagerMock.Verify();
+        _consoleLoggerMock.Verify();
+    }
+
+    [TestMethod]
+    public void DisplayMainPrompt_MainMenuSelectedWithoutSave_ShouldReturnPromptType()
+    {
+        // Arrange
+        const PromptType expected = PromptType.MainMenu;
+
+        const string input = "4\nno\n";
+
+        _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
+
+        var consoleInput = new StringReader(input);
+
+        Console.SetIn(consoleInput);
+
+        // Act
+        var actual = _sut.DisplayMainPrompt();
+
+        // Assert
+        Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void DisplayMainPrompt_MainMenuSelectedWithSave_ShouldReturnPromptType()
+    {
+        // Arrange
+        const PromptType expected = PromptType.MainMenu;
+
+        const string input = "4\n\n";
+
+        var gameStateDto = TestHelper.GetGameStateDto();
+
+        _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
+
+        _gameStateMapperMock
+            .Setup(x => x.MapToDto(_gameStateMock.Object))
+            .Returns(gameStateDto)
+            .Verifiable(Times.Once);
+
+        _saveFileManagerMock
+            .Setup(x => x.SaveGame(gameStateDto))
+            .Returns(true)
+            .Verifiable(Times.Once);
+
+        var consoleInput = new StringReader(input);
+        var consoleOutput = new StringWriter();
+
+        Console.SetIn(consoleInput);
+        Console.SetOut(consoleOutput);
+
+        // Act
+        var actual = _sut.DisplayMainPrompt();
+        var actualOutput = consoleOutput.ToString();
+
+        // Assert
+        Assert.AreEqual(expected, actual);
+        Assert.Contains("Game saved successfully.", actualOutput);
+
+        _gameStateMapperMock.Verify();
+        _saveFileManagerMock.Verify();
+    }
+
+    [TestMethod]
+    public void DisplayMainPrompt_MainMenuSelectedWithSave_SaveFails_ShouldReturnPromptType()
+    {
+        // Arrange
+        const PromptType expected = PromptType.CharacterMenu;
+
+        const string input = "4\n\n";
+
+        var gameStateDto = TestHelper.GetGameStateDto();
+
+        _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
+
+        _gameStateMapperMock
+            .Setup(x => x.MapToDto(_gameStateMock.Object))
+            .Returns(gameStateDto)
+            .Verifiable(Times.Once);
+
+        _saveFileManagerMock
+            .Setup(x => x.SaveGame(gameStateDto))
+            .Returns(false)
+            .Verifiable(Times.Once);
+
+        _consoleLoggerMock
+            .Setup(x => x.LogError($"Failed to save game from {nameof(CharacterMenu)}.", Constants.DefaultLogFile))
+            .Verifiable(Times.Once);
+
+        var consoleInput = new StringReader(input);
+        var consoleOutput = new StringWriter();
+
+        Console.SetIn(consoleInput);
+        Console.SetOut(consoleOutput);
+
+        // Act
+        var actual = _sut.DisplayMainPrompt();
+        var actualOutput = consoleOutput.ToString();
+
+        // Assert
+        Assert.AreEqual(expected, actual);
+        Assert.Contains("Something went wrong while saving your game, aborting.", actualOutput);
+
+        _gameStateMapperMock.Verify();
+        _saveFileManagerMock.Verify();
+        _consoleLoggerMock.Verify();
+    }
+
+    [TestMethod]
+    public void DisplayMainPrompt_ExitGameSelectedWithoutSave_ShouldReturnNull()
+    {
+        // Arrange
+        PromptType? expected = null;
+
+        const string input = "5\nno\n";
+
+        _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
+
+        var consoleInput = new StringReader(input);
+
+        Console.SetIn(consoleInput);
+
+        // Act
+        var actual = _sut.DisplayMainPrompt();
+
+        // Assert
+        Assert.AreEqual(expected, actual);
+    }
+
+    [TestMethod]
+    public void DisplayMainPrompt_ExitGameSelectedWithSave_ShouldReturnNull()
+    {
+        // Arrange
+        PromptType? expected = null;
+
+        const string input = "5\n\n";
+
+        var gameStateDto = TestHelper.GetGameStateDto();
+
+        _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
+
+        _gameStateMapperMock
+            .Setup(x => x.MapToDto(_gameStateMock.Object))
+            .Returns(gameStateDto)
+            .Verifiable(Times.Once);
+
+        _saveFileManagerMock
+            .Setup(x => x.SaveGame(gameStateDto))
+            .Returns(true)
+            .Verifiable(Times.Once);
+
+        var consoleInput = new StringReader(input);
+        var consoleOutput = new StringWriter();
+
+        Console.SetIn(consoleInput);
+        Console.SetOut(consoleOutput);
+
+        // Act
+        var actual = _sut.DisplayMainPrompt();
+        var actualOutput = consoleOutput.ToString();
+
+        // Assert
+        Assert.AreEqual(expected, actual);
+        Assert.Contains("Game saved successfully.", actualOutput);
+
+        _gameStateMapperMock.Verify();
+        _saveFileManagerMock.Verify();
+    }
+
+    [TestMethod]
+    public void DisplayMainPrompt_ExitGameSelectedWithSave_SaveFails_ShouldReturnPromptType()
+    {
+        // Arrange
+        const PromptType expected = PromptType.CharacterMenu;
+
+        const string input = "5\n\n";
+
+        var gameStateDto = TestHelper.GetGameStateDto();
+
+        _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
+
+        _gameStateMapperMock
+            .Setup(x => x.MapToDto(_gameStateMock.Object))
+            .Returns(gameStateDto)
+            .Verifiable(Times.Once);
+
+        _saveFileManagerMock
+            .Setup(x => x.SaveGame(gameStateDto))
+            .Returns(false)
+            .Verifiable(Times.Once);
+
+        _consoleLoggerMock
+            .Setup(x => x.LogError($"Failed to save game from {nameof(CharacterMenu)}.", Constants.DefaultLogFile))
+            .Verifiable(Times.Once);
+
+        var consoleInput = new StringReader(input);
+        var consoleOutput = new StringWriter();
+
+        Console.SetIn(consoleInput);
+        Console.SetOut(consoleOutput);
+
+        // Act
+        var actual = _sut.DisplayMainPrompt();
+        var actualOutput = consoleOutput.ToString();
+
+        // Assert
+        Assert.AreEqual(expected, actual);
+        Assert.Contains("Something went wrong while saving your game, aborting.", actualOutput);
+
+        _gameStateMapperMock.Verify();
+        _saveFileManagerMock.Verify();
+        _consoleLoggerMock.Verify();
     }
 }

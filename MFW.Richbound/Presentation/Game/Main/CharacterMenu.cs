@@ -29,8 +29,8 @@ public class CharacterMenu(
         Console.WriteLine("1. Close");
         Console.WriteLine("2. Inventory");
         Console.WriteLine("3. Save Game");
-        Console.WriteLine("4. Exit Game");
-        Console.WriteLine("5. Main Menu");
+        Console.WriteLine("4. Main Menu");
+        Console.WriteLine("5. Exit Game");
         Console.WriteLine("Select an option [1-5]:");
 
         while (true)
@@ -58,9 +58,9 @@ public class CharacterMenu(
                 case 3:
                     return PromptSaveGame();
                 case 4:
-                    return PromptLeaveGame(null);
-                case 5:
                     return PromptLeaveGame(PromptType.MainMenu);
+                case 5:
+                    return PromptLeaveGame(null);
             }
         }
     }
