@@ -7,7 +7,7 @@ namespace MFW.RichboundTests.Helpers;
 public class GameStateMappingExtensionsTests
 {
     [TestMethod]
-    public void MapToGameStateDto_MapsToGameStateDto()
+    public void MapToGameStateDto_ShouldMapToGameStateDto()
     {
         // Arrange
         var expected = TestHelper.GetGameStateDto();

@@ -43,16 +43,16 @@ public class GameState : IGameState
     public string Title => Gender == Gender.Male ? "Mr." : "Ms.";
 
     /// <inheritdoc/>
-    public void Initialize(GameStateDto gameState)
+    public void Initialize(GameStateDto gameStateDto)
     {
-        Gender = gameState.Gender;
-        FirstName = gameState.FirstName;
-        LastName = gameState.LastName;
-        Health = gameState.Health;
-        Hunger = gameState.Hunger;
-        Thirst = gameState.Thirst;
-        PocketMoney = gameState.PocketMoney;
-        BankBalance = gameState.BankBalance;
+        Gender = gameStateDto.Gender;
+        FirstName = gameStateDto.FirstName;
+        LastName = gameStateDto.LastName;
+        Health = gameStateDto.Health;
+        Hunger = gameStateDto.Hunger;
+        Thirst = gameStateDto.Thirst;
+        PocketMoney = gameStateDto.PocketMoney;
+        BankBalance = gameStateDto.BankBalance;
     }
 
     /// <inheritdoc/>

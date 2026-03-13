@@ -8,7 +8,7 @@ namespace MFW.RichboundTests.Helpers;
 public class PromptHelperTests
 {
     [TestMethod]
-    public void ReadString_WithAllowEmpty_ReturnsEmptyString()
+    public void ReadString_WithAllowEmpty_ShouldReturnEmptyString()
     {
         // Arrange
         var expected = string.Empty;
@@ -26,7 +26,7 @@ public class PromptHelperTests
     }
 
     [TestMethod]
-    public void ReadString_WithoutAllowEmpty_ThrowsInputEmptyException()
+    public void ReadString_WithoutAllowEmpty_ShouldThrowInputEmptyException()
     {
         // Arrange
         const string input = "\n";
@@ -39,7 +39,7 @@ public class PromptHelperTests
     }
 
     [TestMethod]
-    public void ReadString_WithTrim_ReturnsTrimmedString()
+    public void ReadString_WithTrim_ShouldReturnTrimmedString()
     {
         // Arrange
         const string expected = "untrimmed string";
@@ -57,7 +57,7 @@ public class PromptHelperTests
     }
 
     [TestMethod]
-    public void ReadString_WithoutTrim_ReturnsUntrimmedString()
+    public void ReadString_WithoutTrim_ShouldReturnUntrimmedString()
     {
         // Arrange
         const string expected = " untrimmed string ";
@@ -75,7 +75,7 @@ public class PromptHelperTests
     }
 
     [TestMethod]
-    public void ReadString_WithinMaxLength_ReturnsString()
+    public void ReadString_WithinMaxLength_ShouldReturnString()
     {
         // Arrange
         const string expected = "12345";
@@ -93,7 +93,7 @@ public class PromptHelperTests
     }
 
     [TestMethod]
-    public void ReadString_OverMaxLength_ThrowsInputOutOfRangeException()
+    public void ReadString_OverMaxLength_ShouldThrowInputOutOfRangeException()
     {
         // Arrange
         const string input = "123456\n";
@@ -106,7 +106,7 @@ public class PromptHelperTests
     }
 
     [TestMethod]
-    public void ReadString_MatchesRegex_ReturnsString()
+    public void ReadString_MatchesRegex_ShouldReturnString()
     {
         // Arrange
         const string expected = "12345";
@@ -123,7 +123,7 @@ public class PromptHelperTests
     }
 
     [TestMethod]
-    public void ReadString_WithRegexMismatch_ThrowsInputRegexMismatchException()
+    public void ReadString_WithRegexMismatch_ShouldThrowInputRegexMismatchException()
     {
         // Arrange
         const string input = "mismatch\n";
@@ -136,7 +136,7 @@ public class PromptHelperTests
     }
 
     [TestMethod]
-    public void ReadInt_WithNoIntInput_ThrowsFormatException()
+    public void ReadInt_WithNoIntInput_ShouldThrowFormatException()
     {
         // Arrange
         const string input = "not an integer\n";
@@ -148,7 +148,7 @@ public class PromptHelperTests
     }
 
     [TestMethod]
-    public void ReadInt_WithAllowEmpty_ReturnsNull()
+    public void ReadInt_WithAllowEmpty_ShouldReturnNull()
     {
         // Arrange
         const string input = "\n";
@@ -164,7 +164,7 @@ public class PromptHelperTests
     }
 
     [TestMethod]
-    public void ReadInt_WithoutAllowEmpty_ThrowsInputEmptyException()
+    public void ReadInt_WithoutAllowEmpty_ShouldThrowInputEmptyException()
     {
         // Arrange
         const string input = "\n";
@@ -177,7 +177,7 @@ public class PromptHelperTests
     }
 
     [TestMethod]
-    public void ReadInt_WithinMinRange_ReturnsInt()
+    public void ReadInt_WithinMinRange_ShouldReturnInt()
     {
         // Arrange
         const int expected = 100;
@@ -195,7 +195,7 @@ public class PromptHelperTests
     }
 
     [TestMethod]
-    public void ReadInt_OutOfMinRange_ThrowsInputOutOfRangeException()
+    public void ReadInt_OutOfMinRange_ShouldThrowInputOutOfRangeException()
     {
         // Arrange
         const string input = "99\n";
@@ -208,7 +208,7 @@ public class PromptHelperTests
     }
 
     [TestMethod]
-    public void ReadInt_WithinMaxRange_ReturnsInt()
+    public void ReadInt_WithinMaxRange_ShouldReturnInt()
     {
         // Arrange
         const int expected = 100;
@@ -226,7 +226,7 @@ public class PromptHelperTests
     }
 
     [TestMethod]
-    public void ReadInt_OutOfMaxRange_ThrowsInputOutOfRangeException()
+    public void ReadInt_OutOfMaxRange_ShouldThrowInputOutOfRangeException()
     {
         // Arrange
         const string input = "101\n";

@@ -10,9 +10,9 @@ public interface ISaveFileManager
     /// <summary>
     /// Saves the specified game state from a point in time to a JSON file.
     /// </summary>
-    /// <param name="state">The game state to save.</param>
+    /// <param name="gameStateDto">The game state snapshot to save.</param>
     /// <returns>True if the save operation was successful, otherwise false.</returns>
-    bool SaveGame(GameStateDto state);
+    bool SaveGame(GameStateDto gameStateDto);
 
     /// <summary>
     /// Loads the game state from a JSON file.

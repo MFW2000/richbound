@@ -15,14 +15,14 @@ public class GameStateTests
     }
 
     [TestMethod]
-    public void FullName_ReturnsFullName()
+    public void FullName_ShouldReturnFullName()
     {
         // Arrange
         const string expected = "John Doe";
 
-        var state = TestHelper.GetGameStateDto();
+        var gameStateDto = TestHelper.GetGameStateDto();
 
-        _sut.Initialize(state);
+        _sut.Initialize(gameStateDto);
 
         // Act
         var actual = _sut.FullName;
@@ -32,14 +32,14 @@ public class GameStateTests
     }
 
     [TestMethod]
-    public void FullName_WithEmptyName_ReturnsEmptyString()
+    public void FullName_WithEmptyName_ShouldReturnEmptyString()
     {
         // Arrange
         var expected = string.Empty;
 
-        var state = TestHelper.GetGameStateDto(firstName: string.Empty, lastName: string.Empty);
+        var gameStateDto = TestHelper.GetGameStateDto(firstName: string.Empty, lastName: string.Empty);
 
-        _sut.Initialize(state);
+        _sut.Initialize(gameStateDto);
 
         // Act
         var actual = _sut.FullName;
@@ -49,14 +49,14 @@ public class GameStateTests
     }
 
     [TestMethod]
-    public void Title_AsMale_ReturnsMr()
+    public void Title_AsMale_ShouldReturnMr()
     {
         // Arrange
         const string expected = "Mr.";
 
-        var state = TestHelper.GetGameStateDto();
+        var gameStateDto = TestHelper.GetGameStateDto();
 
-        _sut.Initialize(state);
+        _sut.Initialize(gameStateDto);
 
         // Act
         var actual = _sut.Title;
@@ -66,14 +66,14 @@ public class GameStateTests
     }
 
     [TestMethod]
-    public void Title_AsFemale_ReturnsMs()
+    public void Title_AsFemale_ShouldReturnMs()
     {
         // Arrange
         const string expected = "Ms.";
 
-        var state = TestHelper.GetGameStateDto(gender: Gender.Female, firstName: "Jane");
+        var gameStateDto = TestHelper.GetGameStateDto(gender: Gender.Female);
 
-        _sut.Initialize(state);
+        _sut.Initialize(gameStateDto);
 
         // Act
         var actual = _sut.Title;
@@ -87,12 +87,12 @@ public class GameStateTests
     [DataRow(90, 10, 100)]
     [DataRow(100, 10, 100)]
     [DataRow(0, -10, 0)]
-    public void UpdateHealth_UpdatesHealth(int current, int delta, int expected)
+    public void UpdateHealth_ShouldUpdateHealth(int current, int delta, int expected)
     {
         // Arrange
-        var state = TestHelper.GetGameStateDto(health: current);
+        var gameStateDto = TestHelper.GetGameStateDto(health: current);
 
-        _sut.Initialize(state);
+        _sut.Initialize(gameStateDto);
 
         // Act
         _sut.UpdateHealth(delta);
@@ -108,12 +108,12 @@ public class GameStateTests
     [DataRow(90, 10, 100)]
     [DataRow(100, 10, 100)]
     [DataRow(0, -10, 0)]
-    public void UpdateHunger_UpdatesHunger(int current, int delta, int expected)
+    public void UpdateHunger_ShouldUpdateHunger(int current, int delta, int expected)
     {
         // Arrange
-        var state = TestHelper.GetGameStateDto(hunger: current);
+        var gameStateDto = TestHelper.GetGameStateDto(hunger: current);
 
-        _sut.Initialize(state);
+        _sut.Initialize(gameStateDto);
 
         // Act
         _sut.UpdateHunger(delta);
@@ -129,12 +129,12 @@ public class GameStateTests
     [DataRow(90, 10, 100)]
     [DataRow(100, 10, 100)]
     [DataRow(0, -10, 0)]
-    public void UpdateThirst_UpdatesThirst(int current, int delta, int expected)
+    public void UpdateThirst_ShouldUpdateThirst(int current, int delta, int expected)
     {
         // Arrange
-        var state = TestHelper.GetGameStateDto(thirst: current);
+        var gameStateDto = TestHelper.GetGameStateDto(thirst: current);
 
-        _sut.Initialize(state);
+        _sut.Initialize(gameStateDto);
 
         // Act
         _sut.UpdateThirst(delta);
@@ -150,12 +150,12 @@ public class GameStateTests
     [DataRow(10, -10, 0)]
     [DataRow(0, -10, 0)]
     [DataRow(double.MaxValue, 10, double.MaxValue)]
-    public void UpdatePocketMoney_UpdatesPocketMoney(double current, double delta, double expected)
+    public void UpdatePocketMoney_ShouldUpdatePocketMoney(double current, double delta, double expected)
     {
         // Arrange
-        var state = TestHelper.GetGameStateDto(pocketMoney: current);
+        var gameStateDto = TestHelper.GetGameStateDto(pocketMoney: current);
 
-        _sut.Initialize(state);
+        _sut.Initialize(gameStateDto);
 
         // Act
         _sut.UpdatePocketMoney(delta);
@@ -172,12 +172,12 @@ public class GameStateTests
     [DataRow(0, -10, -10)]
     [DataRow(double.MaxValue, 10, double.MaxValue)]
     [DataRow(double.MinValue, -10, double.MinValue)]
-    public void UpdateBankBalance_UpdatesBankBalance(double current, double delta, double expected)
+    public void UpdateBankBalance_ShouldUpdateBankBalance(double current, double delta, double expected)
     {
         // Arrange
-        var state = TestHelper.GetGameStateDto(bankBalance: current);
+        var gameStateDto = TestHelper.GetGameStateDto(bankBalance: current);
 
-        _sut.Initialize(state);
+        _sut.Initialize(gameStateDto);
 
         // Act
         _sut.UpdateBankBalance(delta);

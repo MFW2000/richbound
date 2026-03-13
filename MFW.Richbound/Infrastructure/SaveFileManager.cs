@@ -4,23 +4,19 @@ using MFW.Richbound.Models;
 
 namespace MFW.Richbound.Infrastructure;
 
-// TODO: Finished, write tests next.
-
 /// <summary>
 /// Implements <see cref="ISaveFileManager"/> for managing save files.
 /// </summary>
 public class SaveFileManager(IConsoleLogger consoleLogger) : ISaveFileManager
 {
-    private const string SaveFilePath = "save.json";
-
     /// <inheritdoc/>
-    public bool SaveGame(GameStateDto state)
+    public bool SaveGame(GameStateDto gameStateDto)
     {
         try
         {
-            var json = JsonSerializer.Serialize(state);
+            var json = JsonSerializer.Serialize(gameStateDto);
 
-            File.WriteAllText(SaveFilePath, json);
+            File.WriteAllText(Constants.DefaultSaveFile, json);
 
             return true;
         }
@@ -37,7 +33,7 @@ public class SaveFileManager(IConsoleLogger consoleLogger) : ISaveFileManager
     {
         try
         {
-            var json = File.ReadAllText(SaveFilePath);
+            var json = File.ReadAllText(Constants.DefaultSaveFile);
 
             return JsonSerializer.Deserialize<GameStateDto>(json);
         }
@@ -52,6 +48,6 @@ public class SaveFileManager(IConsoleLogger consoleLogger) : ISaveFileManager
     /// <inheritdoc/>
     public bool HasSaveFile()
     {
-        return File.Exists(SaveFilePath);
+        return File.Exists(Constants.DefaultSaveFile);
     }
 }

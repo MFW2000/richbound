@@ -61,8 +61,8 @@ public interface IGameState
     /// <summary>
     /// Initializes the game state with the provided game state data.
     /// </summary>
-    /// <param name="gameState">The game state data to initialize the game state with.</param>
-    void Initialize(GameStateDto gameState);
+    /// <param name="gameStateDto">The game state data to initialize the game state with.</param>
+    void Initialize(GameStateDto gameStateDto);
 
     /// <summary>
     /// Updates the player character's health points up to a maximum of 100 and a minimum of 0.
