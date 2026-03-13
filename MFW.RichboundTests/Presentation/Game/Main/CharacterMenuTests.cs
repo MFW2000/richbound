@@ -38,7 +38,7 @@ public class CharacterMenuTests
         // Arrange
         const string expectedFullName = "John Doe";
 
-        const string input = "5\nno\n";
+        const string input = "5\nN\n";
 
         _gameStateMock
             .SetupGet(x => x.FullName)
@@ -64,7 +64,7 @@ public class CharacterMenuTests
     }
 
     [TestMethod]
-    public void DisplayMainPrompt_CloseSelected_ShouldReturnPromptType()
+    public void DisplayMainPrompt_CloseSelected_ShouldReturnCharacterMenu()
     {
         // Arrange
         const PromptType expected = PromptType.CharacterMenu;
@@ -85,7 +85,7 @@ public class CharacterMenuTests
     }
 
     [TestMethod]
-    public void DisplayMainPrompt_InventorySelected_ShouldReturnPromptType()
+    public void DisplayMainPrompt_InventorySelected_ShouldReturnCharacterMenu()
     {
         // Arrange
         const PromptType expected = PromptType.CharacterMenu;
@@ -106,7 +106,7 @@ public class CharacterMenuTests
     }
 
     [TestMethod]
-    public void DisplayMainPrompt_SaveGameSelected_ShouldReturnPromptType()
+    public void DisplayMainPrompt_SaveGameSelected_ShouldReturnCharacterMenu()
     {
         // Arrange
         const PromptType expected = PromptType.CharacterMenu;
@@ -146,7 +146,7 @@ public class CharacterMenuTests
     }
 
     [TestMethod]
-    public void DisplayMainPrompt_SaveGameSelected_SaveFails_ShouldReturnPromptType()
+    public void DisplayMainPrompt_SaveGameSelected_SaveFails_ShouldReturnCharacterMenu()
     {
         // Arrange
         const PromptType expected = PromptType.CharacterMenu;
@@ -191,12 +191,12 @@ public class CharacterMenuTests
     }
 
     [TestMethod]
-    public void DisplayMainPrompt_MainMenuSelectedWithoutSave_ShouldReturnPromptType()
+    public void DisplayMainPrompt_MainMenuSelectedWithoutSave_ShouldReturnMainMenu()
     {
         // Arrange
         const PromptType expected = PromptType.MainMenu;
 
-        const string input = "4\nno\n";
+        const string input = "4\nN\n";
 
         _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
 
@@ -212,7 +212,7 @@ public class CharacterMenuTests
     }
 
     [TestMethod]
-    public void DisplayMainPrompt_MainMenuSelectedWithSave_ShouldReturnPromptType()
+    public void DisplayMainPrompt_MainMenuSelectedWithSave_ShouldReturnMainMenu()
     {
         // Arrange
         const PromptType expected = PromptType.MainMenu;
@@ -252,7 +252,7 @@ public class CharacterMenuTests
     }
 
     [TestMethod]
-    public void DisplayMainPrompt_MainMenuSelectedWithSave_SaveFails_ShouldReturnPromptType()
+    public void DisplayMainPrompt_MainMenuSelectedWithSave_SaveFails_ShouldReturnCharacterMenu()
     {
         // Arrange
         const PromptType expected = PromptType.CharacterMenu;
@@ -302,7 +302,7 @@ public class CharacterMenuTests
         // Arrange
         PromptType? expected = null;
 
-        const string input = "5\nno\n";
+        const string input = "5\nN\n";
 
         _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
 
@@ -358,7 +358,7 @@ public class CharacterMenuTests
     }
 
     [TestMethod]
-    public void DisplayMainPrompt_ExitGameSelectedWithSave_SaveFails_ShouldReturnPromptType()
+    public void DisplayMainPrompt_ExitGameSelectedWithSave_SaveFails_ShouldReturnCharacterMenu()
     {
         // Arrange
         const PromptType expected = PromptType.CharacterMenu;
@@ -400,5 +400,54 @@ public class CharacterMenuTests
         _gameStateMapperMock.Verify();
         _saveFileManagerMock.Verify();
         _consoleLoggerMock.Verify();
+    }
+
+    [TestMethod]
+    [DataRow("\n5\nN\n")]
+    [DataRow("6\n5\nN\n")]
+    [DataRow("0\n5\nN\n")]
+    [DataRow("-1\n5\nN\n")]
+    [DataRow("TEST\n5\nN\n")]
+    public void DisplayMainPrompt_WithInvalidInput_ShouldOutputError(string input)
+    {
+        // Arrange
+        _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
+
+        var consoleInput = new StringReader(input);
+        var consoleOutput = new StringWriter();
+
+        Console.SetIn(consoleInput);
+        Console.SetOut(consoleOutput);
+
+        // Act
+        var actual = _sut.DisplayMainPrompt();
+        var actualOutput = consoleOutput.ToString();
+
+        // Assert
+        Assert.Contains("Please select a valid menu option.", actualOutput);
+        Assert.IsNull(actual);
+    }
+
+    [TestMethod]
+    [DataRow("\n5\nA\nN\n")]
+    [DataRow("\n5\n1\nN\n")]
+    public void DisplayMainPrompt_PromptLeaveGame_WithInvalidInput_ShouldOutputError(string input)
+    {
+        // Arrange
+        _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
+
+        var consoleInput = new StringReader(input);
+        var consoleOutput = new StringWriter();
+
+        Console.SetIn(consoleInput);
+        Console.SetOut(consoleOutput);
+
+        // Act
+        var actual = _sut.DisplayMainPrompt();
+        var actualOutput = consoleOutput.ToString();
+
+        // Assert
+        Assert.Contains("Please enter 'yes' (y) or 'no' (n).", actualOutput);
+        Assert.IsNull(actual);
     }
 }

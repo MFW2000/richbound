@@ -4,8 +4,6 @@ using MFW.Richbound.Infrastructure.Interfaces;
 
 namespace MFW.Richbound.Presentation.Main;
 
-// TODO: Finished, write tests next.
-
 /// <summary>
 /// Responsible for assisting the user in loading a saved game.
 /// </summary>

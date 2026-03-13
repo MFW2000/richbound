@@ -119,11 +119,11 @@ public class MainMenuTests
     }
 
     [TestMethod]
-    [DataRow("\n1\n")]
-    [DataRow("4\n1\n")]
-    [DataRow("0\n1\n")]
-    [DataRow("-1\n1\n")]
-    [DataRow("test\n1\n")]
+    [DataRow("\n3\n")]
+    [DataRow("4\n3\n")]
+    [DataRow("0\n3\n")]
+    [DataRow("-1\n3\n")]
+    [DataRow("TEST\n3\n")]
     public void DisplayMainPrompt_WithInvalidInput_ShouldOutputError(string input)
     {
         // Arrange
@@ -146,7 +146,7 @@ public class MainMenuTests
 
         // Assert
         Assert.Contains("Please select a valid menu option.", actualOutput);
-        Assert.IsNotNull(actual);
+        Assert.IsNull(actual);
 
         _assemblyVersionProviderMock.Verify();
     }

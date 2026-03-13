@@ -8,8 +8,6 @@ using MFW.Richbound.Models;
 
 namespace MFW.Richbound.Presentation.Main;
 
-// TODO: Finished, write tests next.
-
 /// <summary>
 /// Responsible for assisting the user in creating a new character and starting a new game.
 /// </summary>
