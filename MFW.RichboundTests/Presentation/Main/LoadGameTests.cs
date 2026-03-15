@@ -23,7 +23,7 @@ public class LoadGameTests
     }
 
     [TestMethod]
-    public void DisplayMainPrompt_WithNoSaveFile_ShouldReturnPromptType()
+    public void DisplayMainPrompt_WithNoSaveFile_ShouldReturnMainMenu()
     {
         // Arrange
 
