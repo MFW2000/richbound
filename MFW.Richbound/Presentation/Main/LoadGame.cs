@@ -27,7 +27,7 @@ public class LoadGame(ISaveFileManager saveFileManager, IGameState gameState) : 
         Console.WriteLine("Loading save game...");
         Console.WriteLine();
 
-        var saveGameLoaded = SaveGameLoaded();
+        var saveGameLoaded = TryLoadSaveGame();
         if (!saveGameLoaded)
         {
             Console.WriteLine("Something went wrong while loading the save game. Returning to main menu.");
@@ -50,7 +50,7 @@ public class LoadGame(ISaveFileManager saveFileManager, IGameState gameState) : 
     /// Attempt to load the save game and initialize the game state.
     /// </summary>
     /// <returns>True if the save game was loaded successfully, otherwise false.</returns>
-    private bool SaveGameLoaded()
+    private bool TryLoadSaveGame()
     {
         var saveGame = saveFileManager.LoadGame();
         if (saveGame is null)

@@ -65,7 +65,7 @@ public class LoadGameTests
     }
 
     [TestMethod]
-    public void DisplayMainPrompt_WithNoSaveFile_ShouldReturnMainMenu()
+    public void DisplayMainPrompt_WithoutSaveFile_ShouldReturnMainMenu()
     {
         // Arrange
         const PromptType expected = PromptType.MainMenu;

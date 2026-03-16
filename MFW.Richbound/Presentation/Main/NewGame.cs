@@ -41,7 +41,7 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
             return PromptType.NewGame;
         }
 
-        var saveGameCreated = SaveGameCreated(gender, firstName, lastName);
+        var saveGameCreated = TrySaveGame(gender, firstName, lastName);
         if (!saveGameCreated)
         {
             Console.WriteLine("Something went wrong while saving your new character. Returning to main menu.");
@@ -200,7 +200,7 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
     /// <param name="firstName">The chosen first name.</param>
     /// <param name="lastName">The chosen last name.</param>
     /// <returns>True if the save file was created successfully, otherwise false.</returns>
-    private bool SaveGameCreated(Gender gender, string firstName, string lastName)
+    private bool TrySaveGame(Gender gender, string firstName, string lastName)
     {
         var newGameState = new GameStateDto(gender, firstName, lastName, 100, 100, 100, 0, 0);
 

@@ -191,12 +191,12 @@ public class CharacterMenuTests
     }
 
     [TestMethod]
-    public void DisplayMainPrompt_MainMenuSelectedWithoutSave_ShouldReturnMainMenu()
+    [DataRow("4\nN\n")]
+    [DataRow("4\nNo\n")]
+    public void DisplayMainPrompt_MainMenuSelectedWithoutSave_ShouldReturnMainMenu(string input)
     {
         // Arrange
         const PromptType expected = PromptType.MainMenu;
-
-        const string input = "4\nN\n";
 
         _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
 
@@ -212,12 +212,13 @@ public class CharacterMenuTests
     }
 
     [TestMethod]
-    public void DisplayMainPrompt_MainMenuSelectedWithSave_ShouldReturnMainMenu()
+    [DataRow("4\n\n")]
+    [DataRow("4\nY\n")]
+    [DataRow("4\nYes\n")]
+    public void DisplayMainPrompt_MainMenuSelectedWithSave_ShouldReturnMainMenu(string input)
     {
         // Arrange
         const PromptType expected = PromptType.MainMenu;
-
-        const string input = "4\n\n";
 
         var gameStateDto = TestHelper.GetGameStateDto();
 
@@ -297,12 +298,12 @@ public class CharacterMenuTests
     }
 
     [TestMethod]
-    public void DisplayMainPrompt_ExitGameSelectedWithoutSave_ShouldReturnNull()
+    [DataRow("5\nN\n")]
+    [DataRow("5\nNo\n")]
+    public void DisplayMainPrompt_ExitGameSelectedWithoutSave_ShouldReturnNull(string input)
     {
         // Arrange
         PromptType? expected = null;
-
-        const string input = "5\nN\n";
 
         _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
 
@@ -318,12 +319,13 @@ public class CharacterMenuTests
     }
 
     [TestMethod]
-    public void DisplayMainPrompt_ExitGameSelectedWithSave_ShouldReturnNull()
+    [DataRow("5\n\n")]
+    [DataRow("5\nY\n")]
+    [DataRow("5\nYes\n")]
+    public void DisplayMainPrompt_ExitGameSelectedWithSave_ShouldReturnNull(string input)
     {
         // Arrange
         PromptType? expected = null;
-
-        const string input = "5\n\n";
 
         var gameStateDto = TestHelper.GetGameStateDto();
 
@@ -407,7 +409,7 @@ public class CharacterMenuTests
     [DataRow("6\n5\nN\n")]
     [DataRow("0\n5\nN\n")]
     [DataRow("-1\n5\nN\n")]
-    [DataRow("TEST\n5\nN\n")]
+    [DataRow("Test\n5\nN\n")]
     public void DisplayMainPrompt_WithInvalidInput_ShouldOutputError(string input)
     {
         // Arrange
