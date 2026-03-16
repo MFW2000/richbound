@@ -51,7 +51,6 @@ public class MainMenuTests
 
         // Assert
         Assert.Contains($"=== {DisplayText.AppTitle}{expected} ===", actualOutput);
-
         Assert.IsNull(actual);
 
         _assemblyVersionProviderMock.Verify();
@@ -84,7 +83,6 @@ public class MainMenuTests
 
         // Assert
         Assert.Contains($"=== {DisplayText.AppTitle} ===", actualOutput);
-
         Assert.IsNull(actual);
 
         _assemblyVersionProviderMock.Verify();

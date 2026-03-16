@@ -1,5 +1,7 @@
 using MFW.Richbound.Domain.Interfaces;
+using MFW.Richbound.Enumerations;
 using MFW.Richbound.Infrastructure.Interfaces;
+using MFW.Richbound.Models;
 using MFW.Richbound.Presentation.Main;
 using Moq;
 
@@ -23,12 +25,106 @@ public class LoadGameTests
     }
 
     [TestMethod]
+    public void DisplayMainPrompt_ShouldLoadSaveGameAndReturnCharacterMenu()
+    {
+        // Arrange
+        const PromptType expected = PromptType.CharacterMenu;
+
+        const string input = "\n";
+
+        var gameStateDto = TestHelper.GetGameStateDto();
+
+        _saveFileManager
+            .Setup(x => x.HasSaveFile())
+            .Returns(true)
+            .Verifiable(Times.Once);
+        _saveFileManager
+            .Setup(x => x.LoadGame())
+            .Returns(gameStateDto)
+            .Verifiable(Times.Once);
+        _gameStateMock
+            .Setup(x => x.Initialize(gameStateDto))
+            .Verifiable(Times.Once);
+
+        var consoleInput = new StringReader(input);
+        var consoleOutput = new StringWriter();
+
+        Console.SetIn(consoleInput);
+        Console.SetOut(consoleOutput);
+
+        // Act
+        var actual = _sut.DisplayMainPrompt();
+        var actualOutput = consoleOutput.ToString();
+
+        // Assert
+        Assert.AreEqual(expected, actual);
+        Assert.Contains("Save game loaded successfully.", actualOutput);
+
+        _saveFileManager.Verify();
+        _gameStateMock.Verify();
+    }
+
+    [TestMethod]
     public void DisplayMainPrompt_WithNoSaveFile_ShouldReturnMainMenu()
     {
         // Arrange
+        const PromptType expected = PromptType.MainMenu;
+
+        const string input = "\n";
+
+        _saveFileManager
+            .Setup(x => x.HasSaveFile())
+            .Returns(false)
+            .Verifiable(Times.Once);
+
+        var consoleInput = new StringReader(input);
+        var consoleOutput = new StringWriter();
+
+        Console.SetIn(consoleInput);
+        Console.SetOut(consoleOutput);
 
         // Act
+        var actual = _sut.DisplayMainPrompt();
+        var actualOutput = consoleOutput.ToString();
 
         // Assert
+        Assert.AreEqual(expected, actual);
+        Assert.Contains("No save game found. Returning to main menu.", actualOutput);
+
+        _saveFileManager.Verify();
+    }
+
+    [TestMethod]
+    public void DisplayMainPrompt_LoadFails_ShouldReturnMainMenu()
+    {
+        // Arrange
+        const PromptType expected = PromptType.MainMenu;
+
+        const string input = "\n";
+
+        _saveFileManager
+            .Setup(x => x.HasSaveFile())
+            .Returns(true)
+            .Verifiable(Times.Once);
+        _saveFileManager
+            .Setup(x => x.LoadGame())
+            .Returns((GameStateDto?)null)
+            .Verifiable(Times.Once);
+
+        var consoleInput = new StringReader(input);
+        var consoleOutput = new StringWriter();
+
+        Console.SetIn(consoleInput);
+        Console.SetOut(consoleOutput);
+
+        // Act
+        var actual = _sut.DisplayMainPrompt();
+        var actualOutput = consoleOutput.ToString();
+
+        // Assert
+        Assert.AreEqual(expected, actual);
+        Assert.Contains("Something went wrong while loading the save game. Returning to main menu.", actualOutput);
+
+        _saveFileManager.Verify();
     }
 }
