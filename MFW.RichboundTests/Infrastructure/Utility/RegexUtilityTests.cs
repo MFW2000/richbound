@@ -14,10 +14,10 @@ public class RegexUtilityTests
     public void UnicodeLetterRegex_ShouldMatch(string input)
     {
         // Act
-        var actual = RegexUtility.UnicodeLetterRegex().IsMatch(input);
+        var actualMatch = RegexUtility.UnicodeLetterRegex().IsMatch(input);
 
         // Assert
-        Assert.IsTrue(actual);
+        Assert.IsTrue(actualMatch);
     }
 
     [TestMethod]
@@ -28,10 +28,10 @@ public class RegexUtilityTests
     public void UnicodeLetterRegex_WithoutLetters_ShouldNotMatch(string input)
     {
         // Act
-        var actual = RegexUtility.UnicodeLetterRegex().IsMatch(input);
+        var actualMatch = RegexUtility.UnicodeLetterRegex().IsMatch(input);
 
         // Assert
-        Assert.IsFalse(actual);
+        Assert.IsFalse(actualMatch);
     }
 
     [TestMethod]
@@ -40,10 +40,10 @@ public class RegexUtilityTests
     public void OnlyNumbersRegex_ShouldMatch(string input)
     {
         // Act
-        var actual = RegexUtility.OnlyNumbersRegex().IsMatch(input);
+        var actualMatch = RegexUtility.OnlyNumbersRegex().IsMatch(input);
 
         // Assert
-        Assert.IsTrue(actual);
+        Assert.IsTrue(actualMatch);
     }
 
     [TestMethod]
@@ -56,9 +56,9 @@ public class RegexUtilityTests
     public void OnlyNumbersRegex_WithoutDigits_ShouldNotMatch(string input)
     {
         // Act
-        var actual = RegexUtility.OnlyNumbersRegex().IsMatch(input);
+        var actualMatch = RegexUtility.OnlyNumbersRegex().IsMatch(input);
 
         // Assert
-        Assert.IsFalse(actual);
+        Assert.IsFalse(actualMatch);
     }
 }

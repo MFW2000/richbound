@@ -28,7 +28,7 @@ public class MainMenuTests
     public void DisplayMainPrompt_ShouldOutputVersion()
     {
         // Arrange
-        const string expected = " v1.2.3";
+        const string expectedFormattedVersion = " v1.2.3";
 
         const string input = "3\n";
 
@@ -46,12 +46,12 @@ public class MainMenuTests
         Console.SetOut(consoleOutput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actualPromptType = _sut.DisplayMainPrompt();
         var actualOutput = consoleOutput.ToString();
 
         // Assert
-        Assert.Contains($"=== {DisplayText.AppTitle}{expected} ===", actualOutput);
-        Assert.IsNull(actual);
+        Assert.IsNull(actualPromptType);
+        Assert.Contains($"=== {DisplayText.AppTitle}{expectedFormattedVersion} ===", actualOutput);
 
         _assemblyVersionProviderMock.Verify();
     }
@@ -78,12 +78,12 @@ public class MainMenuTests
         Console.SetOut(consoleOutput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actualPromptType = _sut.DisplayMainPrompt();
         var actualOutput = consoleOutput.ToString();
 
         // Assert
+        Assert.IsNull(actualPromptType);
         Assert.Contains($"=== {DisplayText.AppTitle} ===", actualOutput);
-        Assert.IsNull(actual);
 
         _assemblyVersionProviderMock.Verify();
         _consoleLoggerMock.Verify();
@@ -93,7 +93,7 @@ public class MainMenuTests
     [DataRow(PromptType.NewGame, "1\n")]
     [DataRow(PromptType.LoadGame, "2\n")]
     [DataRow(null, "3\n")]
-    public void DisplayMainPrompt_ShouldReturnPromptType(PromptType? expected, string input)
+    public void DisplayMainPrompt_ShouldReturnPromptType(PromptType? expectedPromptType, string input)
     {
         // Arrange
         var version = new Version(1, 2, 3);
@@ -108,10 +108,10 @@ public class MainMenuTests
         Console.SetIn(consoleInput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actualPromptType = _sut.DisplayMainPrompt();
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedPromptType, actualPromptType);
 
         _assemblyVersionProviderMock.Verify();
     }
@@ -139,12 +139,12 @@ public class MainMenuTests
         Console.SetOut(consoleOutput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actualPromptType = _sut.DisplayMainPrompt();
         var actualOutput = consoleOutput.ToString();
 
         // Assert
+        Assert.IsNull(actualPromptType);
         Assert.Contains("Please select a valid menu option.", actualOutput);
-        Assert.IsNull(actual);
 
         _assemblyVersionProviderMock.Verify();
     }

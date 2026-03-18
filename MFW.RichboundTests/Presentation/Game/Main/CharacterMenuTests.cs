@@ -52,13 +52,12 @@ public class CharacterMenuTests
         Console.SetOut(consoleOutput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actualPromptType = _sut.DisplayMainPrompt();
         var actualOutput = consoleOutput.ToString();
 
         // Assert
+        Assert.IsNull(actualPromptType);
         Assert.Contains(expectedFullName, actualOutput);
-
-        Assert.IsNull(actual);
 
         _gameStateMock.Verify();
     }
@@ -67,7 +66,7 @@ public class CharacterMenuTests
     public void DisplayMainPrompt_CloseSelected_ShouldReturnCharacterMenu()
     {
         // Arrange
-        const PromptType expected = PromptType.CharacterMenu;
+        const PromptType expectedPromptType = PromptType.CharacterMenu;
 
         const string input = "1\n";
 
@@ -78,17 +77,17 @@ public class CharacterMenuTests
         Console.SetIn(consoleInput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actualPromptType = _sut.DisplayMainPrompt();
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedPromptType, actualPromptType);
     }
 
     [TestMethod]
     public void DisplayMainPrompt_InventorySelected_ShouldReturnCharacterMenu()
     {
         // Arrange
-        const PromptType expected = PromptType.CharacterMenu;
+        const PromptType expectedPromptType = PromptType.CharacterMenu;
 
         const string input = "2\n";
 
@@ -99,17 +98,17 @@ public class CharacterMenuTests
         Console.SetIn(consoleInput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actualPromptType = _sut.DisplayMainPrompt();
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedPromptType, actualPromptType);
     }
 
     [TestMethod]
     public void DisplayMainPrompt_SaveGameSelected_ShouldReturnCharacterMenu()
     {
         // Arrange
-        const PromptType expected = PromptType.CharacterMenu;
+        const PromptType expectedPromptType = PromptType.CharacterMenu;
 
         const string input = "3\n";
 
@@ -134,11 +133,11 @@ public class CharacterMenuTests
         Console.SetOut(consoleOutput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actualPromptType = _sut.DisplayMainPrompt();
         var actualOutput = consoleOutput.ToString();
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedPromptType, actualPromptType);
         Assert.Contains("Game saved successfully.", actualOutput);
 
         _gameStateMapperMock.Verify();
@@ -149,7 +148,7 @@ public class CharacterMenuTests
     public void DisplayMainPrompt_SaveGameSelected_SaveFails_ShouldReturnCharacterMenu()
     {
         // Arrange
-        const PromptType expected = PromptType.CharacterMenu;
+        const PromptType expectedPromptType = PromptType.CharacterMenu;
 
         const string input = "3\n";
 
@@ -178,11 +177,11 @@ public class CharacterMenuTests
         Console.SetOut(consoleOutput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actualPromptType = _sut.DisplayMainPrompt();
         var actualOutput = consoleOutput.ToString();
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedPromptType, actualPromptType);
         Assert.Contains("Something went wrong while saving your game, aborting.", actualOutput);
 
         _gameStateMapperMock.Verify();
@@ -196,7 +195,7 @@ public class CharacterMenuTests
     public void DisplayMainPrompt_MainMenuSelectedWithoutSave_ShouldReturnMainMenu(string input)
     {
         // Arrange
-        const PromptType expected = PromptType.MainMenu;
+        const PromptType expectedPromptType = PromptType.MainMenu;
 
         _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
 
@@ -205,10 +204,10 @@ public class CharacterMenuTests
         Console.SetIn(consoleInput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actualPromptType = _sut.DisplayMainPrompt();
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedPromptType, actualPromptType);
     }
 
     [TestMethod]
@@ -218,7 +217,7 @@ public class CharacterMenuTests
     public void DisplayMainPrompt_MainMenuSelectedWithSave_ShouldReturnMainMenu(string input)
     {
         // Arrange
-        const PromptType expected = PromptType.MainMenu;
+        const PromptType expectedPromptType = PromptType.MainMenu;
 
         var gameStateDto = TestHelper.GetGameStateDto();
 
@@ -241,11 +240,11 @@ public class CharacterMenuTests
         Console.SetOut(consoleOutput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actualPromptType = _sut.DisplayMainPrompt();
         var actualOutput = consoleOutput.ToString();
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedPromptType, actualPromptType);
         Assert.Contains("Game saved successfully.", actualOutput);
 
         _gameStateMapperMock.Verify();
@@ -256,7 +255,7 @@ public class CharacterMenuTests
     public void DisplayMainPrompt_MainMenuSelectedWithSave_SaveFails_ShouldReturnCharacterMenu()
     {
         // Arrange
-        const PromptType expected = PromptType.CharacterMenu;
+        const PromptType expectedPromptType = PromptType.CharacterMenu;
 
         const string input = "4\n\n";
 
@@ -285,11 +284,11 @@ public class CharacterMenuTests
         Console.SetOut(consoleOutput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actualPromptType = _sut.DisplayMainPrompt();
         var actualOutput = consoleOutput.ToString();
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedPromptType, actualPromptType);
         Assert.Contains("Something went wrong while saving your game, aborting.", actualOutput);
 
         _gameStateMapperMock.Verify();
@@ -303,7 +302,7 @@ public class CharacterMenuTests
     public void DisplayMainPrompt_ExitGameSelectedWithoutSave_ShouldReturnNull(string input)
     {
         // Arrange
-        PromptType? expected = null;
+        PromptType? expectedPromptType = null;
 
         _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
 
@@ -312,10 +311,10 @@ public class CharacterMenuTests
         Console.SetIn(consoleInput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actualPromptType = _sut.DisplayMainPrompt();
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedPromptType, actualPromptType);
     }
 
     [TestMethod]
@@ -325,7 +324,7 @@ public class CharacterMenuTests
     public void DisplayMainPrompt_ExitGameSelectedWithSave_ShouldReturnNull(string input)
     {
         // Arrange
-        PromptType? expected = null;
+        PromptType? expectedPromptType = null;
 
         var gameStateDto = TestHelper.GetGameStateDto();
 
@@ -348,11 +347,11 @@ public class CharacterMenuTests
         Console.SetOut(consoleOutput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actualPromptType = _sut.DisplayMainPrompt();
         var actualOutput = consoleOutput.ToString();
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedPromptType, actualPromptType);
         Assert.Contains("Game saved successfully.", actualOutput);
 
         _gameStateMapperMock.Verify();
@@ -363,7 +362,7 @@ public class CharacterMenuTests
     public void DisplayMainPrompt_ExitGameSelectedWithSave_SaveFails_ShouldReturnCharacterMenu()
     {
         // Arrange
-        const PromptType expected = PromptType.CharacterMenu;
+        const PromptType expectedPromptType = PromptType.CharacterMenu;
 
         const string input = "5\n\n";
 
@@ -392,11 +391,11 @@ public class CharacterMenuTests
         Console.SetOut(consoleOutput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actualPromptType = _sut.DisplayMainPrompt();
         var actualOutput = consoleOutput.ToString();
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedPromptType, actualPromptType);
         Assert.Contains("Something went wrong while saving your game, aborting.", actualOutput);
 
         _gameStateMapperMock.Verify();
@@ -422,12 +421,12 @@ public class CharacterMenuTests
         Console.SetOut(consoleOutput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actualPromptType = _sut.DisplayMainPrompt();
         var actualOutput = consoleOutput.ToString();
 
         // Assert
+        Assert.IsNull(actualPromptType);
         Assert.Contains("Please select a valid menu option.", actualOutput);
-        Assert.IsNull(actual);
     }
 
     [TestMethod]
@@ -445,11 +444,11 @@ public class CharacterMenuTests
         Console.SetOut(consoleOutput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actualPromptType = _sut.DisplayMainPrompt();
         var actualOutput = consoleOutput.ToString();
 
         // Assert
+        Assert.IsNull(actualPromptType);
         Assert.Contains("Please enter 'yes' (y) or 'no' (n).", actualOutput);
-        Assert.IsNull(actual);
     }
 }

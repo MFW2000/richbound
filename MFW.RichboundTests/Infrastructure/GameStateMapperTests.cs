@@ -18,16 +18,16 @@ public class GameStateMapperTests
     public void MapToDto_ShouldMapToGameStateDto()
     {
         // Arrange
-        var expected = TestHelper.GetGameStateDto();
+        var expectedGameStateDto = TestHelper.GetGameStateDto();
 
         var gameState = new GameState();
 
         gameState.Initialize(TestHelper.GetGameStateDto());
 
         // Act
-        var actual = _sut.MapToDto(gameState);
+        var actualGameStateDto = _sut.MapToDto(gameState);
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedGameStateDto, actualGameStateDto);
     }
 }

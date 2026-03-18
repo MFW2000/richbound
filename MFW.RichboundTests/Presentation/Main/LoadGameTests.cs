@@ -28,7 +28,7 @@ public class LoadGameTests
     public void DisplayMainPrompt_ShouldLoadSaveGameAndReturnCharacterMenu()
     {
         // Arrange
-        const PromptType expected = PromptType.CharacterMenu;
+        const PromptType expectedPromptType = PromptType.CharacterMenu;
 
         const string input = "\n";
 
@@ -53,11 +53,11 @@ public class LoadGameTests
         Console.SetOut(consoleOutput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actualPromptType = _sut.DisplayMainPrompt();
         var actualOutput = consoleOutput.ToString();
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedPromptType, actualPromptType);
         Assert.Contains("Save game loaded successfully.", actualOutput);
 
         _saveFileManager.Verify();
@@ -68,7 +68,7 @@ public class LoadGameTests
     public void DisplayMainPrompt_WithoutSaveFile_ShouldReturnMainMenu()
     {
         // Arrange
-        const PromptType expected = PromptType.MainMenu;
+        const PromptType expectedPromptType = PromptType.MainMenu;
 
         const string input = "\n";
 
@@ -84,11 +84,11 @@ public class LoadGameTests
         Console.SetOut(consoleOutput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actualPromptType = _sut.DisplayMainPrompt();
         var actualOutput = consoleOutput.ToString();
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedPromptType, actualPromptType);
         Assert.Contains("No save game found. Returning to main menu.", actualOutput);
 
         _saveFileManager.Verify();
@@ -98,7 +98,7 @@ public class LoadGameTests
     public void DisplayMainPrompt_LoadFails_ShouldReturnMainMenu()
     {
         // Arrange
-        const PromptType expected = PromptType.MainMenu;
+        const PromptType expectedPromptType = PromptType.MainMenu;
 
         const string input = "\n";
 
@@ -118,11 +118,11 @@ public class LoadGameTests
         Console.SetOut(consoleOutput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actualPromptType = _sut.DisplayMainPrompt();
         var actualOutput = consoleOutput.ToString();
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedPromptType, actualPromptType);
         Assert.Contains("Something went wrong while loading the save game. Returning to main menu.", actualOutput);
 
         _saveFileManager.Verify();

@@ -48,9 +48,9 @@ public class SaveFileManagerTests
         // Act
         _sut.SaveGame(gameStateDto);
 
-        // Assert
         var actualSaveFileLines = File.ReadAllLines(SaveFile);
 
+        // Assert
         Assert.IsTrue(File.Exists(SaveFile));
         Assert.IsNotEmpty(actualSaveFileLines);
         Assert.Contains(line => line.Contains($"{(int)expectedGender}"), actualSaveFileLines);
@@ -62,15 +62,15 @@ public class SaveFileManagerTests
     public void LoadGame_ShouldLoadGameFromFile()
     {
         // Arrange
-        var expected = TestHelper.GetGameStateDto();
+        var expectedGameStateDto = TestHelper.GetGameStateDto();
 
-        _sut.SaveGame(expected);
+        _sut.SaveGame(expectedGameStateDto);
 
         // Act
-        var actual = _sut.LoadGame();
+        var actualGameStateDto = _sut.LoadGame();
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedGameStateDto, actualGameStateDto);
     }
 
     [TestMethod]
@@ -82,10 +82,10 @@ public class SaveFileManagerTests
             .Verifiable(Times.Once);
 
         // Act
-        var actual = _sut.LoadGame();
+        var actualGameStateDto = _sut.LoadGame();
 
         // Assert
-        Assert.IsNull(actual);
+        Assert.IsNull(actualGameStateDto);
 
         _consoleLoggerMock.Verify();
     }
@@ -94,27 +94,27 @@ public class SaveFileManagerTests
     public void HasSaveFile_WithSaveFile_ShouldReturnTrue()
     {
         // Arrange
-        const bool expected = true;
+        const bool expectedResult = true;
 
         _sut.SaveGame(TestHelper.GetGameStateDto());
 
         // Act
-        var actual = _sut.HasSaveFile();
+        var actualResult = _sut.HasSaveFile();
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedResult, actualResult);
     }
 
     [TestMethod]
     public void HasSaveFile_WithoutSaveFile_ShouldReturnFalse()
     {
         // Arrange
-        const bool expected = false;
+        const bool expectedResult = false;
 
         // Act
-        var actual = _sut.HasSaveFile();
+        var actualResult = _sut.HasSaveFile();
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedResult, actualResult);
     }
 }

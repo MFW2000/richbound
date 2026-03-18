@@ -39,16 +39,16 @@ public class ConsoleLoggerTests
         const string logLevel = "DBG";
         const string message = "Debug test message.";
 
-        var expected = GetExpectedLogLine(_fakeTime, logLevel, message);
+        var expectedLogFileLine = GetExpectedLogFileLine(_fakeTime, logLevel, message);
 
         // Act
         _sut.LogDebug(message, _logFile);
 
-        // Assert
-        var logFileLines = File.ReadAllLines(_logFile);
+        var actualLogFileLines = File.ReadAllLines(_logFile);
 
-        Assert.HasCount(1, logFileLines);
-        Assert.AreEqual(expected, logFileLines[0]);
+        // Assert
+        Assert.HasCount(1, actualLogFileLines);
+        Assert.AreEqual(expectedLogFileLine, actualLogFileLines[0]);
     }
 
     [TestMethod]
@@ -58,16 +58,16 @@ public class ConsoleLoggerTests
         const string logLevel = "INF";
         const string message = "Information test message.";
 
-        var expected = GetExpectedLogLine(_fakeTime, logLevel, message);
+        var expectedLogFileLine = GetExpectedLogFileLine(_fakeTime, logLevel, message);
 
         // Act
         _sut.LogInformation(message, _logFile);
 
-        // Assert
-        var logFileLines = File.ReadAllLines(_logFile);
+        var actualLogFileLines = File.ReadAllLines(_logFile);
 
-        Assert.HasCount(1, logFileLines);
-        Assert.AreEqual(expected, logFileLines[0]);
+        // Assert
+        Assert.HasCount(1, actualLogFileLines);
+        Assert.AreEqual(expectedLogFileLine, actualLogFileLines[0]);
     }
 
     [TestMethod]
@@ -77,16 +77,16 @@ public class ConsoleLoggerTests
         const string logLevel = "WRN";
         const string message = "Warning test message.";
 
-        var expected = GetExpectedLogLine(_fakeTime, logLevel, message);
+        var expectedLogFileLine = GetExpectedLogFileLine(_fakeTime, logLevel, message);
 
         // Act
         _sut.LogWarning(message, _logFile);
 
-        // Assert
-        var logFileLines = File.ReadAllLines(_logFile);
+        var actualLogFileLines = File.ReadAllLines(_logFile);
 
-        Assert.HasCount(1, logFileLines);
-        Assert.AreEqual(expected, logFileLines[0]);
+        // Assert
+        Assert.HasCount(1, actualLogFileLines);
+        Assert.AreEqual(expectedLogFileLine, actualLogFileLines[0]);
     }
 
     [TestMethod]
@@ -96,16 +96,16 @@ public class ConsoleLoggerTests
         const string logLevel = "ERR";
         const string message = "Error test message.";
 
-        var expected = GetExpectedLogLine(_fakeTime, logLevel, message);
+        var expectedLogFileLine = GetExpectedLogFileLine(_fakeTime, logLevel, message);
 
         // Act
         _sut.LogError(message, _logFile);
 
-        // Assert
-        var logFileLines = File.ReadAllLines(_logFile);
+        var actualLogFileLines = File.ReadAllLines(_logFile);
 
-        Assert.HasCount(1, logFileLines);
-        Assert.AreEqual(expected, logFileLines[0]);
+        // Assert
+        Assert.HasCount(1, actualLogFileLines);
+        Assert.AreEqual(expectedLogFileLine, actualLogFileLines[0]);
     }
 
     [TestMethod]
@@ -115,16 +115,16 @@ public class ConsoleLoggerTests
         const string logLevel = "FTL";
         const string message = "Critical test message.";
 
-        var expected = GetExpectedLogLine(_fakeTime, logLevel, message);
+        var expectedLogFileLine = GetExpectedLogFileLine(_fakeTime, logLevel, message);
 
         // Act
         _sut.LogCritical(message, _logFile);
 
-        // Assert
-        var logFileLines = File.ReadAllLines(_logFile);
+        var actualLogFileLines = File.ReadAllLines(_logFile);
 
-        Assert.HasCount(1, logFileLines);
-        Assert.AreEqual(expected, logFileLines[0]);
+        // Assert
+        Assert.HasCount(1, actualLogFileLines);
+        Assert.AreEqual(expectedLogFileLine, actualLogFileLines[0]);
     }
 
     [TestMethod]
@@ -387,7 +387,7 @@ public class ConsoleLoggerTests
         Assert.IsFalse(File.Exists(_logFile));
     }
 
-    private static string GetExpectedLogLine(DateTimeOffset timestamp, string logLevelString, string message)
+    private static string GetExpectedLogFileLine(DateTimeOffset timestamp, string logLevelString, string message)
     {
         return $"[{timestamp:yyyy-MM-dd HH:mm:ss} {logLevelString}] {message}";
     }

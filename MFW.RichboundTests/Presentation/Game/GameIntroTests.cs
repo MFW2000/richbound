@@ -25,7 +25,7 @@ public class GameIntroTests
     public void DisplayMainPrompt_ShouldReturnCharacterMenu()
     {
         // Arrange
-        const PromptType expected = PromptType.CharacterMenu;
+        const PromptType expectedPromptType = PromptType.CharacterMenu;
 
         const string input = "\n";
 
@@ -38,10 +38,10 @@ public class GameIntroTests
         Console.SetIn(consoleInput);
 
         // Act
-        var actual = _sut.DisplayMainPrompt();
+        var actualPromptType = _sut.DisplayMainPrompt();
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedPromptType, actualPromptType);
 
         _threadWrapperMock.Verify();
     }
