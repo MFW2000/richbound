@@ -20,7 +20,7 @@ public class RunnerTests
     private Runner _sut = null!;
 
     [TestInitialize]
-    public void Setup()
+    public void Initialize()
     {
         _promptFactoryMock = new Mock<IPromptFactory>(MockBehavior.Strict);
         _consoleWrapperMock = new Mock<IConsoleWrapper>(MockBehavior.Strict);
@@ -35,7 +35,7 @@ public class RunnerTests
     }
 
     [TestMethod]
-    public void Run_NavigatesToExit()
+    public void Run_ShouldNavigateToExit()
     {
         // Arrange
         _mainMenuMock

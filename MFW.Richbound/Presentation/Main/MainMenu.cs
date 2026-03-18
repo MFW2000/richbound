@@ -20,7 +20,7 @@ public class MainMenu(IAssemblyVersionProvider assemblyVersionProvider, IConsole
         Console.WriteLine("1. New Game");
         Console.WriteLine("2. Load Game");
         Console.WriteLine("3. Exit");
-        Console.WriteLine(DisplayText.TooltipOption);
+        Console.WriteLine("Select an option [1-3]:");
 
         while (true)
         {
@@ -47,13 +47,6 @@ public class MainMenu(IAssemblyVersionProvider assemblyVersionProvider, IConsole
                     return PromptType.LoadGame;
                 case 3:
                     return null;
-                default:
-                    Console.WriteLine(DisplayText.TooltipInvalidMenuOption);
-
-                    logger.LogWarning(
-                        $"Invalid menu option selected with input '{input}' that should never be reached.");
-
-                    break;
             }
         }
     }

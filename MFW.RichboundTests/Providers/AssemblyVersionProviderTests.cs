@@ -20,14 +20,14 @@ public class AssemblyVersionProviderTests
     }
 
     [TestMethod]
-    public void GetVersion_WithFoundVersion_ReturnsVersion()
+    public void GetVersion_ShouldReturnVersion()
     {
         // Arrange
-        var expected = new Version(1, 2, 3);
+        var expectedVersion = new Version(1, 2, 3);
 
         var assemblyName = new AssemblyName
         {
-            Version = expected
+            Version = expectedVersion
         };
 
         _assemblyMock
@@ -36,23 +36,23 @@ public class AssemblyVersionProviderTests
             .Verifiable(Times.Once);
 
         // Act
-        var actual = _sut.GetVersion();
+        var actualVersion = _sut.GetVersion();
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedVersion, actualVersion);
 
         _assemblyMock.Verify();
     }
 
     [TestMethod]
-    public void GetVersion_WithVersionNotFound_ReturnsNull()
+    public void GetVersion_WithVersionNotFound_ShouldReturnNull()
     {
         // Arrange
-        Version? expected = null;
+        Version? expectedVersion = null;
 
         var assemblyName = new AssemblyName
         {
-            Version = expected
+            Version = expectedVersion
         };
 
         _assemblyMock
@@ -61,10 +61,10 @@ public class AssemblyVersionProviderTests
             .Verifiable(Times.Once);
 
         // Act
-        var actual = _sut.GetVersion();
+        var actualVersion = _sut.GetVersion();
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedVersion, actualVersion);
 
         _assemblyMock.Verify();
     }

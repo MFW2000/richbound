@@ -1,5 +1,6 @@
-using MFW.Richbound.Exceptions;
+using MFW.Richbound.Exceptions.Prompt;
 using MFW.Richbound.Helpers;
+using MFW.Richbound.Infrastructure.Utility;
 
 namespace MFW.RichboundTests.Helpers;
 
@@ -7,10 +8,10 @@ namespace MFW.RichboundTests.Helpers;
 public class PromptHelperTests
 {
     [TestMethod]
-    public void ReadString_WithAllowEmpty_ReturnsEmptyString()
+    public void ReadString_WithAllowEmpty_ShouldReturnEmptyString()
     {
         // Arrange
-        var expected = string.Empty;
+        var expectedString = string.Empty;
 
         const string input = "\n";
         const bool allowEmpty = true;
@@ -18,14 +19,14 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act
-        var actual = PromptHelper.ReadString(allowEmpty: allowEmpty);
+        var actualString = PromptHelper.ReadString(allowEmpty: allowEmpty);
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedString, actualString);
     }
 
     [TestMethod]
-    public void ReadString_WithoutAllowEmpty_ThrowsPromptValidationException()
+    public void ReadString_WithoutAllowEmpty_ShouldThrowInputEmptyException()
     {
         // Arrange
         const string input = "\n";
@@ -34,14 +35,14 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act & Assert
-        Assert.ThrowsExactly<PromptValidationException>(() => PromptHelper.ReadString(allowEmpty: allowEmpty));
+        Assert.ThrowsExactly<InputEmptyException>(() => PromptHelper.ReadString(allowEmpty: allowEmpty));
     }
 
     [TestMethod]
-    public void ReadString_WithTrim_ReturnsTrimmedString()
+    public void ReadString_WithTrim_ShouldReturnTrimmedString()
     {
         // Arrange
-        const string expected = "untrimmed string";
+        const string expectedString = "untrimmed string";
 
         const string input = " untrimmed string \n";
         const bool trim = true;
@@ -49,17 +50,17 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act
-        var actual = PromptHelper.ReadString(trim: trim);
+        var actualString = PromptHelper.ReadString(trim: trim);
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedString, actualString);
     }
 
     [TestMethod]
-    public void ReadString_WithoutTrim_ReturnsUntrimmedString()
+    public void ReadString_WithoutTrim_ShouldReturnUntrimmedString()
     {
         // Arrange
-        const string expected = " untrimmed string ";
+        const string expectedString = " untrimmed string ";
 
         const string input = " untrimmed string \n";
         const bool trim = false;
@@ -67,17 +68,17 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act
-        var actual = PromptHelper.ReadString(trim: trim);
+        var actualString = PromptHelper.ReadString(trim: trim);
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedString, actualString);
     }
 
     [TestMethod]
-    public void ReadString_WithinMaxLength_ReturnsString()
+    public void ReadString_WithinMaxLength_ShouldReturnString()
     {
         // Arrange
-        const string expected = "12345";
+        const string expectedString = "12345";
 
         const string input = "12345\n";
         const int maxLength = 5;
@@ -85,14 +86,14 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act
-        var actual = PromptHelper.ReadString(maxLength: maxLength);
+        var actualString = PromptHelper.ReadString(maxLength: maxLength);
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedString, actualString);
     }
 
     [TestMethod]
-    public void ReadString_OverMaxLength_ThrowsPromptValidationException()
+    public void ReadString_OverMaxLength_ShouldThrowInputOutOfRangeException()
     {
         // Arrange
         const string input = "123456\n";
@@ -101,11 +102,41 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act & Assert
-        Assert.ThrowsExactly<PromptValidationException>(() => PromptHelper.ReadString(maxLength: maxLength));
+        Assert.ThrowsExactly<InputOutOfRangeException>(() => PromptHelper.ReadString(maxLength: maxLength));
     }
 
     [TestMethod]
-    public void ReadInt_WithNoIntInput_ThrowsFormatException()
+    public void ReadString_MatchesRegex_ShouldReturnString()
+    {
+        // Arrange
+        const string expectedString = "12345";
+
+        const string input = "12345\n";
+
+        Console.SetIn(new StringReader(input));
+
+        // Act
+        var actualString = PromptHelper.ReadString(matchRegex: RegexUtility.OnlyNumbersRegex());
+
+        // Assert
+        Assert.AreEqual(expectedString, actualString);
+    }
+
+    [TestMethod]
+    public void ReadString_WithRegexMismatch_ShouldThrowInputRegexMismatchException()
+    {
+        // Arrange
+        const string input = "mismatch\n";
+
+        Console.SetIn(new StringReader(input));
+
+        // Act & Assert
+        Assert.ThrowsExactly<InputRegexMismatchException>(() =>
+            PromptHelper.ReadString(matchRegex: RegexUtility.OnlyNumbersRegex()));
+    }
+
+    [TestMethod]
+    public void ReadInt_WithNoIntInput_ShouldThrowFormatException()
     {
         // Arrange
         const string input = "not an integer\n";
@@ -117,7 +148,7 @@ public class PromptHelperTests
     }
 
     [TestMethod]
-    public void ReadInt_WithAllowEmpty_ReturnsNull()
+    public void ReadInt_WithAllowEmpty_ShouldReturnNull()
     {
         // Arrange
         const string input = "\n";
@@ -126,17 +157,30 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act
-        var actual = PromptHelper.ReadInt(allowEmpty: allowEmpty);
+        var actualInt = PromptHelper.ReadInt(allowEmpty: allowEmpty);
 
         // Assert
-        Assert.IsNull(actual);
+        Assert.IsNull(actualInt);
     }
 
     [TestMethod]
-    public void ReadInt_WithinMinRange_ReturnsInt()
+    public void ReadInt_WithoutAllowEmpty_ShouldThrowInputEmptyException()
     {
         // Arrange
-        const int expected = 100;
+        const string input = "\n";
+        const bool allowEmpty = false;
+
+        Console.SetIn(new StringReader(input));
+
+        // Act & Assert
+        Assert.ThrowsExactly<InputEmptyException>(() => PromptHelper.ReadInt(allowEmpty: allowEmpty));
+    }
+
+    [TestMethod]
+    public void ReadInt_WithinMinRange_ShouldReturnInt()
+    {
+        // Arrange
+        const int expectedInt = 100;
 
         const string input = "100\n";
         const int minRange = 100;
@@ -144,14 +188,14 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act
-        var actual = PromptHelper.ReadInt(minRange: minRange);
+        var actualInt = PromptHelper.ReadInt(minRange: minRange);
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedInt, actualInt);
     }
 
     [TestMethod]
-    public void ReadInt_OutOfMinRange_ThrowsPromptValidationException()
+    public void ReadInt_OutOfMinRange_ShouldThrowInputOutOfRangeException()
     {
         // Arrange
         const string input = "99\n";
@@ -160,14 +204,14 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act & Assert
-        Assert.ThrowsExactly<PromptValidationException>(() => PromptHelper.ReadInt(minRange: minRange));
+        Assert.ThrowsExactly<InputOutOfRangeException>(() => PromptHelper.ReadInt(minRange: minRange));
     }
 
     [TestMethod]
-    public void ReadInt_WithinMaxRange_ReturnsInt()
+    public void ReadInt_WithinMaxRange_ShouldReturnInt()
     {
         // Arrange
-        const int expected = 100;
+        const int expectedInt = 100;
 
         const string input = "100\n";
         const int maxRange = 100;
@@ -175,14 +219,14 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act
-        var actual = PromptHelper.ReadInt(maxRange: maxRange);
+        var actualInt = PromptHelper.ReadInt(maxRange: maxRange);
 
         // Assert
-        Assert.AreEqual(expected, actual);
+        Assert.AreEqual(expectedInt, actualInt);
     }
 
     [TestMethod]
-    public void ReadInt_OutOfMaxRange_ThrowsPromptValidationException()
+    public void ReadInt_OutOfMaxRange_ShouldThrowInputOutOfRangeException()
     {
         // Arrange
         const string input = "101\n";
@@ -191,6 +235,6 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act & Assert
-        Assert.ThrowsExactly<PromptValidationException>(() => PromptHelper.ReadInt(maxRange: maxRange));
+        Assert.ThrowsExactly<InputOutOfRangeException>(() => PromptHelper.ReadInt(maxRange: maxRange));
     }
 }

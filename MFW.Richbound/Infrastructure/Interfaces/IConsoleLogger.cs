@@ -1,7 +1,7 @@
 ﻿namespace MFW.Richbound.Infrastructure.Interfaces;
 
 /// <summary>
-/// Provides a contract for logging messages to a log file.
+/// Defines a contract for logging messages to a log file.
 /// </summary>
 public interface IConsoleLogger
 {
