@@ -22,10 +22,10 @@ public class GameIntroTests
     }
 
     [TestMethod]
-    public void DisplayMainPrompt_ShouldReturnCharacterMenu()
+    public void DisplayMainPrompt_ShouldReturnDowntownHub()
     {
         // Arrange
-        const PromptType expectedPromptType = PromptType.CharacterMenu;
+        const PromptType expectedPromptType = PromptType.DowntownHub;
 
         const string input = "\n";
 

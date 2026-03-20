@@ -49,6 +49,11 @@ public interface IGameState
     double BankBalance { get; }
 
     /// <summary>
+    /// The last location the player character was in.
+    /// </summary>
+    PromptType LastLocation { get; }
+
+    /// <summary>
     /// The player character's full name.
     /// </summary>
     string FullName { get; }
@@ -93,4 +98,10 @@ public interface IGameState
     /// </summary>
     /// <param name="delta">The amount of money to add or subtract from the current value.</param>
     void UpdateBankBalance(double delta);
+
+    /// <summary>
+    /// Updates the player character's last location.
+    /// </summary>
+    /// <param name="newLocation">The new location the player character is in.</param>
+    void UpdateLastLocation(LocationPromptType newLocation);
 }

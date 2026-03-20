@@ -43,7 +43,7 @@ public class LoadGame(ISaveFileManager saveFileManager, IGameState gameState) : 
 
         ContinuePrompt();
 
-        return PromptType.CharacterMenu;
+        return gameState.LastLocation;
     }
 
     /// <summary>

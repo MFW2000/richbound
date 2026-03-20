@@ -202,7 +202,7 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
     /// <returns>True if the save file was created successfully, otherwise false.</returns>
     private bool TrySaveGame(Gender gender, string firstName, string lastName)
     {
-        var newGameState = new GameStateDto(gender, firstName, lastName, 100, 100, 100, 0, 0);
+        var newGameState = new GameStateDto(gender, firstName, lastName, 100, 100, 100, 0, 0, PromptType.DowntownHub);
 
         var success = saveFileManager.SaveGame(newGameState);
         if (!success)

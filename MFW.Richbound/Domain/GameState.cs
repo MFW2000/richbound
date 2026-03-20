@@ -37,6 +37,9 @@ public class GameState : IGameState
     public double BankBalance { get; private set; }
 
     /// <inheritdoc/>
+    public PromptType LastLocation { get; private set; } = PromptType.DowntownHub;
+
+    /// <inheritdoc/>
     public string FullName => $"{FirstName} {LastName}".Trim();
 
     /// <inheritdoc/>
@@ -53,6 +56,7 @@ public class GameState : IGameState
         Thirst = gameStateDto.Thirst;
         PocketMoney = gameStateDto.PocketMoney;
         BankBalance = gameStateDto.BankBalance;
+        LastLocation = gameStateDto.LastLocation;
     }
 
     /// <inheritdoc/>
@@ -83,5 +87,15 @@ public class GameState : IGameState
     public void UpdateBankBalance(double delta)
     {
         BankBalance = Math.Clamp(BankBalance + delta, double.MinValue, double.MaxValue);
+    }
+
+    /// <inheritdoc/>
+    public void UpdateLastLocation(LocationPromptType newLocation)
+    {
+        LastLocation = newLocation switch
+        {
+            LocationPromptType.DowntownHub => PromptType.DowntownHub,
+            _ => LastLocation
+        };
     }
 }

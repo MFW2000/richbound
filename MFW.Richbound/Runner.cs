@@ -3,6 +3,7 @@ using MFW.Richbound.Factories.Interfaces;
 using MFW.Richbound.Infrastructure.Interfaces;
 using MFW.Richbound.Presentation;
 using MFW.Richbound.Presentation.Game;
+using MFW.Richbound.Presentation.Game.Areas.Downtown;
 using MFW.Richbound.Presentation.Game.Main;
 using MFW.Richbound.Presentation.Main;
 
@@ -50,6 +51,7 @@ public class Runner(IPromptFactory promptFactory, IConsoleWrapper consoleWrapper
             PromptType.LoadGame => promptFactory.CreatePrompt<LoadGame>(),
             PromptType.NewGameIntro => promptFactory.CreatePrompt<GameIntro>(),
             PromptType.CharacterMenu => promptFactory.CreatePrompt<CharacterMenu>(),
+            PromptType.DowntownHub => promptFactory.CreatePrompt<DowntownHub>(),
             _ => null
         };
     }

@@ -63,14 +63,18 @@ public class CharacterMenuTests
     }
 
     [TestMethod]
-    public void DisplayMainPrompt_CloseSelected_ShouldReturnCharacterMenu()
+    public void DisplayMainPrompt_CloseSelected_ShouldReturnLastLocation()
     {
         // Arrange
-        const PromptType expectedPromptType = PromptType.CharacterMenu;
+        const PromptType expectedPromptType = PromptType.DowntownHub;
 
         const string input = "1\n";
 
         _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
+        _gameStateMock
+            .SetupGet(x => x.LastLocation)
+            .Returns(expectedPromptType)
+            .Verifiable(Times.Once);
 
         var consoleInput = new StringReader(input);
 
@@ -81,6 +85,8 @@ public class CharacterMenuTests
 
         // Assert
         Assert.AreEqual(expectedPromptType, actualPromptType);
+
+        _gameStateMock.Verify();
     }
 
     [TestMethod]
