@@ -9,5 +9,6 @@ public enum PromptType
     NewGame,
     LoadGame,
     NewGameIntro,
-    CharacterMenu
+    CharacterMenu,
+    DowntownHub
 }

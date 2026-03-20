@@ -21,6 +21,7 @@ public class GameStateMapper : IGameStateMapper
             gameState.Hunger,
             gameState.Thirst,
             gameState.PocketMoney,
-            gameState.BankBalance);
+            gameState.BankBalance,
+            gameState.LastLocation);
     }
 }

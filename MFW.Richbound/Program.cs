@@ -6,6 +6,7 @@ using MFW.Richbound.Factories.Interfaces;
 using MFW.Richbound.Infrastructure;
 using MFW.Richbound.Infrastructure.Interfaces;
 using MFW.Richbound.Presentation.Game;
+using MFW.Richbound.Presentation.Game.Areas.Downtown;
 using MFW.Richbound.Presentation.Game.Main;
 using MFW.Richbound.Presentation.Main;
 using MFW.Richbound.Providers;
@@ -63,6 +64,7 @@ public static class Program
         services.AddTransient<LoadGame>();
         services.AddTransient<GameIntro>();
         services.AddTransient<CharacterMenu>();
+        services.AddTransient<DowntownHub>();
 
         return services.BuildServiceProvider();
     }

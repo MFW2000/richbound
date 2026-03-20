@@ -83,6 +83,36 @@ public class GameStateTests
     }
 
     [TestMethod]
+    public void Initialize_WithoutDefaultValues_ShouldSetProperties()
+    {
+        // Arrange
+        // The last location is set to `DowntownHub` as it is currently the only location.
+        var gameStateDto = TestHelper.GetGameStateDto(
+            Gender.Female,
+            "Lara",
+            "Croft",
+            50,
+            50,
+            50,
+            100,
+            1000);
+
+        // Act
+        _sut.Initialize(gameStateDto);
+
+        // Assert
+        Assert.AreEqual(gameStateDto.Gender, _sut.Gender);
+        Assert.AreEqual(gameStateDto.FirstName, _sut.FirstName);
+        Assert.AreEqual(gameStateDto.LastName, _sut.LastName);
+        Assert.AreEqual(gameStateDto.Health, _sut.Health);
+        Assert.AreEqual(gameStateDto.Hunger, _sut.Hunger);
+        Assert.AreEqual(gameStateDto.Thirst, _sut.Thirst);
+        Assert.AreEqual(gameStateDto.PocketMoney, _sut.PocketMoney);
+        Assert.AreEqual(gameStateDto.BankBalance, _sut.BankBalance);
+        Assert.AreEqual(gameStateDto.LastLocation, _sut.LastLocation);
+    }
+
+    [TestMethod]
     [DataRow(90, 100, -10)]
     [DataRow(100, 90, 10)]
     [DataRow(100, 100, 10)]
@@ -186,5 +216,25 @@ public class GameStateTests
 
         // Assert
         Assert.AreEqual(expectedBankBalance, actualBankBalance);
+    }
+
+    [TestMethod]
+    public void UpdateLastLocation_ShouldUpdateLastLocation()
+    {
+        // Arrange
+        const PromptType expectedLastLocation = PromptType.DowntownHub;
+
+        // Set to `DowntownHub` as it is currently the only location.
+        const LocationPromptType newLocation = LocationPromptType.DowntownHub;
+
+        var gameStateDto = TestHelper.GetGameStateDto();
+
+        _sut.Initialize(gameStateDto);
+
+        // Act
+        _sut.UpdateLastLocation(newLocation);
+
+        // Assert
+        Assert.AreEqual(expectedLastLocation, _sut.LastLocation);
     }
 }

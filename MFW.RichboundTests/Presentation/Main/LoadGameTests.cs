@@ -25,10 +25,10 @@ public class LoadGameTests
     }
 
     [TestMethod]
-    public void DisplayMainPrompt_ShouldLoadSaveGameAndReturnCharacterMenu()
+    public void DisplayMainPrompt_ShouldLoadSaveGameAndReturnLastLocation()
     {
         // Arrange
-        const PromptType expectedPromptType = PromptType.CharacterMenu;
+        const PromptType expectedPromptType = PromptType.DowntownHub;
 
         const string input = "\n";
 
@@ -42,8 +42,13 @@ public class LoadGameTests
             .Setup(x => x.LoadGame())
             .Returns(gameStateDto)
             .Verifiable(Times.Once);
+
         _gameStateMock
             .Setup(x => x.Initialize(gameStateDto))
+            .Verifiable(Times.Once);
+        _gameStateMock
+            .SetupGet(x => x.LastLocation)
+            .Returns(expectedPromptType)
             .Verifiable(Times.Once);
 
         var consoleInput = new StringReader(input);

@@ -53,6 +53,7 @@ public class CharacterMenu(
             switch (input)
             {
                 case 1:
+                    return gameState.LastLocation;
                 case 2:
                     return PromptType.CharacterMenu;
                 case 3:

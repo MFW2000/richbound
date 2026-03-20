@@ -12,5 +12,5 @@ public static class DisplayText
 
     public const string InputPrompt = "> ";
 
-    public const string CityName = "Richbound City";
+    public const string CityName = "Richbond";
 }

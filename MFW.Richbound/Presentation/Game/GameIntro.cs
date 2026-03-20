@@ -11,7 +11,7 @@ public class GameIntro(IThreadWrapper threadWrapper) : Prompt
     /// <inheritdoc/>
     public override PromptType? DisplayMainPrompt()
     {
-        Console.WriteLine($"=== Welcome to {DisplayText.CityName}! ===");
+        Console.WriteLine($"=== Welcome to {DisplayText.CityName} City ===");
 
         threadWrapper.Sleep(Constants.DisplayDelayTimeMilliseconds);
 
@@ -45,6 +45,6 @@ public class GameIntro(IThreadWrapper threadWrapper) : Prompt
 
         ContinuePrompt();
 
-        return PromptType.CharacterMenu;
+        return PromptType.DowntownHub;
     }
 }
