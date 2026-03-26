@@ -41,6 +41,14 @@ public class CharacterMenuTests
         const string input = "5\nN\n";
 
         _gameStateMock
+            .SetupGet(x => x.Day)
+            .Returns(1)
+            .Verifiable(Times.Once);
+        _gameStateMock
+            .SetupGet(x => x.TimeText)
+            .Returns("06:00")
+            .Verifiable(Times.Once);
+        _gameStateMock
             .SetupGet(x => x.FullName)
             .Returns(expectedFullName)
             .Verifiable(Times.Once);
@@ -70,7 +78,9 @@ public class CharacterMenuTests
 
         const string input = "1\n";
 
-        _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
+        _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
         _gameStateMock
             .SetupGet(x => x.LastLocation)
             .Returns(expectedPromptType)
@@ -97,7 +107,9 @@ public class CharacterMenuTests
 
         const string input = "2\n";
 
-        _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
+        _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
 
         var consoleInput = new StringReader(input);
 
@@ -120,7 +132,9 @@ public class CharacterMenuTests
 
         var gameStateDto = TestHelper.GetGameStateDto();
 
-        _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
+        _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
 
         _gameStateMapperMock
             .Setup(x => x.MapToDto(_gameStateMock.Object))
@@ -160,7 +174,9 @@ public class CharacterMenuTests
 
         var gameStateDto = TestHelper.GetGameStateDto();
 
-        _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
+        _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
 
         _gameStateMapperMock
             .Setup(x => x.MapToDto(_gameStateMock.Object))
@@ -203,7 +219,9 @@ public class CharacterMenuTests
         // Arrange
         const PromptType expectedPromptType = PromptType.MainMenu;
 
-        _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
+        _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
 
         var consoleInput = new StringReader(input);
 
@@ -227,7 +245,9 @@ public class CharacterMenuTests
 
         var gameStateDto = TestHelper.GetGameStateDto();
 
-        _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
+        _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
 
         _gameStateMapperMock
             .Setup(x => x.MapToDto(_gameStateMock.Object))
@@ -267,7 +287,9 @@ public class CharacterMenuTests
 
         var gameStateDto = TestHelper.GetGameStateDto();
 
-        _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
+        _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
 
         _gameStateMapperMock
             .Setup(x => x.MapToDto(_gameStateMock.Object))
@@ -310,7 +332,9 @@ public class CharacterMenuTests
         // Arrange
         PromptType? expectedPromptType = null;
 
-        _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
+        _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
 
         var consoleInput = new StringReader(input);
 
@@ -334,7 +358,9 @@ public class CharacterMenuTests
 
         var gameStateDto = TestHelper.GetGameStateDto();
 
-        _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
+        _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
 
         _gameStateMapperMock
             .Setup(x => x.MapToDto(_gameStateMock.Object))
@@ -374,7 +400,9 @@ public class CharacterMenuTests
 
         var gameStateDto = TestHelper.GetGameStateDto();
 
-        _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
+        _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
 
         _gameStateMapperMock
             .Setup(x => x.MapToDto(_gameStateMock.Object))
@@ -418,7 +446,9 @@ public class CharacterMenuTests
     public void DisplayMainPrompt_WithInvalidInput_ShouldOutputError(string input)
     {
         // Arrange
-        _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
+        _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
 
         var consoleInput = new StringReader(input);
         var consoleOutput = new StringWriter();
@@ -441,7 +471,9 @@ public class CharacterMenuTests
     public void DisplayMainPrompt_PromptLeaveGame_WithInvalidInput_ShouldOutputError(string input)
     {
         // Arrange
-        _gameStateMock.SetupGet(x => x.FullName).Returns("John Doe");
+        _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
 
         var consoleInput = new StringReader(input);
         var consoleOutput = new StringWriter();

@@ -22,6 +22,8 @@ public class GameStateMapper : IGameStateMapper
             gameState.Thirst,
             gameState.PocketMoney,
             gameState.BankBalance,
+            gameState.Day,
+            gameState.Time,
             gameState.LastLocation);
     }
 }

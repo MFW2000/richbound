@@ -21,6 +21,7 @@ public class CharacterMenu(
     {
         Console.WriteLine("=== Character ===");
         Console.WriteLine(gameState.FullName);
+        Console.WriteLine($"Day {gameState.Day}, {gameState.TimeText}");
         Console.WriteLine();
         Console.WriteLine("--- Status ---");
         Console.WriteLine("Nothing here yet...");

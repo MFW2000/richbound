@@ -14,4 +14,6 @@ public record GameStateDto(
     int Thirst,
     double PocketMoney,
     double BankBalance,
+    int Day,
+    int Time,
     PromptType LastLocation);
