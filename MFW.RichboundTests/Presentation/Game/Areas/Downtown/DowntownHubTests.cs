@@ -1,17 +1,23 @@
 using MFW.Richbound.Enumerations;
 using MFW.Richbound.Presentation.Game.Areas.Downtown;
+using MFW.Richbound.Services.Interfaces;
+using Moq;
 
 namespace MFW.RichboundTests.Presentation.Game.Areas.Downtown;
 
 [TestClass]
 public class DowntownHubTests
 {
+    private Mock<ITimeService> _timeServiceMock = null!;
+
     private DowntownHub _sut = null!;
 
     [TestInitialize]
     public void Initialize()
     {
-        _sut = new DowntownHub();
+        _timeServiceMock = new Mock<ITimeService>(MockBehavior.Strict);
+
+        _sut = new DowntownHub(_timeServiceMock.Object);
     }
 
     [TestMethod]

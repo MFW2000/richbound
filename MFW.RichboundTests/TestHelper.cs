@@ -14,17 +14,21 @@ public static class TestHelper
         int thirst = 100,
         double pocketMoney = 0,
         double bankBalance = 0,
+        int day = 1,
+        int time = 6,
         PromptType lastLocation = PromptType.DowntownHub)
     {
         return new GameStateDto(
-            gender,
-            firstName,
-            lastName,
-            health,
-            hunger,
-            thirst,
-            pocketMoney,
-            bankBalance,
-            lastLocation);
+            Gender: gender,
+            FirstName: firstName,
+            LastName: lastName,
+            Health: health,
+            Hunger: hunger,
+            Thirst: thirst,
+            PocketMoney: pocketMoney,
+            BankBalance: bankBalance,
+            Day: day,
+            Time: time,
+            LastLocation: lastLocation);
     }
 }

@@ -11,6 +11,8 @@ using MFW.Richbound.Presentation.Game.Main;
 using MFW.Richbound.Presentation.Main;
 using MFW.Richbound.Providers;
 using MFW.Richbound.Providers.Interfaces;
+using MFW.Richbound.Services;
+using MFW.Richbound.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MFW.Richbound;
@@ -54,6 +56,7 @@ public static class Program
         services.AddTransient<IConsoleWrapper, ConsoleWrapper>();
         services.AddTransient<IThreadWrapper, ThreadWrapper>();
         services.AddTransient<IPromptFactory, PromptFactory>();
+        services.AddTransient<ITimeService, TimeService>();
 
         // Register runner service to manage application loop.
         services.AddTransient<Runner>();

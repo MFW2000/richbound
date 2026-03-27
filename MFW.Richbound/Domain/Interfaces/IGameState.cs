@@ -49,9 +49,24 @@ public interface IGameState
     double BankBalance { get; }
 
     /// <summary>
+    /// Day counter since starting the game.
+    /// </summary>
+    int Day { get; }
+
+    /// <summary>
+    /// The current time of the day in hours.
+    /// </summary>
+    int Time { get; }
+
+    /// <summary>
     /// The last location the player character was in.
     /// </summary>
     PromptType LastLocation { get; }
+
+    /// <summary>
+    /// The formatted <see cref="Time"/> to display.
+    /// </summary>
+    string TimeText { get; }
 
     /// <summary>
     /// The player character's full name.
@@ -98,6 +113,19 @@ public interface IGameState
     /// </summary>
     /// <param name="delta">The amount of money to add or subtract from the current value.</param>
     void UpdateBankBalance(double delta);
+
+    /// <summary>
+    /// Increments the day counter by one.
+    /// </summary>
+    void UpdateDay();
+
+    /// <summary>
+    /// Updates the time by adding the given hours to it. Remaining hours after 24 hours will be added after the time
+    /// was reset to 0.
+    /// </summary>
+    /// <param name="hours">The number of hours to add.</param>
+    /// <remarks>Negative hour values will be ignored.</remarks>
+    void UpdateTime(int hours);
 
     /// <summary>
     /// Updates the player character's last location.

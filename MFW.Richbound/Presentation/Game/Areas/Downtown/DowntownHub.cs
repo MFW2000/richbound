@@ -1,12 +1,13 @@
 ﻿using MFW.Richbound.Enumerations;
 using MFW.Richbound.Helpers;
+using MFW.Richbound.Services.Interfaces;
 
 namespace MFW.Richbound.Presentation.Game.Areas.Downtown;
 
 /// <summary>
 /// Responsible for providing activity options for the downtown area.
 /// </summary>
-public class DowntownHub : Prompt
+public class DowntownHub(ITimeService timeService) : Prompt
 {
     /// <inheritdoc/>
     public override PromptType? DisplayMainPrompt()
@@ -17,7 +18,9 @@ public class DowntownHub : Prompt
         Console.WriteLine();
         Console.WriteLine("--- Actions ---");
         Console.WriteLine("1. Open Menu");
-        Console.WriteLine("Select an option [1-1]:");
+        Console.WriteLine("2. Increment time by 1 hour (placeholder).");
+        Console.WriteLine("3. Increment time by 8 hours (placeholder).");
+        Console.WriteLine("Select an option [1-3]:");
 
         while (true)
         {
@@ -27,7 +30,7 @@ public class DowntownHub : Prompt
 
             try
             {
-                input = PromptHelper.ReadInt(false, 1, 1);
+                input = PromptHelper.ReadInt(false, 1, 3);
             }
             catch (Exception)
             {
@@ -40,6 +43,14 @@ public class DowntownHub : Prompt
             {
                 case 1:
                     return PromptType.CharacterMenu;
+                case 2:
+                    timeService.PassTime(1);
+
+                    return PromptType.DowntownHub;
+                case 3:
+                    timeService.PassTime(8);
+
+                    return PromptType.DowntownHub;
             }
         }
     }

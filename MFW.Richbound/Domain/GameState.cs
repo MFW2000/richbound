@@ -37,7 +37,16 @@ public class GameState : IGameState
     public double BankBalance { get; private set; }
 
     /// <inheritdoc/>
+    public int Day { get; private set; } = 1;
+
+    /// <inheritdoc/>
+    public int Time { get; private set; } = 6;
+
+    /// <inheritdoc/>
     public PromptType LastLocation { get; private set; } = PromptType.DowntownHub;
+
+    /// <inheritdoc/>
+    public string TimeText => Time < 10 ? $"0{Time}:00" : $"{Time}:00";
 
     /// <inheritdoc/>
     public string FullName => $"{FirstName} {LastName}".Trim();
@@ -56,6 +65,8 @@ public class GameState : IGameState
         Thirst = gameStateDto.Thirst;
         PocketMoney = gameStateDto.PocketMoney;
         BankBalance = gameStateDto.BankBalance;
+        Day = gameStateDto.Day;
+        Time = gameStateDto.Time;
         LastLocation = gameStateDto.LastLocation;
     }
 
@@ -87,6 +98,23 @@ public class GameState : IGameState
     public void UpdateBankBalance(double delta)
     {
         BankBalance = Math.Clamp(BankBalance + delta, double.MinValue, double.MaxValue);
+    }
+
+    /// <inheritdoc/>
+    public void UpdateDay()
+    {
+        Day += 1;
+    }
+
+    /// <inheritdoc/>
+    public void UpdateTime(int hours)
+    {
+        if (hours <= 0)
+        {
+            return;
+        }
+
+        Time = (Time + hours) % 24;
     }
 
     /// <inheritdoc/>
