@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Publish for Windows" type="DotNetFolderPublish" factoryName="Publish to folder">
+    <riderPublish configuration="Release" platform="Any CPU" produce_single_file="true" target_folder="$PROJECT_DIR$/MFW.Richbound/bin/Release/net10.0/win-x64/publish" target_framework="net10.0" uuid_high="3003186608477192193" uuid_low="-6432060720330469060">
+      <runtimes>
+        <item value="win-x64" />
+      </runtimes>
+    </riderPublish>
+    <method v="2" />
+  </configuration>
+</component>
