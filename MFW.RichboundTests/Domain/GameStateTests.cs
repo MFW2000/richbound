@@ -15,6 +15,23 @@ public class GameStateTests
     }
 
     [TestMethod]
+    [DataRow("09:00", 9)]
+    [DataRow("10:00", 10)]
+    public void TimeText_ShouldReturnTimeText(string expectedTimeText, int time)
+    {
+        // Arrange
+        var gameStateDto = TestHelper.GetGameStateDto(time: time);
+
+        _sut.Initialize(gameStateDto);
+
+        // Act
+        var actualTimeText = _sut.TimeText;
+
+        // Assert
+        Assert.AreEqual(expectedTimeText, actualTimeText);
+    }
+
+    [TestMethod]
     public void FullName_ShouldReturnFullName()
     {
         // Arrange
@@ -216,6 +233,42 @@ public class GameStateTests
 
         // Assert
         Assert.AreEqual(expectedBankBalance, actualBankBalance);
+    }
+
+    [TestMethod]
+    public void UpdateDay_ShouldUpdateDay()
+    {
+        // Arrange
+        const int expectedDay = 2;
+
+        var gameStateDto = TestHelper.GetGameStateDto(day: 1);
+
+        _sut.Initialize(gameStateDto);
+
+        // Act
+        _sut.UpdateDay();
+
+        // Assert
+        Assert.AreEqual(expectedDay, _sut.Day);
+    }
+
+    [TestMethod]
+    [DataRow(0, 0)]
+    [DataRow(0, -1)]
+    [DataRow(1, 1)]
+    [DataRow(1, 25)]
+    public void UpdateTime_ShouldUpdateTime(int expectedTime, int hours)
+    {
+        // Arrange
+        var gameStateDto = TestHelper.GetGameStateDto(time: 0);
+
+        _sut.Initialize(gameStateDto);
+
+        // Act
+        _sut.UpdateTime(hours);
+
+        // Assert
+        Assert.AreEqual(expectedTime, _sut.Time);
     }
 
     [TestMethod]
