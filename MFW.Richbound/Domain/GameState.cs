@@ -1,5 +1,6 @@
 using MFW.Richbound.Domain.Interfaces;
 using MFW.Richbound.Enumerations;
+using MFW.Richbound.Exceptions;
 using MFW.Richbound.Models;
 
 namespace MFW.Richbound.Domain;
@@ -25,10 +26,10 @@ public class GameState : IGameState
     public int Health { get; private set; }
 
     /// <inheritdoc/>
-    public int Hunger { get; private set; }
+    public int Energy { get; private set; }
 
     /// <inheritdoc/>
-    public int Thirst { get; private set; }
+    public int Hunger { get; private set; }
 
     /// <inheritdoc/>
     public double PocketMoney { get; private set; }
@@ -61,8 +62,8 @@ public class GameState : IGameState
         FirstName = gameStateDto.FirstName;
         LastName = gameStateDto.LastName;
         Health = gameStateDto.Health;
+        Energy = gameStateDto.Energy;
         Hunger = gameStateDto.Hunger;
-        Thirst = gameStateDto.Thirst;
         PocketMoney = gameStateDto.PocketMoney;
         BankBalance = gameStateDto.BankBalance;
         Day = gameStateDto.Day;
@@ -77,15 +78,15 @@ public class GameState : IGameState
     }
 
     /// <inheritdoc/>
-    public void UpdateHunger(int delta)
+    public void UpdateEnergy(int delta)
     {
-        Hunger = Math.Clamp(Hunger + delta, MinStatValue, MaxStatValue);
+        Energy = Math.Clamp(Energy + delta, MinStatValue, MaxStatValue);
     }
 
     /// <inheritdoc/>
-    public void UpdateThirst(int delta)
+    public void UpdateHunger(int delta)
     {
-        Thirst = Math.Clamp(Thirst + delta, MinStatValue, MaxStatValue);
+        Hunger = Math.Clamp(Hunger + delta, MinStatValue, MaxStatValue);
     }
 
     /// <inheritdoc/>

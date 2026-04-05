@@ -29,14 +29,14 @@ public interface IGameState
     int Health { get; }
 
     /// <summary>
+    /// The player character's current energy points that range from 0 to 100.
+    /// </summary>
+    int Energy { get; }
+
+    /// <summary>
     /// The player character's current hunger level that ranges from 0 to 100.
     /// </summary>
     int Hunger { get; }
-
-    /// <summary>
-    /// The player character's current thirst level that ranges from 0 to 100.
-    /// </summary>
-    int Thirst { get; }
 
     /// <summary>
     /// The player character's amount of money they have in their pockets.
@@ -91,16 +91,16 @@ public interface IGameState
     void UpdateHealth(int delta);
 
     /// <summary>
+    /// Updates the player character's energy points up to a maximum of 100 and a minimum of 0.
+    /// </summary>
+    /// <param name="delta">The number of energy points to add or subtract from the current value.</param>
+    void UpdateEnergy(int delta);
+
+    /// <summary>
     /// Updates the player character's hunger level up to a maximum of 100 and a minimum of 0.
     /// </summary>
     /// <param name="delta">The number of hunger points to add or subtract from the current value.</param>
     void UpdateHunger(int delta);
-
-    /// <summary>
-    /// Updates the player character's thirst level up to a maximum of 100 and a minimum of 0.
-    /// </summary>
-    /// <param name="delta">The number of thirst points to add or subtract from the current value.</param>
-    void UpdateThirst(int delta);
 
     /// <summary>
     /// Updates the player character's pocket money by the specified amount.

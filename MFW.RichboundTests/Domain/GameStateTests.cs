@@ -122,8 +122,8 @@ public class GameStateTests
         Assert.AreEqual(gameStateDto.FirstName, _sut.FirstName);
         Assert.AreEqual(gameStateDto.LastName, _sut.LastName);
         Assert.AreEqual(gameStateDto.Health, _sut.Health);
+        Assert.AreEqual(gameStateDto.Energy, _sut.Energy);
         Assert.AreEqual(gameStateDto.Hunger, _sut.Hunger);
-        Assert.AreEqual(gameStateDto.Thirst, _sut.Thirst);
         Assert.AreEqual(gameStateDto.PocketMoney, _sut.PocketMoney);
         Assert.AreEqual(gameStateDto.BankBalance, _sut.BankBalance);
         Assert.AreEqual(gameStateDto.LastLocation, _sut.LastLocation);
@@ -155,6 +155,27 @@ public class GameStateTests
     [DataRow(100, 90, 10)]
     [DataRow(100, 100, 10)]
     [DataRow(0, 0, -10)]
+    public void UpdateEnergy_ShouldUpdateEnergy(int expectedEnergy, int current, int delta)
+    {
+        // Arrange
+        var gameStateDto = TestHelper.GetGameStateDto(energy: current);
+
+        _sut.Initialize(gameStateDto);
+
+        // Act
+        _sut.UpdateEnergy(delta);
+
+        var actualEnergy = _sut.Energy;
+
+        // Assert
+        Assert.AreEqual(expectedEnergy, actualEnergy);
+    }
+
+    [TestMethod]
+    [DataRow(90, 100, -10)]
+    [DataRow(100, 90, 10)]
+    [DataRow(100, 100, 10)]
+    [DataRow(0, 0, -10)]
     public void UpdateHunger_ShouldUpdateHunger(int expectedHunger, int current, int delta)
     {
         // Arrange
@@ -169,27 +190,6 @@ public class GameStateTests
 
         // Assert
         Assert.AreEqual(expectedHunger, actualHunger);
-    }
-
-    [TestMethod]
-    [DataRow(90, 100, -10)]
-    [DataRow(100, 90, 10)]
-    [DataRow(100, 100, 10)]
-    [DataRow(0, 0, -10)]
-    public void UpdateThirst_ShouldUpdateThirst(int expectedThirst, int current, int delta)
-    {
-        // Arrange
-        var gameStateDto = TestHelper.GetGameStateDto(thirst: current);
-
-        _sut.Initialize(gameStateDto);
-
-        // Act
-        _sut.UpdateThirst(delta);
-
-        var actualThirst = _sut.Thirst;
-
-        // Assert
-        Assert.AreEqual(expectedThirst, actualThirst);
     }
 
     [TestMethod]
