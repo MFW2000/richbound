@@ -50,8 +50,8 @@ public abstract class Prompt
     {
         Console.WriteLine("--- Status ---");
         Console.WriteLine($"Health: {gameState.Health}%");
-        Console.WriteLine($"Hunger: {gameState.Hunger}%");
         Console.WriteLine($"Energy: {gameState.Energy}%");
+        Console.WriteLine($"Hunger: {gameState.Hunger}%");
         Console.WriteLine($"Cash:   ${gameState.PocketMoney:N0}");
     }
 
