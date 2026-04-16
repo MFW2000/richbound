@@ -24,7 +24,10 @@ public class CharacterMenu(
         Console.WriteLine($"Day {gameState.Day}, {gameState.TimeText}");
         Console.WriteLine();
         Console.WriteLine("--- Status ---");
-        Console.WriteLine("Nothing here yet...");
+        Console.WriteLine($"Health: {gameState.Health}%");
+        Console.WriteLine($"Hunger: {gameState.Hunger}%");
+        Console.WriteLine($"Energy: {gameState.Energy}%");
+        Console.WriteLine($"Cash:   ${gameState.PocketMoney:N0}");
         Console.WriteLine();
         Console.WriteLine("--- Options ---");
         Console.WriteLine("1. Close");

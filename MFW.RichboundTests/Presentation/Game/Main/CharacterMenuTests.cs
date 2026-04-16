@@ -52,6 +52,22 @@ public class CharacterMenuTests
             .SetupGet(x => x.FullName)
             .Returns(expectedFullName)
             .Verifiable(Times.Once);
+        _gameStateMock
+            .SetupGet(x => x.Health)
+            .Returns(100)
+            .Verifiable(Times.Once);
+        _gameStateMock
+            .SetupGet(x => x.Hunger)
+            .Returns(100)
+            .Verifiable(Times.Once);
+        _gameStateMock
+            .SetupGet(x => x.Energy)
+            .Returns(100)
+            .Verifiable(Times.Once);
+        _gameStateMock
+            .SetupGet(x => x.PocketMoney)
+            .Returns(150)
+            .Verifiable(Times.Once);
 
         var consoleInput = new StringReader(input);
         var consoleOutput = new StringWriter();
@@ -81,6 +97,10 @@ public class CharacterMenuTests
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
         _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.Health).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Hunger).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Energy).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.PocketMoney).Returns(It.IsAny<int>());
         _gameStateMock
             .SetupGet(x => x.LastLocation)
             .Returns(expectedPromptType)
@@ -110,6 +130,10 @@ public class CharacterMenuTests
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
         _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.Health).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Hunger).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Energy).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.PocketMoney).Returns(It.IsAny<int>());
 
         var consoleInput = new StringReader(input);
 
@@ -135,6 +159,10 @@ public class CharacterMenuTests
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
         _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.Health).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Hunger).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Energy).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.PocketMoney).Returns(It.IsAny<int>());
 
         _gameStateMapperMock
             .Setup(x => x.MapToDto(_gameStateMock.Object))
@@ -177,6 +205,10 @@ public class CharacterMenuTests
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
         _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.Health).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Hunger).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Energy).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.PocketMoney).Returns(It.IsAny<int>());
 
         _gameStateMapperMock
             .Setup(x => x.MapToDto(_gameStateMock.Object))
@@ -222,6 +254,10 @@ public class CharacterMenuTests
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
         _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.Health).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Hunger).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Energy).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.PocketMoney).Returns(It.IsAny<int>());
 
         var consoleInput = new StringReader(input);
 
@@ -248,6 +284,10 @@ public class CharacterMenuTests
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
         _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.Health).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Hunger).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Energy).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.PocketMoney).Returns(It.IsAny<int>());
 
         _gameStateMapperMock
             .Setup(x => x.MapToDto(_gameStateMock.Object))
@@ -290,6 +330,10 @@ public class CharacterMenuTests
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
         _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.Health).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Hunger).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Energy).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.PocketMoney).Returns(It.IsAny<int>());
 
         _gameStateMapperMock
             .Setup(x => x.MapToDto(_gameStateMock.Object))
@@ -335,6 +379,10 @@ public class CharacterMenuTests
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
         _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.Health).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Hunger).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Energy).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.PocketMoney).Returns(It.IsAny<int>());
 
         var consoleInput = new StringReader(input);
 
@@ -361,6 +409,10 @@ public class CharacterMenuTests
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
         _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.Health).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Hunger).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Energy).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.PocketMoney).Returns(It.IsAny<int>());
 
         _gameStateMapperMock
             .Setup(x => x.MapToDto(_gameStateMock.Object))
@@ -403,6 +455,10 @@ public class CharacterMenuTests
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
         _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.Health).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Hunger).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Energy).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.PocketMoney).Returns(It.IsAny<int>());
 
         _gameStateMapperMock
             .Setup(x => x.MapToDto(_gameStateMock.Object))
@@ -449,6 +505,10 @@ public class CharacterMenuTests
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
         _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.Health).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Hunger).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Energy).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.PocketMoney).Returns(It.IsAny<int>());
 
         var consoleInput = new StringReader(input);
         var consoleOutput = new StringWriter();
@@ -474,6 +534,10 @@ public class CharacterMenuTests
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
         _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.Health).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Hunger).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.Energy).Returns(It.IsAny<int>());
+        _gameStateMock.SetupGet(x => x.PocketMoney).Returns(It.IsAny<int>());
 
         var consoleInput = new StringReader(input);
         var consoleOutput = new StringWriter();
