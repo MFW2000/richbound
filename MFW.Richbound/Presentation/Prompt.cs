@@ -1,4 +1,5 @@
-﻿using MFW.Richbound.Enumerations;
+﻿using MFW.Richbound.Domain.Interfaces;
+using MFW.Richbound.Enumerations;
 using MFW.Richbound.Helpers;
 
 namespace MFW.Richbound.Presentation;
@@ -22,6 +23,36 @@ public abstract class Prompt
         Console.WriteLine("Press any key to continue.");
         Console.Write(DisplayText.InputPrompt);
         Console.ReadLine();
+    }
+
+    /// <summary>
+    /// Display the player's status after performing an activity.
+    /// </summary>
+    /// <param name="gameState">The game state providing the data to display.</param>
+    /// <param name="hoursPassed">The amount of time the activity took to complete.</param>
+    protected static void DisplayPostActivityStatus(IGameState gameState, int hoursPassed)
+    {
+        Console.WriteLine($"This action took {hoursPassed} hour(s) to complete.");
+        Console.WriteLine();
+
+        DisplayStatus(gameState);
+
+        Console.WriteLine();
+
+        ContinuePrompt();
+    }
+
+    /// <summary>
+    /// Display the player's current status.
+    /// </summary>
+    /// <param name="gameState">The game state providing the data to display.</param>
+    protected static void DisplayStatus(IGameState gameState)
+    {
+        Console.WriteLine("--- Status ---");
+        Console.WriteLine($"Health: {gameState.Health}%");
+        Console.WriteLine($"Hunger: {gameState.Hunger}%");
+        Console.WriteLine($"Energy: {gameState.Energy}%");
+        Console.WriteLine($"Cash:   ${gameState.PocketMoney:N0}");
     }
 
     /// <summary>
