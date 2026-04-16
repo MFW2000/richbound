@@ -9,6 +9,9 @@ namespace MFW.Richbound.Services;
 /// </summary>
 public class TimeService(IGameState gameState, IConsoleLogger logger) : ITimeService
 {
+    // TODO: Find a better name for this.
+    private const int HourlyHungerChange = -4;
+
     /// <inheritdoc/>
     public void PassTime(int hoursPassed)
     {
@@ -27,8 +30,7 @@ public class TimeService(IGameState gameState, IConsoleLogger logger) : ITimeSer
             HandleDailyUpdates();
         }
 
-        logger.LogDebug($"Handling hourly updates for {hoursPassed} hours.");
-
+        gameState.UpdateHunger(HourlyHungerChange * hoursPassed);
         gameState.UpdateTime(hoursPassed);
     }
 
