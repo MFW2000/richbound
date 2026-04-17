@@ -213,7 +213,8 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
             BankBalance: 0,
             Day: 1,
             Time: 6,
-            LastLocation: PromptType.DowntownHub);
+            LastLocation: PromptType.DowntownHub,
+            HasUsedHomelessShelter: false);
 
         var success = saveFileManager.SaveGame(newGameState);
         if (!success)

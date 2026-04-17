@@ -16,4 +16,5 @@ public record GameStateDto(
     double BankBalance,
     int Day,
     int Time,
-    PromptType LastLocation);
+    PromptType LastLocation,
+    bool HasUsedHomelessShelter);

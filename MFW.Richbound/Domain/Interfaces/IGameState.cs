@@ -64,9 +64,14 @@ public interface IGameState
     PromptType LastLocation { get; }
 
     /// <summary>
+    /// Whether the player character has used the homeless shelter that day.
+    /// </summary>
+    bool HasUsedHomelessShelter { get; set; }
+
+    /// <summary>
     /// The formatted <see cref="Time"/> to display.
     /// </summary>
-    string TimeText { get; }
+    string DisplayTime { get; }
 
     /// <summary>
     /// The player character's full name.

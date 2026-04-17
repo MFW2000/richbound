@@ -25,7 +25,7 @@ public class GameStateTests
         _sut.Initialize(gameStateDto);
 
         // Act
-        var actualTimeText = _sut.TimeText;
+        var actualTimeText = _sut.DisplayTime;
 
         // Assert
         Assert.AreEqual(expectedTimeText, actualTimeText);

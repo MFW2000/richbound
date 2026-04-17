@@ -1,6 +1,5 @@
 using MFW.Richbound.Domain.Interfaces;
 using MFW.Richbound.Enumerations;
-using MFW.Richbound.Exceptions;
 using MFW.Richbound.Models;
 
 namespace MFW.Richbound.Domain;
@@ -10,9 +9,6 @@ namespace MFW.Richbound.Domain;
 /// </summary>
 public class GameState : IGameState
 {
-    private const int MinStatValue = 0;
-    private const int MaxStatValue = 100;
-
     /// <inheritdoc/>
     public Gender Gender { get; private set; }
 
@@ -47,7 +43,10 @@ public class GameState : IGameState
     public PromptType LastLocation { get; private set; } = PromptType.DowntownHub;
 
     /// <inheritdoc/>
-    public string TimeText => Time < 10 ? $"0{Time}:00" : $"{Time}:00";
+    public bool HasUsedHomelessShelter { get; set; }
+
+    /// <inheritdoc/>
+    public string DisplayTime => Time < 10 ? $"0{Time}:00" : $"{Time}:00";
 
     /// <inheritdoc/>
     public string FullName => $"{FirstName} {LastName}".Trim();
@@ -69,24 +68,25 @@ public class GameState : IGameState
         Day = gameStateDto.Day;
         Time = gameStateDto.Time;
         LastLocation = gameStateDto.LastLocation;
+        HasUsedHomelessShelter = gameStateDto.HasUsedHomelessShelter;
     }
 
     /// <inheritdoc/>
     public void UpdateHealth(int delta)
     {
-        Health = Math.Clamp(Health + delta, MinStatValue, MaxStatValue);
+        Health = Math.Clamp(Health + delta, Constants.MinCharacterStatValue, Constants.MaxCharacterStatValue);
     }
 
     /// <inheritdoc/>
     public void UpdateEnergy(int delta)
     {
-        Energy = Math.Clamp(Energy + delta, MinStatValue, MaxStatValue);
+        Energy = Math.Clamp(Energy + delta, Constants.MinCharacterStatValue, Constants.MaxCharacterStatValue);
     }
 
     /// <inheritdoc/>
     public void UpdateHunger(int delta)
     {
-        Hunger = Math.Clamp(Hunger + delta, MinStatValue, MaxStatValue);
+        Hunger = Math.Clamp(Hunger + delta, Constants.MinCharacterStatValue, Constants.MaxCharacterStatValue);
     }
 
     /// <inheritdoc/>

@@ -24,6 +24,7 @@ public class GameStateMapper : IGameStateMapper
             gameState.BankBalance,
             gameState.Day,
             gameState.Time,
-            gameState.LastLocation);
+            gameState.LastLocation,
+            gameState.HasUsedHomelessShelter);
     }
 }
