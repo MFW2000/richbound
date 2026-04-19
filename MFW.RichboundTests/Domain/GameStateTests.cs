@@ -25,7 +25,7 @@ public class GameStateTests
         _sut.Initialize(gameStateDto);
 
         // Act
-        var actualTimeText = _sut.TimeText;
+        var actualTimeText = _sut.FormattedTime;
 
         // Assert
         Assert.AreEqual(expectedTimeText, actualTimeText);
@@ -123,7 +123,7 @@ public class GameStateTests
         Assert.AreEqual(gameStateDto.LastName, _sut.LastName);
         Assert.AreEqual(gameStateDto.Health, _sut.Health);
         Assert.AreEqual(gameStateDto.Hunger, _sut.Hunger);
-        Assert.AreEqual(gameStateDto.Thirst, _sut.Thirst);
+        Assert.AreEqual(gameStateDto.Energy, _sut.Energy);
         Assert.AreEqual(gameStateDto.PocketMoney, _sut.PocketMoney);
         Assert.AreEqual(gameStateDto.BankBalance, _sut.BankBalance);
         Assert.AreEqual(gameStateDto.LastLocation, _sut.LastLocation);
@@ -176,20 +176,20 @@ public class GameStateTests
     [DataRow(100, 90, 10)]
     [DataRow(100, 100, 10)]
     [DataRow(0, 0, -10)]
-    public void UpdateThirst_ShouldUpdateThirst(int expectedThirst, int current, int delta)
+    public void UpdateEnergy_ShouldUpdateEnergy(int expectedEnergy, int current, int delta)
     {
         // Arrange
-        var gameStateDto = TestHelper.GetGameStateDto(thirst: current);
+        var gameStateDto = TestHelper.GetGameStateDto(energy: current);
 
         _sut.Initialize(gameStateDto);
 
         // Act
-        _sut.UpdateThirst(delta);
+        _sut.UpdateEnergy(delta);
 
-        var actualThirst = _sut.Thirst;
+        var actualEnergy = _sut.Energy;
 
         // Assert
-        Assert.AreEqual(expectedThirst, actualThirst);
+        Assert.AreEqual(expectedEnergy, actualEnergy);
     }
 
     [TestMethod]

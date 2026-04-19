@@ -19,7 +19,7 @@ public class GameStateMapper : IGameStateMapper
             gameState.LastName,
             gameState.Health,
             gameState.Hunger,
-            gameState.Thirst,
+            gameState.Energy,
             gameState.PocketMoney,
             gameState.BankBalance,
             gameState.Day,

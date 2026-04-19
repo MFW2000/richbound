@@ -11,7 +11,7 @@ public record GameStateDto(
     string LastName,
     int Health,
     int Hunger,
-    int Thirst,
+    int Energy,
     double PocketMoney,
     double BankBalance,
     int Day,

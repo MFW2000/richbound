@@ -208,7 +208,7 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
             LastName: lastName,
             Health: 100,
             Hunger: 100,
-            Thirst: 100,
+            Energy: 100,
             PocketMoney: 0,
             BankBalance: 0,
             Day: 1,

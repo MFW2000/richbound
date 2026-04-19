@@ -9,9 +9,6 @@ namespace MFW.Richbound.Domain;
 /// </summary>
 public class GameState : IGameState
 {
-    private const int MinStatValue = 0;
-    private const int MaxStatValue = 100;
-
     /// <inheritdoc/>
     public Gender Gender { get; private set; }
 
@@ -28,7 +25,7 @@ public class GameState : IGameState
     public int Hunger { get; private set; }
 
     /// <inheritdoc/>
-    public int Thirst { get; private set; }
+    public int Energy { get; private set; }
 
     /// <inheritdoc/>
     public double PocketMoney { get; private set; }
@@ -46,7 +43,7 @@ public class GameState : IGameState
     public PromptType LastLocation { get; private set; } = PromptType.DowntownHub;
 
     /// <inheritdoc/>
-    public string TimeText => Time < 10 ? $"0{Time}:00" : $"{Time}:00";
+    public string FormattedTime => Time < 10 ? $"0{Time}:00" : $"{Time}:00";
 
     /// <inheritdoc/>
     public string FullName => $"{FirstName} {LastName}".Trim();
@@ -62,7 +59,7 @@ public class GameState : IGameState
         LastName = gameStateDto.LastName;
         Health = gameStateDto.Health;
         Hunger = gameStateDto.Hunger;
-        Thirst = gameStateDto.Thirst;
+        Energy = gameStateDto.Energy;
         PocketMoney = gameStateDto.PocketMoney;
         BankBalance = gameStateDto.BankBalance;
         Day = gameStateDto.Day;
@@ -73,19 +70,19 @@ public class GameState : IGameState
     /// <inheritdoc/>
     public void UpdateHealth(int delta)
     {
-        Health = Math.Clamp(Health + delta, MinStatValue, MaxStatValue);
+        Health = Math.Clamp(Health + delta, Constants.MinCharacterStatValue, Constants.MaxCharacterStatValue);
     }
 
     /// <inheritdoc/>
     public void UpdateHunger(int delta)
     {
-        Hunger = Math.Clamp(Hunger + delta, MinStatValue, MaxStatValue);
+        Hunger = Math.Clamp(Hunger + delta, Constants.MinCharacterStatValue, Constants.MaxCharacterStatValue);
     }
 
     /// <inheritdoc/>
-    public void UpdateThirst(int delta)
+    public void UpdateEnergy(int delta)
     {
-        Thirst = Math.Clamp(Thirst + delta, MinStatValue, MaxStatValue);
+        Energy = Math.Clamp(Energy + delta, Constants.MinCharacterStatValue, Constants.MaxCharacterStatValue);
     }
 
     /// <inheritdoc/>
