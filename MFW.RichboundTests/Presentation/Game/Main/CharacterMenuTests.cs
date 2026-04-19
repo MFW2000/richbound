@@ -45,7 +45,7 @@ public class CharacterMenuTests
             .Returns(1)
             .Verifiable(Times.Once);
         _gameStateMock
-            .SetupGet(x => x.TimeText)
+            .SetupGet(x => x.FormattedTime)
             .Returns("06:00")
             .Verifiable(Times.Once);
         _gameStateMock
@@ -79,7 +79,7 @@ public class CharacterMenuTests
         const string input = "1\n";
 
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
-        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FormattedTime).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
         _gameStateMock
             .SetupGet(x => x.LastLocation)
@@ -108,7 +108,7 @@ public class CharacterMenuTests
         const string input = "2\n";
 
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
-        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FormattedTime).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
 
         var consoleInput = new StringReader(input);
@@ -133,7 +133,7 @@ public class CharacterMenuTests
         var gameStateDto = TestHelper.GetGameStateDto();
 
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
-        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FormattedTime).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
 
         _gameStateMapperMock
@@ -175,7 +175,7 @@ public class CharacterMenuTests
         var gameStateDto = TestHelper.GetGameStateDto();
 
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
-        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FormattedTime).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
 
         _gameStateMapperMock
@@ -220,7 +220,7 @@ public class CharacterMenuTests
         const PromptType expectedPromptType = PromptType.MainMenu;
 
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
-        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FormattedTime).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
 
         var consoleInput = new StringReader(input);
@@ -246,7 +246,7 @@ public class CharacterMenuTests
         var gameStateDto = TestHelper.GetGameStateDto();
 
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
-        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FormattedTime).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
 
         _gameStateMapperMock
@@ -288,7 +288,7 @@ public class CharacterMenuTests
         var gameStateDto = TestHelper.GetGameStateDto();
 
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
-        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FormattedTime).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
 
         _gameStateMapperMock
@@ -333,7 +333,7 @@ public class CharacterMenuTests
         PromptType? expectedPromptType = null;
 
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
-        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FormattedTime).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
 
         var consoleInput = new StringReader(input);
@@ -359,7 +359,7 @@ public class CharacterMenuTests
         var gameStateDto = TestHelper.GetGameStateDto();
 
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
-        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FormattedTime).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
 
         _gameStateMapperMock
@@ -401,7 +401,7 @@ public class CharacterMenuTests
         var gameStateDto = TestHelper.GetGameStateDto();
 
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
-        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FormattedTime).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
 
         _gameStateMapperMock
@@ -447,7 +447,7 @@ public class CharacterMenuTests
     {
         // Arrange
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
-        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FormattedTime).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
 
         var consoleInput = new StringReader(input);
@@ -472,7 +472,7 @@ public class CharacterMenuTests
     {
         // Arrange
         _gameStateMock.SetupGet(x => x.Day).Returns(It.IsAny<int>());
-        _gameStateMock.SetupGet(x => x.TimeText).Returns(It.IsAny<string>());
+        _gameStateMock.SetupGet(x => x.FormattedTime).Returns(It.IsAny<string>());
         _gameStateMock.SetupGet(x => x.FullName).Returns(It.IsAny<string>());
 
         var consoleInput = new StringReader(input);

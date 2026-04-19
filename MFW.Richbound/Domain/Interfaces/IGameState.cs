@@ -66,7 +66,7 @@ public interface IGameState
     /// <summary>
     /// The formatted <see cref="Time"/> to display.
     /// </summary>
-    string TimeText { get; }
+    string FormattedTime { get; }
 
     /// <summary>
     /// The player character's full name.

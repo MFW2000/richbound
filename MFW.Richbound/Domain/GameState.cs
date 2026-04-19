@@ -43,7 +43,7 @@ public class GameState : IGameState
     public PromptType LastLocation { get; private set; } = PromptType.DowntownHub;
 
     /// <inheritdoc/>
-    public string TimeText => Time < 10 ? $"0{Time}:00" : $"{Time}:00";
+    public string FormattedTime => Time < 10 ? $"0{Time}:00" : $"{Time}:00";
 
     /// <inheritdoc/>
     public string FullName => $"{FirstName} {LastName}".Trim();
