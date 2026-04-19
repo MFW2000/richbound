@@ -25,7 +25,7 @@ public class GameState : IGameState
     public int Hunger { get; private set; }
 
     /// <inheritdoc/>
-    public int Thirst { get; private set; }
+    public int Energy { get; private set; }
 
     /// <inheritdoc/>
     public double PocketMoney { get; private set; }
@@ -59,7 +59,7 @@ public class GameState : IGameState
         LastName = gameStateDto.LastName;
         Health = gameStateDto.Health;
         Hunger = gameStateDto.Hunger;
-        Thirst = gameStateDto.Thirst;
+        Energy = gameStateDto.Energy;
         PocketMoney = gameStateDto.PocketMoney;
         BankBalance = gameStateDto.BankBalance;
         Day = gameStateDto.Day;
@@ -80,9 +80,9 @@ public class GameState : IGameState
     }
 
     /// <inheritdoc/>
-    public void UpdateThirst(int delta)
+    public void UpdateEnergy(int delta)
     {
-        Thirst = Math.Clamp(Thirst + delta, Constants.MinCharacterStatValue, Constants.MaxCharacterStatValue);
+        Energy = Math.Clamp(Energy + delta, Constants.MinCharacterStatValue, Constants.MaxCharacterStatValue);
     }
 
     /// <inheritdoc/>
