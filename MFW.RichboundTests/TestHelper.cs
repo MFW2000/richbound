@@ -16,7 +16,8 @@ public static class TestHelper
         double bankBalance = 0,
         int day = 1,
         int time = 6,
-        PromptType lastLocation = PromptType.DowntownHub)
+        PromptType lastLocation = PromptType.DowntownHub,
+        bool hasUsedHomelessShelter = false)
     {
         return new GameStateDto(
             Gender: gender,
@@ -29,6 +30,7 @@ public static class TestHelper
             BankBalance: bankBalance,
             Day: day,
             Time: time,
-            LastLocation: lastLocation);
+            LastLocation: lastLocation,
+            HasUsedHomelessShelter: hasUsedHomelessShelter);
     }
 }
