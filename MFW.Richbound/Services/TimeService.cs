@@ -37,6 +37,6 @@ public class TimeService(IGameState gameState, IConsoleLogger logger) : ITimeSer
     /// </summary>
     private void HandleDailyUpdates()
     {
-        logger.LogDebug("Handling daily updates.");
+        gameState.HasUsedHomelessShelter = false;
     }
 }
