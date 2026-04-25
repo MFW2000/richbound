@@ -9,7 +9,6 @@ namespace MFW.RichboundTests.Services;
 public class TimeServiceTests
 {
     private Mock<IGameState> _gameStateMock = null!;
-    private Mock<IConsoleLogger> _consoleLoggerMock = null!;
 
     private TimeService _sut = null!;
 
@@ -17,9 +16,8 @@ public class TimeServiceTests
     public void Initialize()
     {
         _gameStateMock = new Mock<IGameState>(MockBehavior.Strict);
-        _consoleLoggerMock = new Mock<IConsoleLogger>(MockBehavior.Strict);
 
-        _sut = new TimeService(_gameStateMock.Object, _consoleLoggerMock.Object);
+        _sut = new TimeService(_gameStateMock.Object);
     }
 
     [TestMethod]
@@ -27,10 +25,6 @@ public class TimeServiceTests
     {
         // Arrange
         const int hoursPassed = 1;
-
-        _consoleLoggerMock
-            .Setup(x => x.LogDebug(It.IsAny<string>(), It.IsAny<string>()))
-            .Verifiable(Times.Once);
 
         _gameStateMock
             .SetupGet(x => x.Time)
@@ -44,7 +38,6 @@ public class TimeServiceTests
         _sut.PassTime(hoursPassed);
 
         // Assert
-        _consoleLoggerMock.Verify();
         _gameStateMock.Verify();
     }
 
@@ -53,10 +46,6 @@ public class TimeServiceTests
     {
         // Arrange
         const int hoursPassed = 5;
-
-        _consoleLoggerMock
-            .Setup(x => x.LogDebug(It.IsAny<string>(), It.IsAny<string>()))
-            .Verifiable(Times.Exactly(2));
 
         _gameStateMock
             .SetupGet(x => x.Time)
@@ -68,12 +57,14 @@ public class TimeServiceTests
         _gameStateMock
             .Setup(x => x.UpdateTime(hoursPassed))
             .Verifiable(Times.Once);
+        _gameStateMock
+            .SetupSet(x => x.HasUsedHomelessShelter = false)
+            .Verifiable(Times.Once);
 
         // Act
         _sut.PassTime(hoursPassed);
 
         // Assert
-        _consoleLoggerMock.Verify();
         _gameStateMock.Verify();
     }
 

@@ -43,6 +43,9 @@ public class GameState : IGameState
     public PromptType LastLocation { get; private set; } = PromptType.DowntownHub;
 
     /// <inheritdoc/>
+    public bool HasUsedHomelessShelter { get; set; }
+
+    /// <inheritdoc/>
     public string FormattedTime => Time < 10 ? $"0{Time}:00" : $"{Time}:00";
 
     /// <inheritdoc/>
@@ -65,6 +68,7 @@ public class GameState : IGameState
         Day = gameStateDto.Day;
         Time = gameStateDto.Time;
         LastLocation = gameStateDto.LastLocation;
+        HasUsedHomelessShelter = gameStateDto.HasUsedHomelessShelter;
     }
 
     /// <inheritdoc/>
