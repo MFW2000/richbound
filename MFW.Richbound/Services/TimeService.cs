@@ -7,7 +7,7 @@ namespace MFW.Richbound.Services;
 /// <summary>
 /// Implements <see cref="ITimeService"/> for handling time-related operations.
 /// </summary>
-public class TimeService(IGameState gameState, IConsoleLogger logger) : ITimeService
+public class TimeService(IGameState gameState) : ITimeService
 {
     /// <inheritdoc/>
     public void PassTime(int hoursPassed)
@@ -26,8 +26,6 @@ public class TimeService(IGameState gameState, IConsoleLogger logger) : ITimeSer
 
             HandleDailyUpdates();
         }
-
-        logger.LogDebug($"Handling hourly updates for {hoursPassed} hours.");
 
         gameState.UpdateTime(hoursPassed);
     }
