@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Text;
 using MFW.Richbound.Domain;
 using MFW.Richbound.Domain.Interfaces;
 using MFW.Richbound.Factories;
@@ -31,11 +32,13 @@ public static class Program
         var serviceProvider = ConfigureServices();
         var runner = serviceProvider.GetRequiredService<Runner>();
 
+        ConfigureConsole();
+
         runner.Run();
     }
 
     /// <summary>
-    /// Configures and builds a service provider with registered dependency injection services for the application.
+    /// Configure and build a service provider with registered dependency injection services for the application.
     /// </summary>
     /// <returns>A <see cref="ServiceProvider"/> instance containing the configured services.</returns>
     private static ServiceProvider ConfigureServices()
@@ -70,5 +73,14 @@ public static class Program
         services.AddTransient<DowntownHub>();
 
         return services.BuildServiceProvider();
+    }
+
+    /// <summary>
+    /// Configure the console to use UTF-8 encoding for input and output.
+    /// </summary>
+    private static void ConfigureConsole()
+    {
+        Console.InputEncoding = Encoding.UTF8;
+        Console.OutputEncoding = Encoding.UTF8;
     }
 }
