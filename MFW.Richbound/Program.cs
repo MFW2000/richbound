@@ -60,6 +60,7 @@ public static class Program
         services.AddTransient<IThreadWrapper, ThreadWrapper>();
         services.AddTransient<IPromptFactory, PromptFactory>();
         services.AddTransient<ITimeService, TimeService>();
+        services.AddTransient<ICharacterService, CharacterService>();
 
         // Register runner service to manage application loop.
         services.AddTransient<Runner>();

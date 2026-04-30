@@ -8,7 +8,7 @@ namespace MFW.Richbound.Presentation.Game.Areas.Downtown;
 /// <summary>
 /// Responsible for providing activity options for the downtown area.
 /// </summary>
-public class DowntownHub(IGameState gameState, ITimeService timeService) : Prompt
+public class DowntownHub(IGameState gameState, ICharacterService characterService) : Prompt
 {
     /// <inheritdoc/>
     public override PromptType? DisplayMainPrompt()
@@ -19,8 +19,8 @@ public class DowntownHub(IGameState gameState, ITimeService timeService) : Promp
         Console.WriteLine();
         Console.WriteLine("--- Actions ---");
         Console.WriteLine("1. Open Menu");
-        Console.WriteLine("2. Increment time by 1 hour (placeholder)");
-        Console.WriteLine("3. Increment time by 8 hours (placeholder)");
+        Console.WriteLine("2. Perform an activity for 1 hour (placeholder)");
+        Console.WriteLine("3. Perform an activity for 8 hours (placeholder)");
         Console.WriteLine("4. Sleep (placeholder)");
         Console.WriteLine("5. Eat food (placeholder)");
         Console.WriteLine("6. Heal yourself (placeholder)");
@@ -44,46 +44,49 @@ public class DowntownHub(IGameState gameState, ITimeService timeService) : Promp
                 continue;
             }
 
+            bool completed;
+
             switch (input)
             {
                 case 1:
                     return PromptType.CharacterMenu;
                 case 2:
-                    timeService.PassTime(1);
+                    completed = characterService.HandleActivity(1, 4);
 
-                    gameState.UpdateEnergy(4);
-
-                    DisplayPostActivityStatus(gameState, 1);
+                    if (!completed)
+                    {
+                        Console.WriteLine("Not enough energy to complete activity.");
+                    }
+                    else
+                    {
+                        DisplayPostActivityStatus(gameState, 1);
+                    }
 
                     return PromptType.DowntownHub;
                 case 3:
+                    completed = characterService.HandleActivity(8, 32);
 
-                    // TODO: Decide between a constant energy per hour or a different energy usage per action.
-
-                    timeService.PassTime(8);
-
-                    gameState.UpdateEnergy(32);
-
-                    DisplayPostActivityStatus(gameState, 8);
+                    if (!completed)
+                    {
+                        Console.WriteLine("Not enough energy to complete activity.");
+                    }
+                    else
+                    {
+                        DisplayPostActivityStatus(gameState, 8);
+                    }
 
                     return PromptType.DowntownHub;
                 case 4:
-                    if (gameState.Energy == 100)
+                    completed = characterService.HandleSleep(BedQuality.Good);
+
+                    if (!completed)
                     {
                         Console.WriteLine("You are already fully rested.");
-
-                        ContinuePrompt();
-
-                        return PromptType.DowntownHub;
                     }
-
-                    Console.WriteLine("Sleeping...");
-
-                    // TODO: Add this to a separate service?
-                    gameState.UpdateEnergy(100);
-                    timeService.PassTime(8);
-
-                    DisplayPostActivityStatus(gameState, 8);
+                    else
+                    {
+                        DisplayPostActivityStatus(gameState, 8);
+                    }
 
                     ContinuePrompt();
 
