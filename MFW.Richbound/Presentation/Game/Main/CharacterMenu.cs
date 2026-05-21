@@ -23,8 +23,9 @@ public class CharacterMenu(
         Console.WriteLine(gameState.FullName);
         Console.WriteLine($"Day {gameState.Day}, {gameState.FormattedTime}");
         Console.WriteLine();
-        Console.WriteLine("--- Status ---");
-        Console.WriteLine("Nothing here yet...");
+
+        DisplayStatus(gameState);
+
         Console.WriteLine();
         Console.WriteLine("--- Options ---");
         Console.WriteLine("1. Close");
