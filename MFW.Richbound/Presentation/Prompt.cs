@@ -43,6 +43,23 @@ public abstract class Prompt
     }
 
     /// <summary>
+    /// Display the player's status after performing an action.
+    /// </summary>
+    /// <param name="gameState">The game state providing the data to display.</param>
+    /// <param name="message">Result message from performing the action.</param>
+    protected static void DisplayPostActivityStatus(IGameState gameState, string message)
+    {
+        Console.WriteLine(message);
+        Console.WriteLine();
+
+        DisplayStatus(gameState);
+
+        Console.WriteLine();
+
+        ContinuePrompt();
+    }
+
+    /// <summary>
     /// Display the player's current status.
     /// </summary>
     /// <param name="gameState">The game state providing the data to display.</param>

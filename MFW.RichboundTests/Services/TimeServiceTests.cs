@@ -1,5 +1,5 @@
+using MFW.Richbound;
 using MFW.Richbound.Domain.Interfaces;
-using MFW.Richbound.Infrastructure.Interfaces;
 using MFW.Richbound.Services;
 using Moq;
 
@@ -25,6 +25,7 @@ public class TimeServiceTests
     {
         // Arrange
         const int hoursPassed = 1;
+        const int hungerDrain = Constants.HungerDrainPerHour;
 
         _gameStateMock
             .SetupGet(x => x.Time)
@@ -32,6 +33,9 @@ public class TimeServiceTests
             .Verifiable(Times.Once);
         _gameStateMock
             .Setup(x => x.UpdateTime(hoursPassed))
+            .Verifiable(Times.Once);
+        _gameStateMock
+            .Setup(x => x.UpdateHunger(hungerDrain))
             .Verifiable(Times.Once);
 
         // Act
@@ -46,6 +50,7 @@ public class TimeServiceTests
     {
         // Arrange
         const int hoursPassed = 5;
+        const int hungerDrain = Constants.HungerDrainPerHour * hoursPassed;
 
         _gameStateMock
             .SetupGet(x => x.Time)
@@ -56,6 +61,9 @@ public class TimeServiceTests
             .Verifiable(Times.Once);
         _gameStateMock
             .Setup(x => x.UpdateTime(hoursPassed))
+            .Verifiable(Times.Once);
+        _gameStateMock
+            .Setup(x => x.UpdateHunger(hungerDrain))
             .Verifiable(Times.Once);
         _gameStateMock
             .SetupSet(x => x.HasUsedHomelessShelter = false)

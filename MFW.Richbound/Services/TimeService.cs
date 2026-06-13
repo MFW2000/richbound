@@ -27,6 +27,7 @@ public class TimeService(IGameState gameState) : ITimeService
         }
 
         gameState.UpdateTime(hoursPassed);
+        gameState.UpdateHunger(Constants.HungerDrainPerHour * hoursPassed);
     }
 
     /// <summary>

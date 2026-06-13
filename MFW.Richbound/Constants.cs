@@ -13,4 +13,5 @@ public static class Constants
 
     public const int MaxCharacterStatValue = 100;
     public const int MinCharacterStatValue = 0;
+    public const int HungerDrainPerHour = -3;
 }
