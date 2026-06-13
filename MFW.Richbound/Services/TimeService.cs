@@ -1,5 +1,4 @@
 using MFW.Richbound.Domain.Interfaces;
-using MFW.Richbound.Infrastructure.Interfaces;
 using MFW.Richbound.Services.Interfaces;
 
 namespace MFW.Richbound.Services;
