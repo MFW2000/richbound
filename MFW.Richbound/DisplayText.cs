@@ -9,6 +9,7 @@ public static class DisplayText
     public const string AppSubtitle = "A game by MFW.";
 
     public const string TooltipInvalidMenuOption = "Please select a valid menu option.";
+    public const string TooltipActionCouldNotBeCompleted = "This action could not be completed.";
 
     public const string InputPrompt = "> ";
 
