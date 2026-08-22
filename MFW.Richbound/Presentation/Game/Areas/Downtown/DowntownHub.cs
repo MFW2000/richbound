@@ -1,6 +1,7 @@
 ﻿using MFW.Richbound.Domain.Interfaces;
 using MFW.Richbound.Enumerations;
 using MFW.Richbound.Helpers;
+using MFW.Richbound.Infrastructure.Interfaces;
 using MFW.Richbound.Services.Interfaces;
 
 namespace MFW.Richbound.Presentation.Game.Areas.Downtown;
@@ -8,7 +9,7 @@ namespace MFW.Richbound.Presentation.Game.Areas.Downtown;
 /// <summary>
 /// Responsible for providing activity options for the downtown area.
 /// </summary>
-public class DowntownHub(IGameState gameState, ITimeService timeService) : Prompt
+public class DowntownHub(IGameState gameState, ICharacterService characterService, IConsoleLogger logger) : Prompt
 {
     /// <inheritdoc/>
     public override PromptType? DisplayMainPrompt()
@@ -49,71 +50,212 @@ public class DowntownHub(IGameState gameState, ITimeService timeService) : Promp
                 case 1:
                     return PromptType.CharacterMenu;
                 case 2:
-                    timeService.PassTime(1);
-                    gameState.UpdateEnergy(-5);
-
-                    DisplayPostActivityStatus(gameState, 1);
-
-                    return PromptType.DowntownHub;
+                    return Activity(1, 5);
                 case 3:
-                    timeService.PassTime(8);
-                    gameState.UpdateEnergy(-40);
-
-                    DisplayPostActivityStatus(gameState, 8);
-
-                    return PromptType.DowntownHub;
+                    return Activity(8, 40);
                 case 4:
-                    if (gameState.Energy == 100)
-                    {
-                        Console.WriteLine("You are already fully rested.");
-
-                        ContinuePrompt();
-
-                        return PromptType.DowntownHub;
-                    }
-
-                    Console.WriteLine("Sleeping...");
-
-                    timeService.PassTime(8);
-                    gameState.UpdateEnergy(100);
-
-                    DisplayPostActivityStatus(gameState, 8);
-
-                    return PromptType.DowntownHub;
+                    return Sleep(Comfort.Good);
                 case 5:
-                    Console.WriteLine("Eating...");
-
-                    gameState.UpdateHunger(40);
-
-                    DisplayPostActivityStatus(gameState, "Restored hunger by 40%.");
-
-                    return PromptType.DowntownHub;
+                    return Eat(40);
                 case 6:
-                    if (gameState.Health == 100)
-                    {
-                        Console.WriteLine("You are already at full health.");
-
-                        ContinuePrompt();
-
-                        return PromptType.DowntownHub;
-                    }
-
-                    Console.WriteLine("Healing...");
-
-                    gameState.UpdateHealth(40);
-
-                    DisplayPostActivityStatus(gameState, "Restored health by 40%.");
-
-                    return PromptType.DowntownHub;
+                    return Heal(40);
                 case 7:
-                    Console.WriteLine("You hurt yourself in your confusion...");
-
-                    gameState.UpdateHealth(-20);
-
-                    DisplayPostActivityStatus(gameState, "You lost 20% of your health.");
-
-                    return PromptType.DowntownHub;
+                    return DealDamage(20);
             }
         }
+    }
+
+    private PromptType Activity(int hoursToComplete, int energyToComplete)
+    {
+        bool success;
+
+        try
+        {
+            success = characterService.HandleActivity(hoursToComplete, energyToComplete);
+        }
+        catch (Exception exception)
+        {
+            logger.LogError(exception.Message);
+
+            Console.WriteLine(DisplayText.TooltipActionCouldNotBeCompleted);
+            Console.WriteLine();
+
+            ContinuePrompt();
+
+            return PromptType.DowntownHub;
+        }
+
+        if (!success)
+        {
+            Console.WriteLine("You do not have enough energy to complete the activity.");
+            Console.WriteLine();
+
+            ContinuePrompt();
+
+            return PromptType.DowntownHub;
+        }
+
+        DisplayPostActivityStatus(gameState, hoursToComplete);
+
+        return PromptType.DowntownHub;
+    }
+
+    private PromptType Sleep(Comfort comfortLevel)
+    {
+        bool success;
+
+        try
+        {
+            success = characterService.HandleSleep(comfortLevel);
+        }
+        catch (Exception exception)
+        {
+            logger.LogError(exception.Message);
+
+            Console.WriteLine(DisplayText.TooltipActionCouldNotBeCompleted);
+            Console.WriteLine();
+
+            ContinuePrompt();
+
+            return PromptType.DowntownHub;
+        }
+
+        if (!success)
+        {
+            Console.WriteLine("You are not tired right now.");
+            Console.WriteLine();
+
+            ContinuePrompt();
+
+            return PromptType.DowntownHub;
+        }
+
+        Console.WriteLine("Sleeping...");
+
+        DisplayPostActivityStatus(gameState, 8);
+
+        return PromptType.DowntownHub;
+    }
+
+    private PromptType Eat(int foodPoints)
+    {
+        bool success;
+
+        try
+        {
+            success = characterService.HandleEat(foodPoints);
+        }
+        catch (Exception exception)
+        {
+            logger.LogError(exception.Message);
+
+            Console.WriteLine(DisplayText.TooltipActionCouldNotBeCompleted);
+            Console.WriteLine();
+
+            ContinuePrompt();
+
+            return PromptType.DowntownHub;
+        }
+
+        if (!success)
+        {
+            Console.WriteLine("You are not hungry right now.");
+            Console.WriteLine();
+
+            ContinuePrompt();
+
+            return PromptType.DowntownHub;
+        }
+
+        Console.WriteLine("Eating...");
+
+        DisplayPostActivityStatus(gameState, $"Restored hunger by {DisplayPercentage(foodPoints)}.");
+
+        return PromptType.DowntownHub;
+    }
+
+    private PromptType Heal(int hitPoints)
+    {
+        bool success;
+
+        try
+        {
+            success = characterService.HandleHealing(hitPoints);
+        }
+        catch (Exception exception)
+        {
+            logger.LogError(exception.Message);
+
+            Console.WriteLine(DisplayText.TooltipActionCouldNotBeCompleted);
+            Console.WriteLine();
+
+            ContinuePrompt();
+
+            return PromptType.DowntownHub;
+        }
+
+        if (!success)
+        {
+            Console.WriteLine("You are already at full health.");
+            Console.WriteLine();
+
+            ContinuePrompt();
+
+            return PromptType.DowntownHub;
+        }
+
+        Console.WriteLine("Healing...");
+
+        DisplayPostActivityStatus(gameState, $"Restored health by {DisplayPercentage(hitPoints)}.");
+
+        return PromptType.DowntownHub;
+    }
+
+    private PromptType DealDamage(int hitPoints)
+    {
+        try
+        {
+            characterService.HandleDamage(hitPoints);
+        }
+        catch (Exception exception)
+        {
+            logger.LogError(exception.Message);
+
+            Console.WriteLine(DisplayText.TooltipActionCouldNotBeCompleted);
+            Console.WriteLine();
+
+            ContinuePrompt();
+
+            return PromptType.DowntownHub;
+        }
+
+        // TODO: Move this logic to a hospital location.
+        if (gameState.Health == 0)
+        {
+            var hospitalBill = gameState.NetWorth / Constants.HospitalBillPercentage;
+
+            if (hospitalBill > Constants.HospitalBillCap)
+            {
+                hospitalBill = Constants.HospitalBillCap;
+            }
+
+            characterService.HandleDeath(hospitalBill);
+
+            Console.WriteLine("WASTED");
+            Console.WriteLine();
+            Console.WriteLine("You were found barely alive and taken to hospital.");
+
+            DisplayPostActivityStatus(
+                gameState,
+                $"{Constants.HospitalStayDurationHours} hours have passed and you lost {DisplayCurrency(hospitalBill)}.");
+
+            ContinuePrompt();
+
+            return PromptType.DowntownHub;
+        }
+
+        DisplayPostActivityStatus(gameState, $"You lost {DisplayHitPoints(hitPoints)}.");
+
+        return PromptType.DowntownHub;
     }
 }

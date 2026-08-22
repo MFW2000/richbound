@@ -1,5 +1,6 @@
 using MFW.Richbound.Domain.Interfaces;
 using MFW.Richbound.Enumerations;
+using MFW.Richbound.Infrastructure.Interfaces;
 using MFW.Richbound.Presentation.Game.Areas.Downtown;
 using MFW.Richbound.Services.Interfaces;
 using Moq;
@@ -10,7 +11,8 @@ namespace MFW.RichboundTests.Presentation.Game.Areas.Downtown;
 public class DowntownHubTests
 {
     private Mock<IGameState> _gameStateMock = null!;
-    private Mock<ITimeService> _timeServiceMock = null!;
+    private Mock<ICharacterService> _characterServiceMock = null!;
+    private Mock<IConsoleLogger> _consoleLoggerMock = null!;
 
     private DowntownHub _sut = null!;
 
@@ -18,9 +20,10 @@ public class DowntownHubTests
     public void Initialize()
     {
         _gameStateMock = new Mock<IGameState>(MockBehavior.Strict);
-        _timeServiceMock = new Mock<ITimeService>(MockBehavior.Strict);
+        _characterServiceMock = new Mock<ICharacterService>(MockBehavior.Strict);
+        _consoleLoggerMock = new Mock<IConsoleLogger>(MockBehavior.Strict);
 
-        _sut = new DowntownHub(_gameStateMock.Object, _timeServiceMock.Object);
+        _sut = new DowntownHub(_gameStateMock.Object, _characterServiceMock.Object, _consoleLoggerMock.Object);
     }
 
     [TestMethod]
