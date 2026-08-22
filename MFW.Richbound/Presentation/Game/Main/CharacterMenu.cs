@@ -20,8 +20,8 @@ public class CharacterMenu(
     public override PromptType? DisplayMainPrompt()
     {
         Console.WriteLine("=== Character ===");
-        Console.WriteLine(gameState.FullName);
-        Console.WriteLine($"Day {gameState.Day}, {gameState.FormattedTime}");
+        Console.WriteLine($"{gameState.FirstName} {gameState.LastName}");
+        Console.WriteLine($"Day {gameState.Day}, {DisplayFormattedTime(gameState.Time)}");
         Console.WriteLine();
 
         DisplayStatus(gameState);
