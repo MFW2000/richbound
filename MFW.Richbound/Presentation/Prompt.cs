@@ -66,10 +66,10 @@ public abstract class Prompt
     protected static void DisplayStatus(IGameState gameState)
     {
         Console.WriteLine("--- Status ---");
-        Console.WriteLine($"Health: {gameState.Health}%");
+        Console.WriteLine($"Health: {gameState.Health}/{DisplayHitPoints(Constants.MaxCharacterStatValue)}");
         Console.WriteLine($"Hunger: {gameState.Hunger}%");
         Console.WriteLine($"Energy: {gameState.Energy}%");
-        Console.WriteLine($"Cash:   ${gameState.PocketMoney:N0}");
+        Console.WriteLine($"Cash:   {DisplayCurrency(gameState.PocketMoney)}");
     }
 
     /// <summary>
@@ -107,4 +107,17 @@ public abstract class Prompt
             Console.WriteLine("Please enter 'yes' (y) or 'no' (n).");
         }
     }
+
+    /// <summary>
+    /// Display the game time in a 24-hour format.
+    /// </summary>
+    protected static string DisplayFormattedTime(int time) => time < 10 ? $"0{time}:00" : $"{time}:00";
+
+    protected static string DisplayTitle(Gender gender) => gender == Gender.Male ? "Mr." : "Ms.";
+
+    protected static string DisplayCurrency(double value) => $"${value:N0}";
+
+    protected static string DisplayPercentage(int value) => $"{value}%";
+
+    protected static string DisplayHitPoints(double value) => $"{value} HP";
 }
