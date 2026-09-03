@@ -1,7 +1,7 @@
 using MFW.Richbound.Domain.Interfaces;
 using MFW.Richbound.Enumerations;
-using MFW.Richbound.Helpers;
 using MFW.Richbound.Infrastructure.Interfaces;
+using MFW.Richbound.Utilities;
 
 namespace MFW.Richbound.Presentation.Game.Main;
 
@@ -43,7 +43,7 @@ public class CharacterMenu(
 
             try
             {
-                input = PromptHelper.ReadInt(false, 1, 5);
+                input = InputUtilities.ReadInt(false, 1, 5);
             }
             catch (Exception)
             {

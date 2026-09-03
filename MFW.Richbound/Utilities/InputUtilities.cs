@@ -1,12 +1,12 @@
 ﻿using System.Text.RegularExpressions;
 using MFW.Richbound.Exceptions.Prompt;
 
-namespace MFW.Richbound.Helpers;
+namespace MFW.Richbound.Utilities;
 
 /// <summary>
-/// Provides helper methods for handling console input and other prompt-related functionalities.
+/// Provides utility methods for handling console input.
 /// </summary>
-public static class PromptHelper
+public static class InputUtilities
 {
     /// <summary>
     /// Reads a string input from the console with optional trimming, length validation, and empty value handling.

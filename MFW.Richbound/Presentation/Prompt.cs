@@ -1,6 +1,6 @@
 ﻿using MFW.Richbound.Domain.Interfaces;
 using MFW.Richbound.Enumerations;
-using MFW.Richbound.Helpers;
+using MFW.Richbound.Utilities;
 
 namespace MFW.Richbound.Presentation;
 
@@ -89,7 +89,7 @@ public abstract class Prompt
         {
             Console.Write(DisplayText.InputPrompt);
 
-            var input = PromptHelper.ReadString(true);
+            var input = InputUtilities.ReadString(true);
 
             if (string.IsNullOrEmpty(input) && defaultValue.HasValue)
             {
@@ -111,7 +111,7 @@ public abstract class Prompt
     /// <summary>
     /// Display the game time in a 24-hour format.
     /// </summary>
-    protected static string DisplayFormattedTime(int time) => time < 10 ? $"0{time}:00" : $"{time}:00";
+    protected static string DisplayFormattedTime(int time) => $"{time:D2}:00";
 
     protected static string DisplayTitle(Gender gender) => gender == Gender.Male ? "Mr." : "Ms.";
 

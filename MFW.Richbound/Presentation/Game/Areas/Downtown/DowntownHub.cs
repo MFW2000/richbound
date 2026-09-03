@@ -1,8 +1,8 @@
 ﻿using MFW.Richbound.Domain.Interfaces;
 using MFW.Richbound.Enumerations;
-using MFW.Richbound.Helpers;
 using MFW.Richbound.Infrastructure.Interfaces;
 using MFW.Richbound.Services.Interfaces;
+using MFW.Richbound.Utilities;
 
 namespace MFW.Richbound.Presentation.Game.Areas.Downtown;
 
@@ -36,7 +36,7 @@ public class DowntownHub(IGameState gameState, ICharacterService characterServic
 
             try
             {
-                input = PromptHelper.ReadInt(false, 1, 7);
+                input = InputUtilities.ReadInt(false, 1, 7);
             }
             catch (Exception)
             {

@@ -1,10 +1,10 @@
 using MFW.Richbound.Domain.Interfaces;
 using MFW.Richbound.Enumerations;
 using MFW.Richbound.Exceptions.Prompt;
-using MFW.Richbound.Helpers;
 using MFW.Richbound.Infrastructure.Interfaces;
 using MFW.Richbound.Infrastructure.Utility;
 using MFW.Richbound.Models;
+using MFW.Richbound.Utilities;
 
 namespace MFW.Richbound.Presentation.Main;
 
@@ -86,7 +86,7 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
 
             try
             {
-                var input = PromptHelper.ReadString();
+                var input = InputUtilities.ReadString();
 
                 if (input.Equals("m", StringComparison.OrdinalIgnoreCase)
                     || input.Equals("male", StringComparison.OrdinalIgnoreCase))
@@ -123,7 +123,7 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
 
             try
             {
-                return PromptHelper.ReadString(
+                return InputUtilities.ReadString(
                     maxLength: Constants.MaxNameLength,
                     matchRegex: RegexUtility.UnicodeLetterRegex());
             }
@@ -157,7 +157,7 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
 
             try
             {
-                return PromptHelper.ReadString(
+                return InputUtilities.ReadString(
                     maxLength: Constants.MaxNameLength,
                     matchRegex: RegexUtility.UnicodeLetterRegex());
             }
