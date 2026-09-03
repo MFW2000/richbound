@@ -46,13 +46,7 @@ public class GameState : IGameState
     public bool HasUsedHomelessShelter { get; set; }
 
     /// <inheritdoc/>
-    public string FormattedTime => Time < 10 ? $"0{Time}:00" : $"{Time}:00";
-
-    /// <inheritdoc/>
-    public string FullName => $"{FirstName} {LastName}".Trim();
-
-    /// <inheritdoc/>
-    public string Title => Gender == Gender.Male ? "Mr." : "Ms.";
+    public double NetWorth => PocketMoney + BankBalance;
 
     /// <inheritdoc/>
     public void Initialize(GameStateDto gameStateDto)

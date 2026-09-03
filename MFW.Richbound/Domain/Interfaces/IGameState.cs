@@ -24,7 +24,7 @@ public interface IGameState
     string LastName { get; }
 
     /// <summary>
-    /// The player character's current health points that range from 0 to 100.
+    /// The player character's current hit points that range from 0 to 100.
     /// </summary>
     int Health { get; }
 
@@ -69,19 +69,9 @@ public interface IGameState
     bool HasUsedHomelessShelter { get; set; }
 
     /// <summary>
-    /// The formatted <see cref="Time"/> to display.
+    /// The player character's net worth, which is their pocket money, bank balance, and assets.
     /// </summary>
-    string FormattedTime { get; }
-
-    /// <summary>
-    /// The player character's full name.
-    /// </summary>
-    string FullName { get; }
-
-    /// <summary>
-    /// The player character's title as either 'Mr.' or 'Ms.' based on their gender.
-    /// </summary>
-    string Title { get; }
+    double NetWorth { get; }
 
     /// <summary>
     /// Initializes the game state with the provided game state data.
@@ -90,9 +80,9 @@ public interface IGameState
     void Initialize(GameStateDto gameStateDto);
 
     /// <summary>
-    /// Updates the player character's health points up to a maximum of 100 and a minimum of 0.
+    /// Updates the player character's hit points up to a maximum of 100 and a minimum of 0.
     /// </summary>
-    /// <param name="delta">The number of health points to add or subtract from the current value.</param>
+    /// <param name="delta">The number of hit points to add or subtract from the current value.</param>
     void UpdateHealth(int delta);
 
     /// <summary>

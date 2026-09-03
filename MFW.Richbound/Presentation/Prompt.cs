@@ -1,4 +1,5 @@
-﻿using MFW.Richbound.Enumerations;
+﻿using MFW.Richbound.Domain.Interfaces;
+using MFW.Richbound.Enumerations;
 using MFW.Richbound.Helpers;
 
 namespace MFW.Richbound.Presentation;
@@ -22,6 +23,53 @@ public abstract class Prompt
         Console.WriteLine("Press any key to continue.");
         Console.Write(DisplayText.InputPrompt);
         Console.ReadLine();
+    }
+
+    /// <summary>
+    /// Display the player's status after performing an activity.
+    /// </summary>
+    /// <param name="gameState">The game state providing the data to display.</param>
+    /// <param name="hoursPassed">The amount of time the activity took to complete.</param>
+    protected static void DisplayPostActivityStatus(IGameState gameState, int hoursPassed)
+    {
+        Console.WriteLine($"This action took {hoursPassed} hour(s) to complete.");
+        Console.WriteLine();
+
+        DisplayStatus(gameState);
+
+        Console.WriteLine();
+
+        ContinuePrompt();
+    }
+
+    /// <summary>
+    /// Display the player's status after performing an action.
+    /// </summary>
+    /// <param name="gameState">The game state providing the data to display.</param>
+    /// <param name="message">Result message from performing the action.</param>
+    protected static void DisplayPostActivityStatus(IGameState gameState, string message)
+    {
+        Console.WriteLine(message);
+        Console.WriteLine();
+
+        DisplayStatus(gameState);
+
+        Console.WriteLine();
+
+        ContinuePrompt();
+    }
+
+    /// <summary>
+    /// Display the player's current status.
+    /// </summary>
+    /// <param name="gameState">The game state providing the data to display.</param>
+    protected static void DisplayStatus(IGameState gameState)
+    {
+        Console.WriteLine("--- Status ---");
+        Console.WriteLine($"Health: {gameState.Health}/{DisplayHitPoints(Constants.MaxCharacterStatValue)}");
+        Console.WriteLine($"Hunger: {gameState.Hunger}%");
+        Console.WriteLine($"Energy: {gameState.Energy}%");
+        Console.WriteLine($"Cash:   {DisplayCurrency(gameState.PocketMoney)}");
     }
 
     /// <summary>
@@ -59,4 +107,17 @@ public abstract class Prompt
             Console.WriteLine("Please enter 'yes' (y) or 'no' (n).");
         }
     }
+
+    /// <summary>
+    /// Display the game time in a 24-hour format.
+    /// </summary>
+    protected static string DisplayFormattedTime(int time) => time < 10 ? $"0{time}:00" : $"{time}:00";
+
+    protected static string DisplayTitle(Gender gender) => gender == Gender.Male ? "Mr." : "Ms.";
+
+    protected static string DisplayCurrency(double value) => $"${value:N0}";
+
+    protected static string DisplayPercentage(int value) => $"{value}%";
+
+    protected static string DisplayHitPoints(double value) => $"{value} HP";
 }

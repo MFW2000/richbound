@@ -186,9 +186,7 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
     /// <returns>True if the user confirms their character's details, otherwise false.</returns>
     private static bool PromptCharacterConfirmation(Gender gender, string firstName, string lastName)
     {
-        var promptText = gender == Gender.Male
-            ? $"You are Mr. {firstName} {lastName}. Is this correct? [y/n]:"
-            : $"You are Ms. {firstName} {lastName}. Is this correct? [y/n]:";
+        var promptText = $"You are {DisplayTitle(gender)} {firstName} {lastName}. Is this correct? [y/n]:";
 
         return PromptYesNo(promptText);
     }

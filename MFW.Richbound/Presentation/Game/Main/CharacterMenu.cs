@@ -20,11 +20,12 @@ public class CharacterMenu(
     public override PromptType? DisplayMainPrompt()
     {
         Console.WriteLine("=== Character ===");
-        Console.WriteLine(gameState.FullName);
-        Console.WriteLine($"Day {gameState.Day}, {gameState.FormattedTime}");
+        Console.WriteLine($"{gameState.FirstName} {gameState.LastName}");
+        Console.WriteLine($"Day {gameState.Day}, {DisplayFormattedTime(gameState.Time)}");
         Console.WriteLine();
-        Console.WriteLine("--- Status ---");
-        Console.WriteLine("Nothing here yet...");
+
+        DisplayStatus(gameState);
+
         Console.WriteLine();
         Console.WriteLine("--- Options ---");
         Console.WriteLine("1. Close");

@@ -1,5 +1,4 @@
 using MFW.Richbound.Domain.Interfaces;
-using MFW.Richbound.Infrastructure.Interfaces;
 using MFW.Richbound.Services.Interfaces;
 
 namespace MFW.Richbound.Services;
@@ -28,6 +27,7 @@ public class TimeService(IGameState gameState) : ITimeService
         }
 
         gameState.UpdateTime(hoursPassed);
+        gameState.UpdateHunger(Constants.HungerDrainPerHour * hoursPassed);
     }
 
     /// <summary>
