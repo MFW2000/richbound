@@ -1,11 +1,11 @@
 using MFW.Richbound.Exceptions.Prompt;
-using MFW.Richbound.Helpers;
 using MFW.Richbound.Infrastructure.Utility;
+using MFW.Richbound.Utilities;
 
-namespace MFW.RichboundTests.Helpers;
+namespace MFW.RichboundTests.Utilities;
 
 [TestClass]
-public class PromptHelperTests
+public class InputUtilitiesTests
 {
     [TestMethod]
     public void ReadString_WithAllowEmpty_ShouldReturnEmptyString()
@@ -19,7 +19,7 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act
-        var actualString = PromptHelper.ReadString(allowEmpty: allowEmpty);
+        var actualString = InputUtilities.ReadString(allowEmpty: allowEmpty);
 
         // Assert
         Assert.AreEqual(expectedString, actualString);
@@ -35,7 +35,7 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act & Assert
-        Assert.ThrowsExactly<InputEmptyException>(() => PromptHelper.ReadString(allowEmpty: allowEmpty));
+        Assert.ThrowsExactly<InputEmptyException>(() => InputUtilities.ReadString(allowEmpty: allowEmpty));
     }
 
     [TestMethod]
@@ -50,7 +50,7 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act
-        var actualString = PromptHelper.ReadString(trim: trim);
+        var actualString = InputUtilities.ReadString(trim: trim);
 
         // Assert
         Assert.AreEqual(expectedString, actualString);
@@ -68,7 +68,7 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act
-        var actualString = PromptHelper.ReadString(trim: trim);
+        var actualString = InputUtilities.ReadString(trim: trim);
 
         // Assert
         Assert.AreEqual(expectedString, actualString);
@@ -86,7 +86,7 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act
-        var actualString = PromptHelper.ReadString(maxLength: maxLength);
+        var actualString = InputUtilities.ReadString(maxLength: maxLength);
 
         // Assert
         Assert.AreEqual(expectedString, actualString);
@@ -102,7 +102,7 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act & Assert
-        Assert.ThrowsExactly<InputOutOfRangeException>(() => PromptHelper.ReadString(maxLength: maxLength));
+        Assert.ThrowsExactly<InputOutOfRangeException>(() => InputUtilities.ReadString(maxLength: maxLength));
     }
 
     [TestMethod]
@@ -116,7 +116,7 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act
-        var actualString = PromptHelper.ReadString(matchRegex: RegexUtility.OnlyNumbersRegex());
+        var actualString = InputUtilities.ReadString(matchRegex: RegexUtility.OnlyNumbersRegex());
 
         // Assert
         Assert.AreEqual(expectedString, actualString);
@@ -132,7 +132,7 @@ public class PromptHelperTests
 
         // Act & Assert
         Assert.ThrowsExactly<InputRegexMismatchException>(() =>
-            PromptHelper.ReadString(matchRegex: RegexUtility.OnlyNumbersRegex()));
+            InputUtilities.ReadString(matchRegex: RegexUtility.OnlyNumbersRegex()));
     }
 
     [TestMethod]
@@ -144,7 +144,7 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act & Assert
-        Assert.ThrowsExactly<FormatException>(() => PromptHelper.ReadInt());
+        Assert.ThrowsExactly<FormatException>(() => InputUtilities.ReadInt());
     }
 
     [TestMethod]
@@ -157,7 +157,7 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act
-        var actualInt = PromptHelper.ReadInt(allowEmpty: allowEmpty);
+        var actualInt = InputUtilities.ReadInt(allowEmpty: allowEmpty);
 
         // Assert
         Assert.IsNull(actualInt);
@@ -173,7 +173,7 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act & Assert
-        Assert.ThrowsExactly<InputEmptyException>(() => PromptHelper.ReadInt(allowEmpty: allowEmpty));
+        Assert.ThrowsExactly<InputEmptyException>(() => InputUtilities.ReadInt(allowEmpty: allowEmpty));
     }
 
     [TestMethod]
@@ -188,7 +188,7 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act
-        var actualInt = PromptHelper.ReadInt(minRange: minRange);
+        var actualInt = InputUtilities.ReadInt(minRange: minRange);
 
         // Assert
         Assert.AreEqual(expectedInt, actualInt);
@@ -204,7 +204,7 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act & Assert
-        Assert.ThrowsExactly<InputOutOfRangeException>(() => PromptHelper.ReadInt(minRange: minRange));
+        Assert.ThrowsExactly<InputOutOfRangeException>(() => InputUtilities.ReadInt(minRange: minRange));
     }
 
     [TestMethod]
@@ -219,7 +219,7 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act
-        var actualInt = PromptHelper.ReadInt(maxRange: maxRange);
+        var actualInt = InputUtilities.ReadInt(maxRange: maxRange);
 
         // Assert
         Assert.AreEqual(expectedInt, actualInt);
@@ -235,6 +235,6 @@ public class PromptHelperTests
         Console.SetIn(new StringReader(input));
 
         // Act & Assert
-        Assert.ThrowsExactly<InputOutOfRangeException>(() => PromptHelper.ReadInt(maxRange: maxRange));
+        Assert.ThrowsExactly<InputOutOfRangeException>(() => InputUtilities.ReadInt(maxRange: maxRange));
     }
 }

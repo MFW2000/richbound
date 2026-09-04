@@ -1,7 +1,7 @@
 ﻿using MFW.Richbound.Enumerations;
-using MFW.Richbound.Helpers;
 using MFW.Richbound.Infrastructure.Interfaces;
 using MFW.Richbound.Providers.Interfaces;
+using MFW.Richbound.Utilities;
 
 namespace MFW.Richbound.Presentation.Main;
 
@@ -30,7 +30,7 @@ public class MainMenu(IAssemblyVersionProvider assemblyVersionProvider, IConsole
 
             try
             {
-                input = PromptHelper.ReadInt(false, 1, 3);
+                input = InputUtilities.ReadInt(false, 1, 3);
             }
             catch (Exception)
             {
