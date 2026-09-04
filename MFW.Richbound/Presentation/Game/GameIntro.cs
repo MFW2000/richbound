@@ -1,5 +1,6 @@
 using MFW.Richbound.Enumerations;
 using MFW.Richbound.Infrastructure.Interfaces;
+using MFW.Richbound.Utilities;
 
 namespace MFW.Richbound.Presentation.Game;
 
@@ -43,7 +44,7 @@ public class GameIntro(IThreadWrapper threadWrapper) : Prompt
 
         Console.WriteLine();
 
-        ContinuePrompt();
+        PromptUtilities.ContinuePrompt();
 
         return PromptType.DowntownHub;
     }

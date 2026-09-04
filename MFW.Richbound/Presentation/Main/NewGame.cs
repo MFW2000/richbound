@@ -47,7 +47,7 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
             Console.WriteLine("Something went wrong while saving your new character. Returning to main menu.");
             Console.WriteLine();
 
-            ContinuePrompt();
+            PromptUtilities.ContinuePrompt();
 
             return PromptType.MainMenu;
         }
@@ -56,7 +56,7 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
         Console.WriteLine("Your character has been created successfully.");
         Console.WriteLine();
 
-        ContinuePrompt();
+        PromptUtilities.ContinuePrompt();
 
         return PromptType.NewGameIntro;
     }
@@ -69,7 +69,7 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
     {
         Console.WriteLine("A save file already exists.");
 
-        return PromptYesNo("Do you wish to overwrite it [y/N]:", false);
+        return PromptUtilities.PromptYesNo("Do you wish to overwrite it [y/N]:", false);
     }
 
     /// <summary>
@@ -186,9 +186,9 @@ public class NewGame(ISaveFileManager saveFileManager, IGameState gameState) : P
     /// <returns>True if the user confirms their character's details, otherwise false.</returns>
     private static bool PromptCharacterConfirmation(Gender gender, string firstName, string lastName)
     {
-        var promptText = $"You are {DisplayTitle(gender)} {firstName} {lastName}. Is this correct? [y/n]:";
+        var promptText = $"You are {FormatUtilities.Title(gender)} {firstName} {lastName}. Is this correct? [y/n]:";
 
-        return PromptYesNo(promptText);
+        return PromptUtilities.PromptYesNo(promptText);
     }
 
     /// <summary>

@@ -1,6 +1,7 @@
 using MFW.Richbound.Domain.Interfaces;
 using MFW.Richbound.Enumerations;
 using MFW.Richbound.Infrastructure.Interfaces;
+using MFW.Richbound.Utilities;
 
 namespace MFW.Richbound.Presentation.Main;
 
@@ -19,7 +20,7 @@ public class LoadGame(ISaveFileManager saveFileManager, IGameState gameState) : 
             Console.WriteLine("No save game found. Returning to main menu.");
             Console.WriteLine();
 
-            ContinuePrompt();
+            PromptUtilities.ContinuePrompt();
 
             return PromptType.MainMenu;
         }
@@ -33,7 +34,7 @@ public class LoadGame(ISaveFileManager saveFileManager, IGameState gameState) : 
             Console.WriteLine("Something went wrong while loading the save game. Returning to main menu.");
             Console.WriteLine();
 
-            ContinuePrompt();
+            PromptUtilities.ContinuePrompt();
 
             return PromptType.MainMenu;
         }
@@ -41,7 +42,7 @@ public class LoadGame(ISaveFileManager saveFileManager, IGameState gameState) : 
         Console.WriteLine("Save game loaded successfully.");
         Console.WriteLine();
 
-        ContinuePrompt();
+        PromptUtilities.ContinuePrompt();
 
         return gameState.LastLocation;
     }

@@ -21,10 +21,10 @@ public class CharacterMenu(
     {
         Console.WriteLine("=== Character ===");
         Console.WriteLine($"{gameState.FirstName} {gameState.LastName}");
-        Console.WriteLine($"Day {gameState.Day}, {DisplayFormattedTime(gameState.Time)}");
+        Console.WriteLine($"Day {gameState.Day}, {FormatUtilities.Time(gameState.Time)}");
         Console.WriteLine();
 
-        DisplayStatus(gameState);
+        PromptUtilities.DisplayStatus(gameState);
 
         Console.WriteLine();
         Console.WriteLine("--- Options ---");
@@ -80,7 +80,7 @@ public class CharacterMenu(
 
         Console.WriteLine();
 
-        ContinuePrompt();
+        PromptUtilities.ContinuePrompt();
 
         return PromptType.CharacterMenu;
     }
@@ -92,7 +92,9 @@ public class CharacterMenu(
     /// <returns>The destination prompt to return to after saving or exiting.</returns>
     private PromptType? PromptLeaveGame(PromptType? destination)
     {
-        var confirm = PromptYesNo("Do you want to save your game before exiting? [Y/n]:", true);
+        var confirm = PromptUtilities.PromptYesNo(
+            "Do you want to save your game before exiting? [Y/n]:",
+            true);
 
         if (!confirm)
         {
@@ -105,7 +107,7 @@ public class CharacterMenu(
 
         Console.WriteLine();
 
-        ContinuePrompt();
+        PromptUtilities.ContinuePrompt();
 
         return success ? destination : PromptType.CharacterMenu;
     }

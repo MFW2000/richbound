@@ -2,7 +2,7 @@ using MFW.Richbound.Exceptions.Prompt;
 using MFW.Richbound.Infrastructure.Utility;
 using MFW.Richbound.Utilities;
 
-namespace MFW.RichboundTests.Helpers;
+namespace MFW.RichboundTests.Utilities;
 
 [TestClass]
 public class InputUtilitiesTests

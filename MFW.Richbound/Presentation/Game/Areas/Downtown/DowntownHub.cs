@@ -80,7 +80,7 @@ public class DowntownHub(IGameState gameState, ICharacterService characterServic
             Console.WriteLine(DisplayText.TooltipActionCouldNotBeCompleted);
             Console.WriteLine();
 
-            ContinuePrompt();
+            PromptUtilities.ContinuePrompt();
 
             return PromptType.DowntownHub;
         }
@@ -90,12 +90,12 @@ public class DowntownHub(IGameState gameState, ICharacterService characterServic
             Console.WriteLine("You do not have enough energy to complete the activity.");
             Console.WriteLine();
 
-            ContinuePrompt();
+            PromptUtilities.ContinuePrompt();
 
             return PromptType.DowntownHub;
         }
 
-        DisplayPostActivityStatus(gameState, hoursToComplete);
+        PromptUtilities.DisplayPostActivityStatus(gameState, hoursToComplete);
 
         return PromptType.DowntownHub;
     }
@@ -115,7 +115,7 @@ public class DowntownHub(IGameState gameState, ICharacterService characterServic
             Console.WriteLine(DisplayText.TooltipActionCouldNotBeCompleted);
             Console.WriteLine();
 
-            ContinuePrompt();
+            PromptUtilities.ContinuePrompt();
 
             return PromptType.DowntownHub;
         }
@@ -125,14 +125,14 @@ public class DowntownHub(IGameState gameState, ICharacterService characterServic
             Console.WriteLine("You are not tired right now.");
             Console.WriteLine();
 
-            ContinuePrompt();
+            PromptUtilities.ContinuePrompt();
 
             return PromptType.DowntownHub;
         }
 
         Console.WriteLine("Sleeping...");
 
-        DisplayPostActivityStatus(gameState, 8);
+        PromptUtilities.DisplayPostActivityStatus(gameState, 8);
 
         return PromptType.DowntownHub;
     }
@@ -152,7 +152,7 @@ public class DowntownHub(IGameState gameState, ICharacterService characterServic
             Console.WriteLine(DisplayText.TooltipActionCouldNotBeCompleted);
             Console.WriteLine();
 
-            ContinuePrompt();
+            PromptUtilities.ContinuePrompt();
 
             return PromptType.DowntownHub;
         }
@@ -162,14 +162,16 @@ public class DowntownHub(IGameState gameState, ICharacterService characterServic
             Console.WriteLine("You are not hungry right now.");
             Console.WriteLine();
 
-            ContinuePrompt();
+            PromptUtilities.ContinuePrompt();
 
             return PromptType.DowntownHub;
         }
 
         Console.WriteLine("Eating...");
 
-        DisplayPostActivityStatus(gameState, $"Restored hunger by {DisplayPercentage(foodPoints)}.");
+        PromptUtilities.DisplayPostActivityStatus(
+            gameState,
+            $"Restored hunger by {FormatUtilities.Percentage(foodPoints)}.");
 
         return PromptType.DowntownHub;
     }
@@ -189,7 +191,7 @@ public class DowntownHub(IGameState gameState, ICharacterService characterServic
             Console.WriteLine(DisplayText.TooltipActionCouldNotBeCompleted);
             Console.WriteLine();
 
-            ContinuePrompt();
+            PromptUtilities.ContinuePrompt();
 
             return PromptType.DowntownHub;
         }
@@ -199,14 +201,14 @@ public class DowntownHub(IGameState gameState, ICharacterService characterServic
             Console.WriteLine("You are already at full health.");
             Console.WriteLine();
 
-            ContinuePrompt();
+            PromptUtilities.ContinuePrompt();
 
             return PromptType.DowntownHub;
         }
 
         Console.WriteLine("Healing...");
 
-        DisplayPostActivityStatus(gameState, $"Restored health by {DisplayPercentage(hitPoints)}.");
+        PromptUtilities.DisplayPostActivityStatus(gameState, $"Restored health by {FormatUtilities.Percentage(hitPoints)}.");
 
         return PromptType.DowntownHub;
     }
@@ -224,7 +226,7 @@ public class DowntownHub(IGameState gameState, ICharacterService characterServic
             Console.WriteLine(DisplayText.TooltipActionCouldNotBeCompleted);
             Console.WriteLine();
 
-            ContinuePrompt();
+            PromptUtilities.ContinuePrompt();
 
             return PromptType.DowntownHub;
         }
@@ -245,16 +247,16 @@ public class DowntownHub(IGameState gameState, ICharacterService characterServic
             Console.WriteLine();
             Console.WriteLine("You were found barely alive and taken to hospital.");
 
-            DisplayPostActivityStatus(
+            PromptUtilities.DisplayPostActivityStatus(
                 gameState,
-                $"{Constants.HospitalStayDurationHours} hours have passed and you lost {DisplayCurrency(hospitalBill)}.");
+                $"{Constants.HospitalStayDurationHours} hours have passed and you lost {FormatUtilities.Currency(hospitalBill)}.");
 
-            ContinuePrompt();
+            PromptUtilities.ContinuePrompt();
 
             return PromptType.DowntownHub;
         }
 
-        DisplayPostActivityStatus(gameState, $"You lost {DisplayHitPoints(hitPoints)}.");
+        PromptUtilities.DisplayPostActivityStatus(gameState, $"You lost {FormatUtilities.HitPoints(hitPoints)}.");
 
         return PromptType.DowntownHub;
     }
